@@ -12,8 +12,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        bt_setting.setOnClickListener {//setting 화면
-            val intent = Intent(this, SettingActivity::class.java)
+        bt_guide.setOnClickListener {//setting 화면
+            val intent = Intent(this, GuideActivity::class.java)
             startActivity(intent)
         }
         bt_love.setOnClickListener {//사랑방 화면

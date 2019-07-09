@@ -9,6 +9,18 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".GuideActivity">
+        </activity>
+        <activity android:name=".FAQAdapter">
+        </activity>
+        <activity android:name=".FAQs">
+        </activity>
+        <activity android:name=".QuestionsAdapter">
+        </activity>
+        <activity android:name=".QnA">
+        </activity>
+        <activity android:name=".LoveWriteArticle">
+        </activity>
         <activity android:name=".NotyetActivicy">
         </activity>
         <activity android:name=".LoginActivity">
