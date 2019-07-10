@@ -9,6 +9,16 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".FoodFragment">
+        </activity>
+        <activity android:name=".TravelFragment">
+        </activity>
+        <activity android:name=".TravelAndFoodAdapter">
+        </activity>
+        <activity android:name=".TravelAndFood">
+        </activity>
+        <activity android:name=".Explanation">
+        </activity>
         <activity android:name=".GuideActivity">
         </activity>
         <activity android:name=".FAQAdapter">

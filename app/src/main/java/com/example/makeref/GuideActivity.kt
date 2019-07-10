@@ -23,7 +23,7 @@ class GuideActivity : AppCompatActivity() {
         }
 
         bt_explanation.setOnClickListener {//설명서
-            val intent = Intent(this, GuideActivity::class.java)
+            val intent = Intent(this, Explanation::class.java)
             startActivity(intent)
         }
 

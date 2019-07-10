@@ -1,5 +1,6 @@
 package com.example.makeref
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,5 +39,13 @@ class QnA : AppCompatActivity() {
         val questionslm = LinearLayoutManager(this)
         Questions.layoutManager = questionslm
         Questions.setHasFixedSize(true)
+
+        bt_writeQuestion.setOnClickListener {//setting 화면
+            val intent = Intent(this, LoveWriteArticle::class.java)
+            startActivity(intent)
+        }
+
     }
+
+
 }
