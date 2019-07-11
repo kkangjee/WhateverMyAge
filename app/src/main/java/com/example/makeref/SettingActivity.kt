@@ -25,9 +25,11 @@ class SettingActivity : AppCompatActivity() {
         //밝기 권한 받기
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (Settings.System.canWrite(this)) {
-                Toast.makeText(this, "onCreate: Already Granted", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, "onCreate: Already Granted", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "onCreate: Not Granted. Permission Requested", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "권한 허용이라고 적힌 부분을 눌러주세요", Toast.LENGTH_LONG).show()
+                //Toast.makeText(this, "그리고 뒤로가기를 눌러주세요", Toast.LENGTH_LONG).show()
+
                 val intent = Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS)
                 intent.data = Uri.parse("package:" + this.packageName)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -98,11 +100,22 @@ class SettingActivity : AppCompatActivity() {
         }
 
 
+        bt_addcontact.setOnClickListener {
+            val intent = Intent(this, AddcontactActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
 
 
 }
+
+
+
+
+
+
 
 //벨소리
 fun AudioManager.setMediaVolume_ring(volumeIndex:Int){

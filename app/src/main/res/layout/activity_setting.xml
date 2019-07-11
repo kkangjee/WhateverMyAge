@@ -8,6 +8,11 @@
         tools:context=".SettingActivity"
         android:orientation="vertical">
 
+    <TextView
+            android:text="여기서는 설정을\n변경할 수 있어요"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView2"
+            android:textSize="50dp"/>
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,6 +58,11 @@
             android:textSize="30dp" android:id="@+id/bt_brightdown">
 
     </Button>
+    <Button
+            android:text="전화번호등록"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30dp" android:id="@+id/bt_addcontact"/>
 
 
 </LinearLayout>
