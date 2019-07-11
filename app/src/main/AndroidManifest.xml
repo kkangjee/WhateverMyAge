@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.makeref">
+          xmlns:tools="http://schemas.android.com/tools" package="com.example.makeref">
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" tools:ignore="ProtectedPermissions"/>
+
+
+
+
 
     <application
             android:allowBackup="true"
@@ -9,6 +15,28 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".FoodFragment">
+        </activity>
+        <activity android:name=".TravelFragment">
+        </activity>
+        <activity android:name=".TravelAndFoodAdapter">
+        </activity>
+        <activity android:name=".TravelAndFood">
+        </activity>
+        <activity android:name=".Explanation">
+        </activity>
+        <activity android:name=".GuideActivity">
+        </activity>
+        <activity android:name=".FAQAdapter">
+        </activity>
+        <activity android:name=".FAQs">
+        </activity>
+        <activity android:name=".QuestionsAdapter">
+        </activity>
+        <activity android:name=".QnA">
+        </activity>
+        <activity android:name=".LoveWriteArticle">
+        </activity>
         <activity android:name=".NotyetActivicy">
         </activity>
         <activity android:name=".LoginActivity">
