@@ -18,8 +18,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".AddcontactActivity">
         </activity>
+=======
+>>>>>>> f9e2692a19cc74eb9848a0574061ea26c5c60c13
         <activity android:name=".FoodFragment">
         </activity>
         <activity android:name=".TravelFragment">
@@ -38,7 +41,11 @@
         </activity>
         <activity android:name=".QuestionsAdapter">
         </activity>
+<<<<<<< HEAD
         <activity android:name=".QnaActivity">
+=======
+        <activity android:name=".QnA">
+>>>>>>> f9e2692a19cc74eb9848a0574061ea26c5c60c13
         </activity>
         <activity android:name=".LoveWriteArticle">
         </activity>
