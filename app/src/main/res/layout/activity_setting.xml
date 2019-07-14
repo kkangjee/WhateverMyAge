@@ -8,18 +8,23 @@
         tools:context=".SettingActivity"
         android:orientation="vertical">
 
+    <TextView
+            android:text="여기서는 설정을\n변경할 수 있어요"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/textView2"
+            android:textSize="50dp"/>
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="벨소리를 작게"
-            android:textSize="30dp">
+            android:text="벨소리를 크게"
+            android:textSize="30dp" android:id="@+id/bt_volup_ring">
 
     </Button>
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="벨소리를 크게"
-            android:textSize="30dp" >
+            android:text="벨소리를 작게"
+            android:textSize="30dp" android:id="@+id/bt_voldown_ring">
 
     </Button>
     <Button
@@ -27,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="동영상 소리를 크게"
             android:textSize="30dp"
-            android:id="@+id/bt_volup"
+            android:id="@+id/bt_volup_movie"
     >
 
     </Button>
@@ -35,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="동영상 소리를 작게"
-            android:id="@+id/bt_voldown"
+            android:id="@+id/bt_voldown_movie"
             android:textSize="30dp">
 
     </Button>
@@ -43,21 +48,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="밝기를 높게"
-            android:textSize="30dp">
+            android:textSize="30dp" android:id="@+id/bt_brightup">
 
     </Button>
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="밝기를 작게"
-            android:textSize="30dp">
+            android:textSize="30dp" android:id="@+id/bt_brightdown">
 
     </Button>
-    <SeekBar
+    <Button
+            android:text="전화번호등록"
             android:layout_width="match_parent"
-            android:layout_height="65dp" android:id="@+id/seekBar"
-            android:max="100"
-            android:progress="10"/>
+            android:layout_height="wrap_content"
+            android:textSize="30dp" android:id="@+id/bt_addcontact"/>
 
 
 </LinearLayout>

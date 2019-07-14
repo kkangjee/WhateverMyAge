@@ -4,7 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_guide.*
+<<<<<<< HEAD
+=======
 import kotlinx.android.synthetic.main.activity_main.*
+>>>>>>> f9e2692a19cc74eb9848a0574061ea26c5c60c13
 
 class GuideActivity : AppCompatActivity() {
 
@@ -18,7 +21,11 @@ class GuideActivity : AppCompatActivity() {
         }
 
         bt_questions.setOnClickListener {//질문
+<<<<<<< HEAD
+            val intent = Intent(this, QnaActivity::class.java)
+=======
             val intent = Intent(this, QnA::class.java)
+>>>>>>> f9e2692a19cc74eb9848a0574061ea26c5c60c13
             startActivity(intent)
         }
 
