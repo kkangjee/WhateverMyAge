@@ -9,9 +9,11 @@ import java.util.Random
 import android.content.pm.PackageManager
 import android.os.Build
 import android.Manifest.permission.WRITE_CONTACTS
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 
 class MainActivity : AppCompatActivity() {
-    val permission_list = arrayOf(WRITE_CONTACTS)
+    val permission_list = arrayOf(WRITE_CONTACTS, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

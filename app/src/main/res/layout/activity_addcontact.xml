@@ -6,14 +6,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Explanation"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        >
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/et_name"
+            android:hint="등록할 이름을 입력해주세요."
+            android:textSize="30dp"
+    />
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+              android:id="@+id/et_phone"
+            android:hint="등록할 번호를 입력해주세요."
+            android:textSize="30dp"
+    />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="밑의 버튼을 누른 후 꼭 저장을 눌러주세요!"
+            android:textSize="23dp"
+
+    />
+
 
     <Button
-            android:text="추가"
+            android:text="연락처에 번호 등록하기"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/bt_add"/>
-    <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
-              android:id="@+id/et_name"/>
-    <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
-              android:id="@+id/et_phone"/>
+            android:layout_height="wrap_content" android:id="@+id/bt_add"
+            android:layout_marginTop="10dp"
+            android:textSize="30dp"
+
+    />
+
 </LinearLayout>
