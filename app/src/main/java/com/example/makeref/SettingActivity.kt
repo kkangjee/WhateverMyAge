@@ -38,33 +38,41 @@ class SettingActivity : AppCompatActivity() {
             }
         }
 
-        //오디오 관리자 서비스 받기
+        //무음모드 권한
+        //TODO  권한 설정 설명 넣기
         val audioManager:AudioManager = getSystemService(AUDIO_SERVICE) as AudioManager
+
+        if (audioManager.ringerMode == AudioManager.RINGER_MODE_SILENT) {
+            //val n = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationManager =
+                applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            if (!notificationManager.isNotificationPolicyAccessGranted) {
+                toast("저희 어플 맨 오른쪽의 동그란 버튼을 눌러주시겠어요?")
+                val intent = Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
+                startActivityForResult(intent, 0)
+                //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL)
+            }
+        }
+
+
+            //오디오 관리자 서비스 받기
 
         bt_volup_ring.setOnClickListener {
             if (audioManager.ringerMode == AudioManager.RINGER_MODE_SILENT) {
-                //val n = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-                if (!notificationManager.isNotificationPolicyAccessGranted) {
-                    toast("저희 어플 맨 오른쪽의 동그란 버튼을 눌러주시겠어요?")
-                    val intent = Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
-                    startActivityForResult(intent, 0)
-                    //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL)
-                }
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL)
             }
+                    val maxVolume = audioManager.mediaMaxVolume_ring
+                    val upIndex = audioManager.mediaCurrentVolume_ring + 1
 
-            val maxVolume = audioManager.mediaMaxVolume_ring
-            val upIndex = audioManager.mediaCurrentVolume_ring +1
+                    audioManager.setMediaVolume_ring(upIndex)
 
-            audioManager.setMediaVolume_ring(upIndex)
-
-            toast("지금 벨소리 크기는 ${audioManager.mediaCurrentVolume_ring} 입니다.")
+                    toast("지금 벨소리 크기는 ${audioManager.mediaCurrentVolume_ring} 입니다.")
         }
 
         bt_voldown_ring.setOnClickListener {
             if (audioManager.ringerMode == AudioManager.RINGER_MODE_SILENT) {
+
                 audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL)
             }
 
@@ -86,7 +94,7 @@ class SettingActivity : AppCompatActivity() {
 
             audioManager.setMediaVolume_music(upIndex)
 
-           toast("지금 동영상 소리 크기는 ${audioManager.mediaCurrentVolume_music} 입니다.")
+            toast("지금 동영상 소리 크기는 ${audioManager.mediaCurrentVolume_music} 입니다.")
         }
 
         bt_voldown_movie.setOnClickListener {
@@ -175,7 +183,6 @@ fun Context.toast(message:String){
     Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
 }
 /*
-
 AudioManager.STREAM_ALARM : 알람 볼륨입니다.
 AudioManager.STREAM_DTMF : DTMF 톤 볼륨입니다.
 AudioManager.STREAM_MUSIC : 미디어 볼륨입니다.
@@ -183,5 +190,4 @@ AudioManager.STREAM_NOTIFICATION : 알림 볼륨입니다.
 AudioManager.STREAM_RING : 벨소리 볼륨입니다.
 AudioManager.STREAM_SYSTEM : 시스템 볼륨입니다.
 AudioManager.SYSTEM_VOICE_CALL : 음성 통화 볼륨입니다.
-
 */
