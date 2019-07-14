@@ -1,5 +1,6 @@
 package com.example.makeref
 
+import android.app.NotificationManager
 import android.content.Context
 import android.media.AudioManager
 import androidx.appcompat.app.AppCompatActivity
@@ -41,6 +42,19 @@ class SettingActivity : AppCompatActivity() {
         val audioManager:AudioManager = getSystemService(AUDIO_SERVICE) as AudioManager
 
         bt_volup_ring.setOnClickListener {
+            if (audioManager.ringerMode == AudioManager.RINGER_MODE_SILENT) {
+                //val n = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                val notificationManager = applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+                if (!notificationManager.isNotificationPolicyAccessGranted) {
+                    toast("저희 어플 맨 오른쪽의 동그란 버튼을 눌러주시겠어요?")
+                    val intent = Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
+                    startActivityForResult(intent, 0)
+                    //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL)
+                }
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL)
+            }
+
             val maxVolume = audioManager.mediaMaxVolume_ring
             val upIndex = audioManager.mediaCurrentVolume_ring +1
 
@@ -50,6 +64,11 @@ class SettingActivity : AppCompatActivity() {
         }
 
         bt_voldown_ring.setOnClickListener {
+            if (audioManager.ringerMode == AudioManager.RINGER_MODE_SILENT) {
+                audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL)
+            }
+
+
             val downIndex = audioManager.mediaCurrentVolume_ring -1
 
             audioManager.setMediaVolume_ring(downIndex)
@@ -62,9 +81,12 @@ class SettingActivity : AppCompatActivity() {
             val maxVolume = audioManager.mediaMaxVolume_music
             val upIndex = audioManager.mediaCurrentVolume_music +1
 
+
+
+
             audioManager.setMediaVolume_music(upIndex)
 
-            toast("지금 동영상 소리 크기는 ${audioManager.mediaCurrentVolume_music} 입니다.")
+           toast("지금 동영상 소리 크기는 ${audioManager.mediaCurrentVolume_music} 입니다.")
         }
 
         bt_voldown_movie.setOnClickListener {
