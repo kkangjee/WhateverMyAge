@@ -6,8 +6,6 @@ import android.media.AudioManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.view.WindowManager
-import android.widget.SeekBar
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_setting.*
 import android.content.Intent
@@ -15,8 +13,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import androidx.core.content.ContextCompat
-import android.Manifest.permission
-import android.Manifest.permission.WRITE_CONTACTS
 import androidx.core.app.ActivityCompat
 
 
