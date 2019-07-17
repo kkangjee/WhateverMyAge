@@ -136,7 +136,7 @@ class LoveActivity : AppCompatActivity() {
 
         bt_writeArticle.setOnClickListener {//setting 화면
             val intent = Intent(this, LoveWriteArticle::class.java)
-            intent.putExtra("CommentOrArticle", 1)
+            intent.putExtra("QuestionArticleAnswer", 1)  //게시글 쓰기
             startActivity(intent)
         }
 

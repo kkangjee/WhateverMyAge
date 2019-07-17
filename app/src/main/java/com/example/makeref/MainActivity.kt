@@ -14,7 +14,6 @@ import android.Manifest.permission.ACCESS_FINE_LOCATION
 
 class MainActivity : AppCompatActivity() {
     val permission_list = arrayOf(WRITE_CONTACTS, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
