@@ -11,19 +11,22 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import kotlinx.android.synthetic.main.activity_love_write_article.*
 import java.io.File
-import android.R.attr.data
-import android.R.attr.data
 import android.database.Cursor
 import android.graphics.BitmapFactory
 import android.os.Environment
-import android.widget.ImageView
 import android.provider.MediaStore
-import android.os.Environment.DIRECTORY_DCIM
-import android.os.Environment.getExternalStoragePublicDirectory
 import android.util.Log
+import android.widget.Button
+import android.widget.EditText
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import com.example.makeref.ConnectServer
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class LoveWriteArticle : AppCompatActivity() {
     //TODO : CameraUpload 클래스랑 합치기....
@@ -206,11 +209,50 @@ class LoveWriteArticle : AppCompatActivity() {
 
             else if (cora == 1) {
                 //게시글에 등록
+            }
+
+            //서버 테스트 구간
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl("https://donghyun.herokuapp.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+            var server = retrofit.create(Service::class.java)
+
+            fun postSnsButton(pr:EditText,b_contents:EditText,b_created:EditText) {
+                server.postSNS(//텍스트를 가져와 보낸다
+                    pr.text.toString(),
+                    b_contents.text.toString(),
+                    b_created.text.toString()
+
+                ).enqueue(object : Callback<PostSnsData> {
+                    override fun onResponse(call: Call<PostSnsData>, response: Response<PostSnsData>) {
+                        //println(response?.body().toString())
+
+                        Log.e("서버와 통신 성공!","Success")
+                    }
+                    override fun onFailure(call: Call<PostSnsData>, t: Throwable) {
+                        Log.e("서버와 통신에 실패했습니다.","Error!")
+                    }
+
+                })
 
             }
+            postSnsButton(articleblank,articleblank,articleblank)
         }
 
+
+
+
+
+
+
     }
+
+
+
+
 }
 
 
