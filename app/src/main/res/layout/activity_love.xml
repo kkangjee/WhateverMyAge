@@ -8,6 +8,48 @@
         tools:context=".LoveActivity"
         android:orientation="vertical"
 >
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#8BC34A"
+    >
+    <ImageButton
+            android:id="@+id/bt_back"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:padding="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/back"
+            android:theme="@style/AppTheme.GreenRipple"
+            android:background="?selectableItemBackground"
+    />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#8BC34A"
+                android:text="사랑방"
+                android:textSize="30dp"
+                android:textColor="#fff"
+                android:padding="10dp"
+        />
+
+        <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?selectableItemBackground"
+                android:layout_marginRight="10dp"
+                android:theme="@style/AppTheme.GreenRipple"
+                android:text="현재 지역"
+                android:textColor="#fff"
+                android:textSize="25dp"
+        />
+
+    </LinearLayout>
 
     <ScrollView
             android:id="@+id/content"
