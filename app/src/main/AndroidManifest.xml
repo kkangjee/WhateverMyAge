@@ -3,6 +3,10 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.example.makeref">
 
+    <uses-feature
+            android:name="android.hardware.camera"
+            android:required="true"/>
+
     <uses-permission
             android:name="android.permission.WRITE_SETTINGS"
             tools:ignore="ProtectedPermissions"/>
@@ -13,6 +17,9 @@
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
             android:allowBackup="true"
@@ -27,7 +34,26 @@
         </activity>
         <activity android:name=".comments_adapter">
         </activity>
+        <activity android:name=".CameraOrGallery"
+                  android:theme="@android:style/Theme.Dialog"
+        >
+        </activity>
+
+        <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="${applicationId}.provider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_paths">
+            </meta-data>
+        </provider>
+
+>>>>>>> 6eec8b132ad7ded323c222b5b445280856c93aa4
         <activity android:name=".AddcontactActivity">
+        </activity>
+        <activity android:name=".CameraUpload">
         </activity>
         <activity android:name=".FoodFragment">
         </activity>
