@@ -42,6 +42,7 @@ class QnA : AppCompatActivity() {
 
         bt_writeQuestion.setOnClickListener {//setting 화면
             val intent = Intent(this, LoveWriteArticle::class.java)
+            intent.putExtra("QuestionOrArticle", 0)
             startActivity(intent)
         }
 
