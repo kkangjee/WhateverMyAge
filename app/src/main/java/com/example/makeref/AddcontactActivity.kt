@@ -3,13 +3,14 @@ package com.example.makeref
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Contacts
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_addcontact.*
 
 class AddcontactActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addcontact)
