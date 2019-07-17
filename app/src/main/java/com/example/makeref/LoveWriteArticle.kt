@@ -27,13 +27,30 @@ import java.util.*
 
 class LoveWriteArticle : AppCompatActivity() {
     //TODO : CameraUpload 클래스랑 합치기....
+
+    val camera = CameraUpload()
+
+
     override fun onActivityResult (requestCode : Int, resultCode : Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == GALLERY_REQUEST_CODE) {
+        Log.i("결과를 받긴 받았네", "$requestCode $resultCode")
+        if (resultCode != Activity.RESULT_CANCELED) {
+
+            Log.i("선택해볼까?", "$requestCode")
+            if (resultCode == 3) {
+                Log.i("사진을 찍어요", "$requestCode")
+                captureFromCamera()
+            }
+
+            else if (resultCode == 4) {
+                Log.i("갤러리를 찍어요", "$requestCode")
+                pickFromGallery()
+            }
+
+            else if (requestCode == GALLERY_REQUEST_CODE) {
                 toast("사진 요청 완료")
+                Log.i("사진 받아옴", "$requestCode")
                 val selectedImage = data!!.data as Uri
                 //testimage.setImageURI(selectedImage)
-
 
                 val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
                 // Get the cursor
@@ -54,6 +71,9 @@ class LoveWriteArticle : AppCompatActivity() {
                 Log.i("사진 받아옴", cameraFilePath)
                 testimage.setImageURI(Uri.parse(cameraFilePath));
             }
+
+
+            Log.i("여기까지", "$requestCode $resultCode")
 
         }
     }
@@ -105,35 +125,24 @@ class LoveWriteArticle : AppCompatActivity() {
 
     fun pickFromGallery(){
         //Create an Intent with action as ACTION_PICK
-        val intent =  Intent(Intent.ACTION_PICK);
+        val intent =  Intent(Intent.ACTION_PICK)
         // Sets the type as image/*. This ensures only components of type image are selected
         intent.setType("image/*");
         //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
         val mimeTypes = arrayOf("image/jpeg", "image/png")
-        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes);
+        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes)
         // Launching the Intent
         toast("사진을 골라주세요.")
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, GALLERY_REQUEST_CODE)
     }
     //TODO : 요기까지가 중복...
 
 
 /*            intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", createImageFile()))*/
 
-    val camera = CameraUpload()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love_write_article)
-        val cora = intent.getIntExtra("CommentOrArticle", -1)
-        if (cora == 1) {
-            //게시글에 등록
-        }
-
-        else if (cora == 0) {
-            //댓글에 등록
-            
-        }
 
         lovearticlespicupload.setOnClickListener {
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -144,7 +153,7 @@ class LoveWriteArticle : AppCompatActivity() {
                 if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     //if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
                     val intent = Intent(this, AddcontactActivity::class.java)
-                    startActivity(intent)
+                    startActivityForResult(intent, 1)
                     //}
                     //ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 0)
                 }
@@ -162,7 +171,9 @@ class LoveWriteArticle : AppCompatActivity() {
 
                 if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                         //CameraUpload.captureFromCamera()
-                    captureFromCamera()
+                    val intent = Intent(this, CameraOrGallery::class.java)
+                    //intent.putExtra("QuestionOrArticle", 1)
+                    startActivityForResult(intent, 1)
                 }
                 else {
                     toast("카메라로 업로드 하려면 권한이 필요해요.")
@@ -173,9 +184,30 @@ class LoveWriteArticle : AppCompatActivity() {
             
             else {
                 //pickFromGallery()
-                captureFromCamera()
+                val intent = Intent(this, CameraOrGallery::class.java)
+                //intent.putExtra("QuestionOrArticle", 1)
+                startActivityForResult(intent, 1)
             }
 
+        }
+
+
+        lovearticlescancel.setOnClickListener {
+            finish()
+        }
+
+        lovearticlessubmit.setOnClickListener {
+            val cora = intent.getIntExtra("QuestionOrArticle", 0)
+            toast("$cora")
+
+            if (cora == 0) {
+                //질문에 등록
+            }
+
+            else if (cora == 1) {
+                //게시글에 등록
+
+            }
         }
 
     }
