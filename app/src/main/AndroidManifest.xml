@@ -50,7 +50,6 @@
             </meta-data>
         </provider>
 
->>>>>>> 6eec8b132ad7ded323c222b5b445280856c93aa4
         <activity android:name=".AddcontactActivity">
         </activity>
         <activity android:name=".CameraUpload">
@@ -73,7 +72,7 @@
         </activity>
         <activity android:name=".QuestionsAdapter">
         </activity>
-        <activity android:name=".QnaActivity">
+        <activity android:name=".QnA">
         </activity>
         <activity android:name=".LoveWriteArticle">
         </activity>
