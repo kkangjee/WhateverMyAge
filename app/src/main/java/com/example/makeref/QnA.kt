@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_love_write_article.*
 import kotlinx.android.synthetic.main.activity_qna.*
+import kotlinx.android.synthetic.main.activity_qna.bt_back
 
 class QnA : AppCompatActivity() {
 
@@ -42,7 +44,13 @@ class QnA : AppCompatActivity() {
 
         bt_writeQuestion.setOnClickListener {//setting 화면
             val intent = Intent(this, LoveWriteArticle::class.java)
+            intent.putExtra("QuestionAnswerArticle", 0)  //질문 작성
             startActivity(intent)
+        }
+
+        bt_back.setOnClickListener{
+            finish()
+
         }
 
     }

@@ -6,13 +6,136 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".LoginActivity">
-    <TextView
-            android:text="로그인"
+
+    <LinearLayout
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#8BC34A"
+    >
+        <ImageButton
+                android:id="@+id/bt_back"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:padding="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/back"
+                android:theme="@style/AppTheme.GreenRipple"
+                android:background="?selectableItemBackground"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#8BC34A"
+                android:text="로그인"
+                android:textSize="30dp"
+                android:textColor="#fff"
+                android:padding="10dp"
+        />
+
+    </LinearLayout>
+
+    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/loginlayout"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+    >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="28dp"
+                android:text="질문게시판과 사랑방을 이용하려면\n로그인해주세요"
+                android:textAlignment="center"
+        />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/loginlayout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+    >
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+        >
+
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+        >
+
+    <EditText
+            android:id="@+id/ID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="아이디를 입력해주세요"
+            android:textSize="28dp"
+    />
+            <EditText
+                    android:id="@+id/PW"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="비밀번호를 입력해주세요"
+                    android:textSize="28dp"
+            />
+
+        </LinearLayout>
+
+
+        <Button
+                android:id="@+id/bt_loginsubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="로그인"
+                android:textSize="30dp"
+        />
+    </LinearLayout>
+
+
+        <Button
+                android:id="@+id/cantfindid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+
+                android:text="아이디가 기억이 안 나요!"
+                android:textSize="30dp"
+        />
+        <Button
+                android:id="@+id/cantfindpw"
+                android:background="?attr/selectableItemBackground"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="비밀번호가 기억이 안 나요!"
+                android:textSize="30dp"
+
+        />
+
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

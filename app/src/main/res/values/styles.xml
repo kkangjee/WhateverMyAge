@@ -14,5 +14,9 @@
     <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">30dp</item>
     </style>
+    
+    <style name="AppTheme.GreenRipple">
+        <item name="colorControlHighlight">#05CC13</item>
+    </style>
 
 </resources>

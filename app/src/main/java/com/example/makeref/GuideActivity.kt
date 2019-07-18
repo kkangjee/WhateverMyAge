@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_guide.*
+import kotlinx.android.synthetic.main.activity_guide.bt_back
+import kotlinx.android.synthetic.main.activity_love.*
 
 class GuideActivity : AppCompatActivity() {
 
@@ -17,13 +19,18 @@ class GuideActivity : AppCompatActivity() {
         }
 
         bt_questions.setOnClickListener {//질문
-            val intent = Intent(this, QnaActivity::class.java)
+            val intent = Intent(this, QnA::class.java)
             startActivity(intent)
         }
 
         bt_explanation.setOnClickListener {//설명서
             val intent = Intent(this, Explanation::class.java)
             startActivity(intent)
+        }
+
+        bt_back.setOnClickListener{
+            finish()
+
         }
 
     }
