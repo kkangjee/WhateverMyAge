@@ -86,43 +86,7 @@ class LoveActivity : AppCompatActivity() {
                 LocationService.MY_PERMISSION_ACCESS_COURSE_LOCATION );
         }*/
         //val mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-            || ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // No one provider activated: prompt GPS
-           /* if (mProviderName == null || mProviderName.equals("")) {
-                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));*/
-            toast("위치 권한을 허용하지 않으면 지역별 친구 찾기를 할 수 없어요.")
-            val permission_list = arrayOf(
-                //android.Manifest.permission.WRITE_CONTACTS,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            )
 
-            requestPermissions(permission_list, 0)
-            //, android.Manifest.permission.ACCESS_FINE_LOCATION)
-            }
-        else {
-            if (!isLocationEnabled(this)) {
-                toast("위치 사용을 켜주세요.")
-                val intent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivityForResult(intent, 0)
-            } else {
-                val bestProvider = locationMgr.getBestProvider(criteria, true)
-
-                val gps = locationMgr.getLastKnownLocation(bestProvider)
-
-                val lat = gps.getLatitude()
-                val lng = gps.getLongitude()
-                val gcd = Geocoder(this, Locale.getDefault())
-                val addresses = gcd.getFromLocation(lat, lng, 1)
-
-                val cityName = addresses[0].getAddressLine(0)
-                val stateName = addresses[0].getAddressLine(1)
-                val countryName = addresses[0].getAddressLine(2)
-
-                toast(cityName)
-            }
-        }
 
         //fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -136,11 +100,58 @@ class LoveActivity : AppCompatActivity() {
 
         bt_writeArticle.setOnClickListener {//setting 화면
             val intent = Intent(this, LoveWriteArticle::class.java)
-            intent.putExtra("QuestionOrArticle", 1)
+            intent.putExtra("QuestionAnswerArticle", 2)  //게시글 쓰기
             startActivity(intent)
         }
 
+        bt_back.setOnClickListener{
+            finish()
+
+        }
+
+        bt_locationselect.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // No one provider activated: prompt GPS
+                /* if (mProviderName == null || mProviderName.equals("")) {
+                     startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));*/
+                toast("위치 권한을 허용하지 않으면 지역별 친구 찾기를 할 수 없어요.")
+                val permission_list = arrayOf(
+                    //android.Manifest.permission.WRITE_CONTACTS,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION
+                )
+
+                requestPermissions(permission_list, 0)
+                //, android.Manifest.permission.ACCESS_FINE_LOCATION)
+            }
+            else {
+                if (!isLocationEnabled(this)) {
+                    toast("위치 사용을 켜주세요.")
+                    val intent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                    startActivityForResult(intent, 0)
+                } else {
+                    val bestProvider = locationMgr.getBestProvider(criteria, true)
+
+                    val gps = locationMgr.getLastKnownLocation(bestProvider)
+
+                    val lat = gps.getLatitude()
+                    val lng = gps.getLongitude()
+                    val gcd = Geocoder(this, Locale.getDefault())
+                    val addresses = gcd.getFromLocation(lat, lng, 1)
+
+                    val cityName = addresses[0].getAddressLine(0)
+                    val stateName = addresses[0].getAddressLine(1)
+                    val countryName = addresses[0].getAddressLine(2)
+
+                    toast(cityName)
+                }
+            }
+        }
+
     }
+
+
 
 
 }

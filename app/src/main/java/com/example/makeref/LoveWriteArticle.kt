@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_love_write_article.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -21,6 +22,8 @@ import android.provider.MediaStore
 import android.os.Environment.DIRECTORY_DCIM
 import android.os.Environment.getExternalStoragePublicDirectory
 import android.util.Log
+import kotlinx.android.synthetic.main.activity_love.*
+import kotlinx.android.synthetic.main.activity_love_write_article.bt_back
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -141,8 +144,54 @@ class LoveWriteArticle : AppCompatActivity() {
 /*            intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", createImageFile()))*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love_write_article)
+        val cora = intent.getIntExtra("QuestionAnswerArticle", -1)
+
+        //TODO : 사진 촬영 후 업로드 혹은 갤러리 업로드
+        //TODO : 카메라, 갤러리 권한
+
+        lovearticlesvideoupload.setOnClickListener {
+
+        }
+
+        lovearticlescancel.setOnClickListener {
+            finish()
+        }
+
+        lovearticlessubmit.setOnClickListener {
+            toast("$cora")
+
+            if (cora == 0) {
+                //질문 작성
+            }
+
+            else if (cora == 1) {
+                //질문 답글 작성
+
+            }
+
+            else if (cora == 2) {
+                //사랑방 글 작성
+            }
+            else {
+
+            }
+        }
+
+        bt_back.setOnClickListener{
+            finish()
+
+        }
+        when (cora) {
+            0 -> QuestionAnswerArticle.text = "질문 남기기"
+            1 -> QuestionAnswerArticle.text = "답변하기"
+            2 -> QuestionAnswerArticle.text = "글쓰기"
+            else -> QuestionAnswerArticle.text = "???"
+        }
+
+
 
         lovearticlespicupload.setOnClickListener {
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -190,26 +239,7 @@ class LoveWriteArticle : AppCompatActivity() {
             }
 
         }
-
-
-        lovearticlescancel.setOnClickListener {
-            finish()
-        }
-
-        lovearticlessubmit.setOnClickListener {
-            val cora = intent.getIntExtra("QuestionOrArticle", 0)
-            toast("$cora")
-
-            if (cora == 0) {
-                //질문에 등록
-            }
-
-            else if (cora == 1) {
-                //게시글에 등록
-
-            }
-        }
-
+        
     }
 }
 

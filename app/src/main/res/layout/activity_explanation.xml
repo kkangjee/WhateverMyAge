@@ -8,5 +8,96 @@
         tools:context=".Explanation"
         android:orientation="vertical">
 
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#8BC34A"
+    >
+        <ImageButton
+                android:id="@+id/bt_back"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:padding="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/back"
+                android:theme="@style/AppTheme.GreenRipple"
+                android:background="?selectableItemBackground"
+        />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#8BC34A"
+                android:text="스마트폰 설명서"
+                android:textSize="30dp"
+                android:textColor="#fff"
+                android:padding="10dp"
+        />
+
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textSize="30dp"
+            android:text="모르는 게 있으신가요?\n안내서 -> 질문하기 에서 \n질문을 남겨주세요!"
+    />
+
+    <Button
+            android:id="@+id/bt_howtomessage"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="카카오톡에서 메시지 보내는 법"
+            android:textSize="26dp"
+    />
+
+    <Button
+            android:id="@+id/bt_howtofriend"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="카카오톡에서 친구를 빨리 찾는 법"
+            android:textSize="26dp"
+    />
+    <Button
+            android:id="@+id/bt_howtopic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="카카오톡에서 사진 보내는 법"
+            android:textSize="28dp"
+    />
+    <Button
+            android:id="@+id/bt_howtoplayyoutube"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="유튜브 동영상 보는 법"
+            android:textSize="28dp"
+    />
+    <Button
+            android:id="@+id/bt_howtosaveyoutube"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="유튜브에서 동영상 저장하기"
+            android:textSize="28dp"
+    />
+    <Button
+            android:id="@+id/bt_howtoyoutubecomment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="유튜브에서 댓글 달기"
+            android:textSize="28dp"
+    />
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_howtocontact"
+            android:text="연락처에 있는 사람한테 전화하기"
+            android:textSize="28dp"
+    />
+
+
 
 </LinearLayout>

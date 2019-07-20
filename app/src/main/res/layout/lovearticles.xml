@@ -39,7 +39,7 @@
             android:id="@+id/lovecontents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#00ff0000"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:textAllCaps="false"
             android:layout_margin="5dp"
             android:gravity="left"
