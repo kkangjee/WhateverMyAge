@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 
 class TravelFragment : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         return inflater.inflate(R.layout.activity_travel_fragment, container,false)
 
     }
