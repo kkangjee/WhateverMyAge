@@ -5,6 +5,13 @@ import retrofit2.Call
 import retrofit2.http.*
 
 
+data class RegisterForm(
+    var id: String?=null,
+    var username: String?=null,
+    var password1: String?=null,
+    var password2: String?=null,
+    var email:String?=null,
+    var user_photo:String?=null
 
 
 data class RegisterForm(
@@ -50,6 +57,18 @@ interface Service_test {
         // @Path("pw")pw:String
     ):Call<UserForm>
 
+)
+
+
+//https://frozen-cove-44670.herokuapp.com/api/v1/registration/
+interface Service {
+
+
+    @GET("/api/v1/registration/{id}")
+    fun getReg(
+        @Path("id")id: String
+    ):Call<RegisterForm>
+
     @FormUrlEncoded
     @POST("/api/v1/registration/")
     fun postReg(
@@ -57,6 +76,7 @@ interface Service_test {
         @Field("password1") password1: String?,
         @Field("password2") password2: String?
     ):Call<RegisterForm>
+
 
     @FormUrlEncoded
     @POST("/api/v1/login/")

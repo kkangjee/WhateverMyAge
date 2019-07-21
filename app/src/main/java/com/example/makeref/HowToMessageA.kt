@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_explanation_fragment.*
 import java.util.*
 
 class HowToMessageA : Fragment(){
-    var getData = 0;
+    var getData = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         val activity  = getActivity() as Instruction
         getData = activity.sendData()

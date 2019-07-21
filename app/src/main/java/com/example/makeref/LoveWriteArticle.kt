@@ -310,6 +310,7 @@ class LoveWriteArticle : AppCompatActivity() {
             }
             postSnsButton(articleblank,articleblank,articleblank)
         }*/
+
         }
 
 

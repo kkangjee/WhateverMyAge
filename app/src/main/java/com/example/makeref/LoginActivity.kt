@@ -23,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+
         val retrofit = Retrofit.Builder()
             .baseUrl("https://frozen-cove-44670.herokuapp.com")
             .addConverterFactory(GsonConverterFactory.create())
@@ -107,6 +108,11 @@ class LoginActivity : AppCompatActivity() {
                         toast("로그인 실패")
                 }
             })
+
+        bt_loginsubmit.setOnClickListener {
+            val nextIntent = Intent(this, SignupActivity::class.java)
+            startActivity(nextIntent)
+
         }
 
         bt_back.setOnClickListener{ //
