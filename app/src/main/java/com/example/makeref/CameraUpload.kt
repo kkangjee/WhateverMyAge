@@ -22,12 +22,25 @@ var cameraFilePath: String? = null
 
 class CameraUpload : AppCompatActivity()  {
     override fun onActivityResult (requestCode : Int, resultCode : Int, data: Intent?) {
+        Log.i("결과를 받긴 받았네", "$requestCode $resultCode")
         if (resultCode != Activity.RESULT_CANCELED) {
-            if (requestCode == GALLERY_REQUEST_CODE) {
+
+            Log.i("선택해볼까?", "$requestCode")
+            if (resultCode == 3) {
+                Log.i("사진을 찍어요", "$requestCode")
+                captureFromCamera()
+            }
+
+            else if (resultCode == 4) {
+                Log.i("갤러리를 찍어요", "$requestCode")
+                pickFromGallery()
+            }
+
+            else if (requestCode == GALLERY_REQUEST_CODE) {
                 toast("사진 요청 완료")
+                Log.i("사진 받아옴", "$requestCode")
                 val selectedImage = data!!.data as Uri
                 //testimage.setImageURI(selectedImage)
-
 
                 val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
                 // Get the cursor
@@ -48,6 +61,10 @@ class CameraUpload : AppCompatActivity()  {
                 Log.i("사진 받아옴", cameraFilePath)
                 testimage.setImageURI(Uri.parse(cameraFilePath));
             }
+
+
+            Log.i("여기까지", "$requestCode $resultCode")
+
         }
     }
 

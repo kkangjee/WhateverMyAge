@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
         bt_travelandfood.setOnClickListener{
             val intent = Intent(this, TravelAndFood::class.java)
+            intent.putExtra("test", 2)
             startActivity(intent)
 
         }
