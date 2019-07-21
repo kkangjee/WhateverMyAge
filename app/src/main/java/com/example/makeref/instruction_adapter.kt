@@ -25,7 +25,11 @@ class InstructionAdapter  (fm: FragmentManager): FragmentStatePagerAdapter(fm) {
         }
     }
 
-    override fun getCount() = Int.MAX_VALUE//뷰페이저에서 보여줄 뷰의 개수
+    override fun getCount() = cnt//뷰페이저에서 보여줄 뷰의 개수
+
+    fun addFragment() {
+
+    }
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position){

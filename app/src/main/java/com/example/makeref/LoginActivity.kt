@@ -15,10 +15,20 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+var signedin = 0
+var signedinname = ""
+
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://frozen-cove-44670.herokuapp.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        var server = retrofit.create(Service_test::class.java)
 /*
 
         val retrofit = Retrofit.Builder()
@@ -51,7 +61,52 @@ class LoginActivity : AppCompatActivity() {
 
 */
         bt_loginsubmit.setOnClickListener {
+            var code = 0
             //TODO : 로그인
+
+            var id = ID.text.toString()
+            var pw = PW.text.toString()
+
+
+            server.login(
+                id,
+                "",
+                pw
+            ).enqueue(object : Callback<LoginForm> {
+                override fun onFailure(call: Call<LoginForm>, t: Throwable) {
+                    Log.e("서버와 통신에 실패했습니다.", "Error!")
+                }
+
+                override fun onResponse(call: Call<LoginForm>, response: Response<LoginForm>) {
+                     code = response?.code()
+                    //test.text=response?.code().toString()//받아올 데이터 내용
+                   // test.text=reg.toString()//전체 분리한 문자열
+                    //tv_3.text= reg[3]//username
+                    //tv_4.text= reg[11]//img url
+                    if (response?.code().toString() == "200") {
+                        toast("로그인 성공")
+                        finish()
+                        server.getUser(
+                            ID.text.toString()
+                        ).enqueue(object : Callback<UserForm> {
+                            override fun onFailure(call: Call<UserForm>, t:Throwable) {
+                                Log.e("서버와 통신에 실패했습니다.", "Error!")
+                            }
+
+                            override fun onResponse(call: Call<UserForm>, response: Response<UserForm>) {
+                                var user = response?.raw().toString()
+                                test.text = user
+                            }
+
+                        })
+
+                        signedin = 1
+                        signedinname = id
+                    }
+                    else
+                        toast("로그인 실패")
+                }
+            })
         }
 
         bt_back.setOnClickListener{ //

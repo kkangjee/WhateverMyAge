@@ -19,7 +19,12 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://frozen-cove-44670.herokuapp.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
+        var server = retrofit.create(Service_test::class.java)
 
 
     bt_back.setOnClickListener {
@@ -29,43 +34,25 @@ class SignUpActivity : AppCompatActivity() {
         bt_signup.setOnClickListener {
             //회원가입
 
-            val retrofit = Retrofit.Builder()
-                .baseUrl("https://frozen-cove-44670.herokuapp.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            var getText1=ID.text.toString()
+            var getText2=PW.text.toString()
+            var getText3=PWConfirm.text.toString()
 
-            var server = retrofit.create(Service::class.java)
-
-            if (PW.text.toString() != PWConfirm.text.toString()) {
-                toast("비밀번호가 같지 않아요.")
-            } else {
-
-                fun postSnsButton(pr: EditText, b_contents: EditText, b_created: EditText) {
-                    server.postRegistration(//텍스트를 가져와 보낸다
-                        pr.text.toString(), //username
-                        "default@default.com", //email
-                        b_contents.text.toString(),// password
-                        b_created.text.toString() //password confirm
-                    ).enqueue(object : Callback<PostRegistrationForm> {
-                        override fun onResponse(
-                            call: Call<PostRegistrationForm>,
-                            response: Response<PostRegistrationForm>
-                        ) {
-                            //println(response?.body().toString())
-
-                            Log.e("서버와 통신 성공!", "Success")
-                        }
-
-                        override fun onFailure(call: Call<PostRegistrationForm>, t: Throwable) {
-                            Log.e("서버와 통신에 실패했습니다.", "Error!")
-                        }
-
-                    })
-
+            server.postReg(//텍스트를 가져와 보낸다
+                getText1,
+                getText2,
+                getText3
+            ).enqueue(object : Callback<RegisterForm>{
+                override fun onResponse(call: Call<RegisterForm>, response: Response<RegisterForm>) {
+                    //println(response?.body().toString())
+                    Log.e("서버와 통신 성공!","Success")
                 }
-                postSnsButton(ID, PW, PWConfirm)
+                override fun onFailure(call: Call<RegisterForm>, t: Throwable) {
+                    Log.e("서버와 통신에 실패했습니다.","Error!")
+                }
 
-            }
+            })
+
         }
 
 

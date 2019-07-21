@@ -42,6 +42,9 @@ class HowToMessageC : Fragment(){
         super.onActivityCreated(savedInstanceState)
 
         val pic :String
+
+
+
         when (getData) {
                 1->{ pic = "@drawable/kakao_chat_rooms"
                     explanation.text = "대화를 나누고 싶은 친구를 선택해요."

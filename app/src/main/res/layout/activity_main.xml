@@ -36,7 +36,7 @@
             tools:context=".MainActivity"
             android:orientation="horizontal" android:layout_weight="1">
         <Button
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:text="안내서"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +47,7 @@
                 android:textSize="40dp"
                 android:id="@+id/bt_guide"/>
         <Button
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:text="사랑방"
                 android:textSize="40dp"
@@ -66,16 +66,17 @@
             tools:context=".MainActivity"
             android:orientation="horizontal" android:layout_weight="1">
         <Button
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="match_parent"
-                android:text="로그인\n/내정보"
+                android:text="로그인"
+
                 android:textSize="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" android:layout_weight="1" android:id="@+id/bt_login"/>
         <Button
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:text="어디서\n뭘하지?"
                 android:textSize="40dp"
