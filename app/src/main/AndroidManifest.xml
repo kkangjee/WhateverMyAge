@@ -28,15 +28,19 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".Instruction">
+        </activity>
+        <activity android:name=".explanation_fragment">
+        </activity>
         <activity android:name=".WriteComment">
         </activity>
         <activity android:name=".Comments">
         </activity>
         <activity android:name=".comments_adapter">
         </activity>
-        <activity android:name=".CameraOrGallery"
-                  android:theme="@android:style/Theme.Dialog"
-        >
+        <activity
+                android:name=".CameraOrGallery"
+                android:theme="@android:style/Theme.Dialog">
         </activity>
 
         <provider
@@ -53,6 +57,9 @@
         <activity android:name=".AddcontactActivity">
         </activity>
         <activity android:name=".CameraUpload">
+        </activity>
+        <activity android:name=".Instruction">
+            
         </activity>
         <activity android:name=".FoodFragment">
         </activity>
