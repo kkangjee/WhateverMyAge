@@ -27,7 +27,7 @@ import android.widget.EditText
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
-import com.example.makeref.ConnectServer
+//import com.example.makeref.ConnectServer
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -150,7 +150,7 @@ class LoveWriteArticle : AppCompatActivity() {
 /*            intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", createImageFile()))*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love_write_article)
         val cora = intent.getIntExtra("QuestionAnswerArticle", -1)
@@ -166,9 +166,9 @@ class LoveWriteArticle : AppCompatActivity() {
             finish()
         }
 
-     
 
-        bt_back.setOnClickListener{
+
+        bt_back.setOnClickListener {
             finish()
 
         }
@@ -182,44 +182,73 @@ class LoveWriteArticle : AppCompatActivity() {
 
 
         lovearticlespicupload.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
                 //if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 //}
                 ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 0)
 
-                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
                     //if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
                     val intent = Intent(this, AddcontactActivity::class.java)
                     startActivityForResult(intent, 1)
                     //}
                     //ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 0)
-                }
-                else {
+                } else {
                     toast("사진을 업로드 하려면 권한이 필요해요.")
                     finish()
                 }
             }
-            
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-                    ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 0)
-                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
-                    ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
 
-                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                        //CameraUpload.captureFromCamera()
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.CAMERA
+                ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        android.Manifest.permission.CAMERA
+                    ) != PackageManager.PERMISSION_GRANTED
+                )
+                    ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 0)
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) != PackageManager.PERMISSION_GRANTED
+                )
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                        0
+                    )
+
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        android.Manifest.permission.CAMERA
+                    ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+                        this,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    //CameraUpload.captureFromCamera()
                     val intent = Intent(this, CameraOrGallery::class.java)
                     //intent.putExtra("QuestionOrArticle", 1)
                     startActivityForResult(intent, 1)
-                }
-                else {
+                } else {
                     toast("카메라로 업로드 하려면 권한이 필요해요.")
                     finish()
                 }
-            }
-            
-            
-            else {
+            } else {
                 //pickFromGallery()
                 val intent = Intent(this, CameraOrGallery::class.java)
                 //intent.putExtra("QuestionOrArticle", 1)
@@ -227,7 +256,7 @@ class LoveWriteArticle : AppCompatActivity() {
             }
 
         }
-        
+
 
 
         lovearticlescancel.setOnClickListener {
@@ -235,29 +264,24 @@ class LoveWriteArticle : AppCompatActivity() {
         }
 
         lovearticlessubmit.setOnClickListener {
-          
+
             toast("$cora")
 
-       
+
 
             if (cora == 0) {
                 //질문 작성
-            }
-
-            else if (cora == 1) {
+            } else if (cora == 1) {
                 //질문 답글 작성
 
-            }
-
-            else if (cora == 2) {
+            } else if (cora == 2) {
                 //사랑방 글 작성
-            }
-            else {
+            } else {
 
             }
 
             //서버 테스트 구간
-
+/*
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://donghyun.herokuapp.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -285,11 +309,11 @@ class LoveWriteArticle : AppCompatActivity() {
 
             }
             postSnsButton(articleblank,articleblank,articleblank)
+        }*/
         }
+
+
     }
-
-
-
 
 }
 

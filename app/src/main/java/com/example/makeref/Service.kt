@@ -7,23 +7,28 @@ import java.time.LocalDate
 
 
 
-data class PostSnsData(
-    var pr: String,
-    var b_contents: String,
-    var b_created: String
+data class PostRegistrationForm(
+    var username: String,
+    var email: String,
+    var password1: String,
+    var password2: String
 )
 
-
+//https://frozen-cove-44670.herokuapp.com/api/v1/registration/
 interface Service {
 
     @FormUrlEncoded
-    @POST("/api/v1/blog/?format=api")
-    fun postSNS(
-        @Field("pr") pr: String?,
-        @Field("b_contents") b_contents: String?,
-        @Field("b_created") b_created: String?):Call<PostSnsData>
+    @POST("/api/v1/registration")
+    fun postRegistration(
+        @Field("username") username: String?,
+        @Field("email") email: String?,
+        @Field("password1") password1: String?,
+        @Field("password2") password2: String?):Call<PostRegistrationForm>
 
-    @GET("/api/v1/blog/{pr}")
-    fun getPr(@Path("pr")pr: String):Call<PostSnsData>
+    @GET("/api/v1/registration/{id}")
+    fun getRegistration(@Path("id")pr: String):Call<PostRegistrationForm>
 
+
+
+    //"https://frozen-cove-44670.herokuapp.com/media/maxresdefault.jpg"
 }

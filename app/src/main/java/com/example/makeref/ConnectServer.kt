@@ -1,4 +1,4 @@
-package com.example.makeref
+/*package com.example.makeref
 
 import android.util.Log
 import android.widget.Button
@@ -57,4 +57,4 @@ class ConnectServer{
 //            })
 //        }
 //    }
-}
+}*/
