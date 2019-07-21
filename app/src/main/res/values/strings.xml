@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MakeRef</string>
+    <string name="app_name">내 나이가 어때서</string>
     <string name="title_activity_setting">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
