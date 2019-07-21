@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.content.pm.PackageManager
 import android.os.Build
 
+
 class MainActivity : AppCompatActivity() {
     val permission_list = arrayOf(
         WRITE_CONTACTS,
@@ -19,6 +20,9 @@ class MainActivity : AppCompatActivity() {
         CAMERA)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        toast("$signedin")
+
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
@@ -28,17 +32,29 @@ class MainActivity : AppCompatActivity() {
         quote.text = quotelist[num].Quote
         quotedfrom.text = quotelist[num].QuotedFrom
 
+
         bt_guide.setOnClickListener {//setting 화면
             val intent = Intent(this, GuideActivity::class.java)
             startActivity(intent)
         }
         bt_love.setOnClickListener {//사랑방 화면
-            val intent = Intent(this, LoveActivity::class.java)
-            startActivity(intent)
+                val intent = Intent(this, LoveActivity::class.java)
+                startActivity(intent)
+
         }
         bt_login.setOnClickListener {//로그인 화면
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            if (signedin == 0) {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
+            else if (signedin == 1) {
+                val intent = Intent(this, MyInformation::class.java)
+                //intent.putExtra("username", username)
+                startActivity(intent)
+            }
+
+
+
         }
         bt_travelandfood.setOnClickListener{
             val intent = Intent(this, TravelAndFood::class.java)
@@ -48,11 +64,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onStart() {
+        super.onStart()
+        if (signedin == 0)
+            bt_login.text = "로그인"
+        else if (signedin == 1)
+            bt_login.text = "내 정보"
         num = random.nextInt(5)
         quote.text = quotelist[num].Quote
         quotedfrom.text = quotelist[num].QuotedFrom
+        toast("$signedin")
+
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+
     }
 
 
@@ -89,4 +118,7 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
+
+
 }
