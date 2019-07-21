@@ -6,24 +6,47 @@ import retrofit2.http.*
 import java.time.LocalDate
 
 
+data class RegisterForm(
+    var id: String?=null,
+    var username: String?=null,
+    var password1: String?=null,
+    var password2: String?=null,
+    var email:String?=null,
+    var user_photo:String?=null
 
-data class PostSnsData(
-    var pr: String,
-    var b_contents: String,
-    var b_created: String
 )
 
 
+//https://frozen-cove-44670.herokuapp.com/api/v1/registration/
 interface Service {
 
-    @FormUrlEncoded
-    @POST("/api/v1/blog/?format=api")
-    fun postSNS(
-        @Field("pr") pr: String?,
-        @Field("b_contents") b_contents: String?,
-        @Field("b_created") b_created: String?):Call<PostSnsData>
 
-    @GET("/api/v1/blog/{pr}")
-    fun getPr(@Path("pr")pr: String):Call<PostSnsData>
+
+    @GET("/api/v1/registration/{id}")
+    fun getReg(
+        @Path("id")id: String
+    ):Call<RegisterForm>
+
+    @FormUrlEncoded
+    @POST("/api/v1/registration/")
+    fun postReg(
+        @Field("username") username: String?,
+        @Field("password1") password1: String?,
+        @Field("password2") password2: String?
+    ):Call<RegisterForm>
+
+    @FormUrlEncoded
+    @PUT("/api/v1/registration/{id}/")
+    fun putReg(
+        @Path("id")id: String?,
+        @Field("username")username:String?,
+        @Field("user_photo")user_photo:String?
+    ):Call<RegisterForm>
+
+
+    @DELETE("/api/v1/registration/{id}/")
+    fun deleteReg(
+        @Path("id")id: String?
+    ):Call<RegisterForm>
 
 }

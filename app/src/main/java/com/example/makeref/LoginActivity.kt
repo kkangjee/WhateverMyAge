@@ -11,8 +11,10 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
         bt_loginsubmit.setOnClickListener {
-            //TODO : 로그인
+            val nextIntent = Intent(this, SignupActivity::class.java)
+            startActivity(nextIntent)
         }
 
         bt_back.setOnClickListener{

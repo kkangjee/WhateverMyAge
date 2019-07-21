@@ -44,7 +44,7 @@ class CameraOrGallery : Activity() {
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_OUTSIDE) {
-            return false;
+            return false
         }
 
         return super.onTouchEvent(event)

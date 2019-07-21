@@ -20,8 +20,8 @@
 
         <ImageView
                 android:id="@+id/explanationpic"
-                android:layout_width="410dp"
-                android:layout_height="550dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
         />
 
         <TextView
