@@ -117,7 +117,7 @@
 
 
         <Button
-                android:id="@+id/cantfindid"
+                android:id="@+id/bt_cantfindid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -126,11 +126,20 @@
                 android:textSize="30dp"
         />
         <Button
-                android:id="@+id/cantfindpw"
+                android:id="@+id/bt_cantfindpw"
                 android:background="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="비밀번호가 기억이 안 나요!"
+                android:textSize="30dp"
+
+        />
+        <Button
+                android:id="@+id/bt_signup"
+                android:background="?attr/selectableItemBackground"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="회원가입"
                 android:textSize="30dp"
 
         />

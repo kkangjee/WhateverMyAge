@@ -12,21 +12,27 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import kotlinx.android.synthetic.main.activity_love_write_article.*
 import java.io.File
-import android.R.attr.data
-import android.R.attr.data
 import android.database.Cursor
 import android.graphics.BitmapFactory
 import android.os.Environment
-import android.widget.ImageView
 import android.provider.MediaStore
-import android.os.Environment.DIRECTORY_DCIM
-import android.os.Environment.getExternalStoragePublicDirectory
 import android.util.Log
+
 import kotlinx.android.synthetic.main.activity_love.*
 import kotlinx.android.synthetic.main.activity_love_write_article.bt_back
+
+import android.widget.Button
+import android.widget.EditText
+
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+//import com.example.makeref.ConnectServer
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class LoveWriteArticle : AppCompatActivity() {
     //TODO : CameraUpload 클래스랑 합치기....
@@ -144,7 +150,7 @@ class LoveWriteArticle : AppCompatActivity() {
 /*            intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", createImageFile()))*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love_write_article)
         val cora = intent.getIntExtra("QuestionAnswerArticle", -1)
@@ -160,27 +166,9 @@ class LoveWriteArticle : AppCompatActivity() {
             finish()
         }
 
-        lovearticlessubmit.setOnClickListener {
-            toast("$cora")
 
-            if (cora == 0) {
-                //질문 작성
-            }
 
-            else if (cora == 1) {
-                //질문 답글 작성
-
-            }
-
-            else if (cora == 2) {
-                //사랑방 글 작성
-            }
-            else {
-
-            }
-        }
-
-        bt_back.setOnClickListener{
+        bt_back.setOnClickListener {
             finish()
 
         }
@@ -194,44 +182,73 @@ class LoveWriteArticle : AppCompatActivity() {
 
 
         lovearticlespicupload.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
                 //if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 //}
                 ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 0)
 
-                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        android.Manifest.permission.READ_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
                     //if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
                     val intent = Intent(this, AddcontactActivity::class.java)
                     startActivityForResult(intent, 1)
                     //}
                     //ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 0)
-                }
-                else {
+                } else {
                     toast("사진을 업로드 하려면 권한이 필요해요.")
                     finish()
                 }
             }
-            
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-                    ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 0)
-                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
-                    ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
 
-                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                        //CameraUpload.captureFromCamera()
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.CAMERA
+                ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        android.Manifest.permission.CAMERA
+                    ) != PackageManager.PERMISSION_GRANTED
+                )
+                    ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 0)
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) != PackageManager.PERMISSION_GRANTED
+                )
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                        0
+                    )
+
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        android.Manifest.permission.CAMERA
+                    ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+                        this,
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    //CameraUpload.captureFromCamera()
                     val intent = Intent(this, CameraOrGallery::class.java)
                     //intent.putExtra("QuestionOrArticle", 1)
                     startActivityForResult(intent, 1)
-                }
-                else {
+                } else {
                     toast("카메라로 업로드 하려면 권한이 필요해요.")
                     finish()
                 }
-            }
-            
-            
-            else {
+            } else {
                 //pickFromGallery()
                 val intent = Intent(this, CameraOrGallery::class.java)
                 //intent.putExtra("QuestionOrArticle", 1)
@@ -239,8 +256,65 @@ class LoveWriteArticle : AppCompatActivity() {
             }
 
         }
-        
+
+
+
+        lovearticlescancel.setOnClickListener {
+            finish()
+        }
+
+        lovearticlessubmit.setOnClickListener {
+
+            toast("$cora")
+
+
+
+            if (cora == 0) {
+                //질문 작성
+            } else if (cora == 1) {
+                //질문 답글 작성
+
+            } else if (cora == 2) {
+                //사랑방 글 작성
+            } else {
+
+            }
+
+            //서버 테스트 구간
+/*
+            val retrofit = Retrofit.Builder()
+                .baseUrl("https://donghyun.herokuapp.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+            var server = retrofit.create(Service::class.java)
+
+            fun postSnsButton(pr:EditText,b_contents:EditText,b_created:EditText) {
+                server.postSNS(//텍스트를 가져와 보낸다
+                    pr.text.toString(),
+                    b_contents.text.toString(),
+                    b_created.text.toString()
+
+                ).enqueue(object : Callback<PostSnsData> {
+                    override fun onResponse(call: Call<PostSnsData>, response: Response<PostSnsData>) {
+                        //println(response?.body().toString())
+
+                        Log.e("서버와 통신 성공!","Success")
+                    }
+                    override fun onFailure(call: Call<PostSnsData>, t: Throwable) {
+                        Log.e("서버와 통신에 실패했습니다.","Error!")
+                    }
+
+                })
+
+            }
+            postSnsButton(articleblank,articleblank,articleblank)
+        }*/
+        }
+
+
     }
+
 }
 
 

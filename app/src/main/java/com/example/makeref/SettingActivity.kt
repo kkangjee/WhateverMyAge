@@ -6,8 +6,6 @@ import android.media.AudioManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.view.WindowManager
-import android.widget.SeekBar
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_setting.*
 import android.content.Intent
@@ -15,8 +13,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import androidx.core.content.ContextCompat
-import android.Manifest.permission
-import android.Manifest.permission.WRITE_CONTACTS
 import androidx.core.app.ActivityCompat
 
 
@@ -145,6 +141,11 @@ class SettingActivity : AppCompatActivity() {
 
         bt_brightup.setOnClickListener {
             //Settings.System.putInt(contentResolver,"screen_brightness",255)
+            if (android.provider.Settings.System.getInt(getContentResolver(),
+                    android.provider.Settings.System.SCREEN_BRIGHTNESS_MODE) !=0){
+                android.provider.Settings.System.putInt(getContentResolver(),
+                    android.provider.Settings.System.SCREEN_BRIGHTNESS_MODE,0);}
+            //자동 밝기가 되어있으면 자동밝기 취소하기
             Settings.System.putInt(
                 this.contentResolver,
                 Settings.System.SCREEN_BRIGHTNESS, 255
@@ -157,6 +158,11 @@ class SettingActivity : AppCompatActivity() {
         }
         bt_brightdown.setOnClickListener {
             //Settings.System.putInt(contentResolver,"screen_brightness",100)
+            if (android.provider.Settings.System.getInt(getContentResolver(),
+                    android.provider.Settings.System.SCREEN_BRIGHTNESS_MODE) !=0){
+                android.provider.Settings.System.putInt(getContentResolver(),
+                    android.provider.Settings.System.SCREEN_BRIGHTNESS_MODE,0);}
+            //자동 밝기가 되어있으면 자동밝기 취소하기
             Settings.System.putInt(
                 this.contentResolver,
                 Settings.System.SCREEN_BRIGHTNESS, 100

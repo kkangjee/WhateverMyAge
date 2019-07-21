@@ -52,7 +52,7 @@ class HowToMessageD : Fragment(){
                 piccount.text = "4/4"
             }
             3->{pic = "@drawable/kakao_whole_gallery"
-                explanation.text = "보내고 싶은 사진을 찾기 어려우면 전체보기를 눌러 찾아요.\n그리고 전송을 눌러요."
+                explanation.text = "보내고 싶은 사진을 찾기 어려우면 전체보기를 눌러 찾아요."
                 piccount.text = "4/5"}
             4->{pic = "@drawable/youtube_channel_video"
                 explanation.text = "위의 오른쪽의 동영상을 누르세요."

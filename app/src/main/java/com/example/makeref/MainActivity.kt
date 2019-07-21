@@ -6,12 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.Random
 import android.content.pm.PackageManager
 import android.os.Build
 
 class MainActivity : AppCompatActivity() {
-    val permission_list = arrayOf(WRITE_CONTACTS, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, CAMERA)
+    val permission_list = arrayOf(
+        WRITE_CONTACTS,
+        ACCESS_COARSE_LOCATION,
+        ACCESS_FINE_LOCATION,
+        READ_EXTERNAL_STORAGE,
+        WRITE_EXTERNAL_STORAGE,
+        CAMERA)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
