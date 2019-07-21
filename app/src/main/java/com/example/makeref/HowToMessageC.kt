@@ -52,7 +52,7 @@ class HowToMessageC : Fragment(){
                 piccount.text = "3/4"
             }
             3->{pic = "@drawable/kakao_mini_gallery"
-                explanation.text = "왼쪽, 오른쪽으로 넘겨가며 보내고 싶은 사진을 선택해요.\n선택된 사진에 노란 불이 들어와요."
+                explanation.text = "왼쪽, 오른쪽으로 넘겨가며 보내고 싶은 사진을 선택해요."
                 piccount.text = "3/5"}
             4->{pic = "@drawable/youtube_channel"
                 explanation.text = "동영상을 올린 사람을 확인할 수도 있어요."
