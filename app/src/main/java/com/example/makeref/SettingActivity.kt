@@ -141,6 +141,11 @@ class SettingActivity : AppCompatActivity() {
 
         bt_brightup.setOnClickListener {
             //Settings.System.putInt(contentResolver,"screen_brightness",255)
+            if (android.provider.Settings.System.getInt(getContentResolver(),
+                    android.provider.Settings.System.SCREEN_BRIGHTNESS_MODE) !=0){
+                android.provider.Settings.System.putInt(getContentResolver(),
+                    android.provider.Settings.System.SCREEN_BRIGHTNESS_MODE,0);}
+            //자동 밝기가 되어있으면 자동밝기 취소하기
             Settings.System.putInt(
                 this.contentResolver,
                 Settings.System.SCREEN_BRIGHTNESS, 255
@@ -153,6 +158,11 @@ class SettingActivity : AppCompatActivity() {
         }
         bt_brightdown.setOnClickListener {
             //Settings.System.putInt(contentResolver,"screen_brightness",100)
+            if (android.provider.Settings.System.getInt(getContentResolver(),
+                    android.provider.Settings.System.SCREEN_BRIGHTNESS_MODE) !=0){
+                android.provider.Settings.System.putInt(getContentResolver(),
+                    android.provider.Settings.System.SCREEN_BRIGHTNESS_MODE,0);}
+            //자동 밝기가 되어있으면 자동밝기 취소하기
             Settings.System.putInt(
                 this.contentResolver,
                 Settings.System.SCREEN_BRIGHTNESS, 100
