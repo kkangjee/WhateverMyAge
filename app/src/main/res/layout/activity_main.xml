@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity"
+        android:orientation="vertical">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:id="@+id/quote"
+            android:text="당신을 죽일 수 없는 것은 당신을 더 강하게 만든다."
+            android:layout_margin="10dp"
+    />
+    <TextView
+            android:id="@+id/quotedfrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textSize="25dp"
+            android:text="- 프리드리히 니체"
+            android:layout_margin="5dp"
+    />
+
+
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".MainActivity"
+            android:orientation="horizontal" android:layout_weight="1">
+        <Button
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="안내서"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_weight="1"
+                android:textSize="40dp"
+                android:id="@+id/bt_guide"/>
+        <Button
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="사랑방"
+                android:textSize="40dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" android:layout_weight="1" android:id="@+id/bt_love"/>
+    </LinearLayout>
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".MainActivity"
+            android:orientation="horizontal" android:layout_weight="1">
+        <Button
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="로그인"
+
+                android:textSize="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" android:layout_weight="1" android:id="@+id/bt_login"/>
+        <Button
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="어디서\n뭘하지?"
+                android:textSize="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_weight="1"
+                android:id="@+id/bt_travelandfood"
+        />
+    </LinearLayout>
+</LinearLayout>
