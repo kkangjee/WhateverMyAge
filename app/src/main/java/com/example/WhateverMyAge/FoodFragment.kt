@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_food_fragment.*
 //import sun.invoke.util.VerifyAccess.getPackageName
 import android.R.attr.name
+import android.graphics.drawable.GradientDrawable
 import java.util.*
 
 class Menu (val pic : String, val menu : String, val effect : String)
@@ -60,7 +61,11 @@ class FoodFragment : Fragment(){
         effect.text = menuList[num].effect
         food.text = menuList[num].menu
 
+        val drawable = context?.getDrawable(R.drawable.rounding)
+
         val pic  = menuList[num].pic
+        foodRecommend.setBackground(drawable)
+        foodRecommend.setClipToOutline(true)
 
         val res = resources
         val id = res.getIdentifier(pic, "id", context!!.packageName)
