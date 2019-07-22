@@ -27,8 +27,6 @@ class PermissionCheck(context : Context, activity: Activity) {
         return checked
     }
 
-
-
     fun GalleryCheck() : Int {
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 0)
@@ -37,7 +35,6 @@ class PermissionCheck(context : Context, activity: Activity) {
         return 0
     }
 
-
     fun ContactCheck() : Int{
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, arrayOf(android.Manifest.permission.WRITE_CONTACTS), 0)
@@ -45,7 +42,6 @@ class PermissionCheck(context : Context, activity: Activity) {
         }
         return 0
     }
-
 
     fun LocationCheck() : Int {
         var checked = 0

@@ -8,13 +8,13 @@
         tools:context=".LoginActivity">
 
     <LinearLayout
+            android:id="@+id/bar"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:background="#8BC34A"
-            android:id="@+id/bar"
     >
         <ImageButton
                 android:id="@+id/bt_back"
@@ -43,9 +43,9 @@
 
         <TextView
                 app:layout_constraintTop_toBottomOf="@id/bar"
+                app:layout_constraintBottom_toTopOf="@id/loginlayout"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/loginlayout"
                 android:id="@+id/test"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

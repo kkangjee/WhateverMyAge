@@ -70,16 +70,12 @@ class LoveWriteArticle : AppCompatActivity() {
             else -> QuestionAnswerArticle.text = "???"
         }
 
-
-
         lovearticlespicupload.setOnClickListener {
             if (permissioncheck.CameraCheck() == 0 && permissioncheck.GalleryCheck() == 0) {
                 val intent = Intent(this, com.example.WhateverMyAge.CameraOrGallery::class.java)
                 startActivityForResult(intent, 1)
             }
         }
-
-
 
         lovearticlescancel.setOnClickListener {
             finish()
@@ -96,9 +92,7 @@ class LoveWriteArticle : AppCompatActivity() {
             } else {
 
             }
-
         }
-
 
     }
 }

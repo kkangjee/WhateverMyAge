@@ -85,9 +85,17 @@ class LoveActivity : AppCompatActivity() {
         lovearticles.setHasFixedSize(true)
 
         bt_writeArticle.setOnClickListener {//setting 화면
-            val intent = Intent(this, LoveWriteArticle::class.java)
-            intent.putExtra("QuestionAnswerArticle", 2)  //게시글 쓰기
-            startActivity(intent)
+
+            if (signedin == 0) {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
+
+            else if (signedin == 1) {
+                val intent = Intent(this, LoveWriteArticle::class.java)
+                intent.putExtra("QuestionAnswerArticle", 2)  //게시글 쓰기
+                startActivity(intent)
+            }
         }
 
         bt_back.setOnClickListener{
