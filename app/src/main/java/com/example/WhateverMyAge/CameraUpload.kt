@@ -27,38 +27,19 @@ class CameraUpload (activity : Activity){
     val activity = activity
 
     fun newOnActivityResult (requestCode : Int, resultCode : Int, data: Intent?) {
-        Log.i("결과를 받긴 받았네", "$requestCode $resultCode")
         if (resultCode != Activity.RESULT_CANCELED) {
-
-            Log.i("선택해볼까?", "$requestCode")
             if (resultCode == 3) {
-                Log.i("사진을 찍어요", "$requestCode")
                 captureFromCamera()
-            }
-
-            else if (resultCode == 4) {
-                Log.i("갤러리를 찍어요", "$requestCode")
+            } else if (resultCode == 4) {
                 pickFromGallery()
-            }
-
-            else if (requestCode == GALLERY_REQUEST_CODE) {
+            } else if (requestCode == GALLERY_REQUEST_CODE) {
                 //toast("사진 요청 완료")
-                Log.i("사진 받아옴", "$requestCode")
-
                 galleryImage(data)
+            } else if (requestCode == CAMERA_REQUEST_CODE) {
+                activity.testimage.setImageURI(Uri.parse(cameraFilePath));
             }
-
-            else if (requestCode == CAMERA_REQUEST_CODE) {
-                Log.i("사진 받아옴", cameraFilePath)
-                    activity.testimage.setImageURI(Uri.parse(cameraFilePath));
-            }
-
-
-            Log.i("여기까지", "$requestCode $resultCode")
-
         }
     }
-
 
     fun galleryImage(data: Intent?) {
         val selectedImage = data!!.data as Uri
@@ -87,14 +68,11 @@ class CameraUpload (activity : Activity){
         val storageDir = File(Environment.getExternalStorageDirectory().getAbsolutePath(), "DCIM")
 
         if (storageDir.exists()) {
-            Log.i("storage존재", imageFileName + " " + storageDir.absolutePath)
         }
         else {
             try {
-                Log.i("storage없음", storageDir.absolutePath)
             }
             catch(ex: IOException) {
-                Log.e("path.mkdirs", ex.toString())
             }
         }
 
@@ -113,8 +91,6 @@ class CameraUpload (activity : Activity){
         try {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID + ".provider", createImageFile()))
-
-            Log.i("여기까지", "왔네?")
             activity.startActivityForResult(intent, CAMERA_REQUEST_CODE)
         }
 
@@ -133,7 +109,7 @@ class CameraUpload (activity : Activity){
         val mimeTypes = arrayOf("image/jpeg", "image/png")
         intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes)
         // Launching the Intent
-        Log.i("사진을 골라주세요.","123")
+        activity.toast("사진을 골라주세요.")
         activity.startActivityForResult(intent, GALLERY_REQUEST_CODE)
     }
 }
