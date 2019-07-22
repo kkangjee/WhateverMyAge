@@ -27,7 +27,7 @@ class CameraOrGallery : Activity() {
             Log.i("이게 안 돼?", "$RESULT_OK")
             finish()
             //camera.captureFromCamera()
-            finishActivity(3)
+            //finishActivity(3)
         }
 
 
@@ -37,9 +37,9 @@ class CameraOrGallery : Activity() {
             Log.i("갤러리 찍자", "d")
             setResult(4)
             Log.i("이게 안 돼?", "$RESULT_OK")
-            finish()
+           finish()
             //camera.pickFromGallery()
-            finishActivity(4)
+            //finishActivity(4)
         }
     }
 

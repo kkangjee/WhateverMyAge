@@ -8,6 +8,7 @@ import retrofit2.http.*
 
 
 data class RegisterForm(
+    var pk : String? = null,
     var id: String?=null,
     var username: String?=null,
     var password1: String?=null,
@@ -21,8 +22,6 @@ data class RegisterForm(
 
 //https://frozen-cove-44670.herokuapp.com/api/v1/registration/
 interface Service {
-
-
 
     @GET("/api/v1/users/{id}")
     fun getReg(                             

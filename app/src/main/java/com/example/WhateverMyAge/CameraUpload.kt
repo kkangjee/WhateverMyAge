@@ -36,14 +36,14 @@ class CameraUpload : AppCompatActivity()  {
                 pickFromGallery()
             }
 
-            else if (requestCode == GALLERY_REQUEST_CODE) {
+            else if (requestCode == GALLERY_REQUEST_CODE && data != null) {
                 toast("사진 요청 완료")
                 Log.i("사진 받아옴", "$requestCode")
 
                 galleryImage(data)
             }
 
-            else if (requestCode == CAMERA_REQUEST_CODE) {
+            else if (requestCode == CAMERA_REQUEST_CODE && data != null) {
                 Log.i("사진 받아옴", cameraFilePath)
                 testimage.setImageURI(Uri.parse(cameraFilePath));
             }
@@ -128,7 +128,7 @@ class CameraUpload : AppCompatActivity()  {
         val mimeTypes = arrayOf("image/jpeg", "image/png")
         intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes)
         // Launching the Intent
-        toast("사진을 골라주세요.")
+        Log.i("사진을 골라주세요.","123")
         startActivityForResult(intent, GALLERY_REQUEST_CODE)
     }
 }
