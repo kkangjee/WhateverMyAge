@@ -21,7 +21,7 @@ const val CAMERA_REQUEST_CODE = 2
 var cameraFilePath: String? = null
 
 class CameraUpload : AppCompatActivity()  {
-    override fun onActivityResult (requestCode : Int, resultCode : Int, data: Intent?) {
+    fun newOnActivityResult (requestCode : Int, resultCode : Int, data: Intent?) {
         Log.i("결과를 받긴 받았네", "$requestCode $resultCode")
         if (resultCode != Activity.RESULT_CANCELED) {
 
@@ -39,22 +39,8 @@ class CameraUpload : AppCompatActivity()  {
             else if (requestCode == GALLERY_REQUEST_CODE) {
                 toast("사진 요청 완료")
                 Log.i("사진 받아옴", "$requestCode")
-                val selectedImage = data!!.data as Uri
-                //testimage.setImageURI(selectedImage)
 
-                val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-                // Get the cursor
-                val cursor = contentResolver.query(selectedImage, filePathColumn, null, null, null) as Cursor
-                // Move to first row
-                cursor.moveToFirst()
-                //Get the column index of MediaStore.Images.Media.DATA
-                val columnIndex = cursor.getColumnIndex(filePathColumn[0])
-                //Gets the String value in the column
-                val imgDecodableString = cursor.getString(columnIndex)
-                toast(imgDecodableString)
-                cursor.close()
-                // Set the Image in ImageView after decoding the String
-                testimage.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString))
+                galleryImage(data)
             }
 
             else if (requestCode == CAMERA_REQUEST_CODE) {
@@ -66,6 +52,26 @@ class CameraUpload : AppCompatActivity()  {
             Log.i("여기까지", "$requestCode $resultCode")
 
         }
+    }
+
+
+    fun galleryImage(data: Intent?) {
+        val selectedImage = data!!.data as Uri
+        //testimage.setImageURI(selectedImage)
+
+        val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+        // Get the cursor
+        val cursor = contentResolver.query(selectedImage, filePathColumn, null, null, null) as Cursor
+        // Move to first row
+        cursor.moveToFirst()
+        //Get the column index of MediaStore.Images.Media.DATA
+        val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+        //Gets the String value in the column
+        val imgDecodableString = cursor.getString(columnIndex)
+        toast(imgDecodableString)
+        cursor.close()
+        // Set the Image in ImageView after decoding the String
+        testimage.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString))
     }
 
     private fun createImageFile(): File {

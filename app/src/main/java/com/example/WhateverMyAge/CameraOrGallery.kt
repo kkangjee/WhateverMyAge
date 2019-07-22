@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_camera_or_gallery.*
 
 class CameraOrGallery : Activity() {
 
-    val camera = com.example.WhateverMyAge.CameraUpload()
+    val camera = CameraUpload()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +25,9 @@ class CameraOrGallery : Activity() {
             Log.i("사진 찍자", "d")
             setResult(3)
             Log.i("이게 안 돼?", "$RESULT_OK")
-            //camera.captureFromCamera()
             finish()
-
+            //camera.captureFromCamera()
+            finishActivity(3)
         }
 
 
@@ -37,8 +37,9 @@ class CameraOrGallery : Activity() {
             Log.i("갤러리 찍자", "d")
             setResult(4)
             Log.i("이게 안 돼?", "$RESULT_OK")
-            //camera.pickFromGallery()
             finish()
+            //camera.pickFromGallery()
+            finishActivity(4)
         }
     }
 

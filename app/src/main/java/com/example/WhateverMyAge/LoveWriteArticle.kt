@@ -41,116 +41,13 @@ class LoveWriteArticle : AppCompatActivity() {
 
 
     override fun onActivityResult (requestCode : Int, resultCode : Int, data: Intent?) {
-        Log.i("결과를 받긴 받았네", "$requestCode $resultCode")
-        if (resultCode != Activity.RESULT_CANCELED) {
-
-            Log.i("선택해볼까?", "$requestCode")
-            if (resultCode == 3) {
-                Log.i("사진을 찍어요", "$requestCode")
-                captureFromCamera()
-            }
-
-            else if (resultCode == 4) {
-                Log.i("갤러리를 찍어요", "$requestCode")
-                pickFromGallery()
-            }
-
-            else if (requestCode == GALLERY_REQUEST_CODE) {
-                toast("사진 요청 완료")
-                Log.i("사진 받아옴", "$requestCode")
-                val selectedImage = data!!.data as Uri
-                //testimage.setImageURI(selectedImage)
-
-                val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-                // Get the cursor
-                val cursor = contentResolver.query(selectedImage, filePathColumn, null, null, null) as Cursor
-                // Move to first row
-                cursor.moveToFirst()
-                //Get the column index of MediaStore.Images.Media.DATA
-                val columnIndex = cursor.getColumnIndex(filePathColumn[0])
-                //Gets the String value in the column
-                val imgDecodableString = cursor.getString(columnIndex)
-                toast(imgDecodableString)
-                cursor.close()
-                // Set the Image in ImageView after decoding the String
-                testimage.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString))
-            }
-
-            else if (requestCode == CAMERA_REQUEST_CODE) {
-                Log.i("사진 받아옴", cameraFilePath)
-                testimage.setImageURI(Uri.parse(cameraFilePath));
-            }
-
-
-            Log.i("여기까지", "$requestCode $resultCode")
-
-        }
+        camera.newOnActivityResult(requestCode, resultCode, data)
     }
-
-    private fun createImageFile(): File {
-        // Create an image file name
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val imageFileName = "JPEG_" + timeStamp + "_"
-        //This is the directory in which the file will be created. This is the default location of Camera photos
-        val storageDir = File(Environment.getExternalStorageDirectory().getAbsolutePath(), "DCIM")
-
-        if (storageDir.exists()) {
-            Log.i("storage존재", imageFileName + " " + storageDir.absolutePath)
-        }
-        else {
-            try {
-                Log.i("storage없음", storageDir.absolutePath)
-            }
-            catch(ex: IOException) {
-                Log.e("path.mkdirs", ex.toString())
-            }
-        }
-
-        val image = File.createTempFile(
-            imageFileName, /* prefix */
-            ".jpg", /* suffix */
-            storageDir      /* directory */
-        )
-
-        // Save a file: path for using again
-        cameraFilePath = "file://" + image.absolutePath
-        return image
-    }
-
-    fun captureFromCamera() {
-        try {
-            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", createImageFile()))
-
-            Log.i("여기까지", "왔네?")
-            startActivityForResult(intent, CAMERA_REQUEST_CODE)
-        }
-
-        catch (ex: IOException) {
-            ex.printStackTrace()
-        }
-
-    }
-
-    fun pickFromGallery(){
-        //Create an Intent with action as ACTION_PICK
-        val intent =  Intent(Intent.ACTION_PICK)
-        // Sets the type as image/*. This ensures only components of type image are selected
-        intent.setType("image/*");
-        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
-        val mimeTypes = arrayOf("image/jpeg", "image/png")
-        intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes)
-        // Launching the Intent
-        toast("사진을 골라주세요.")
-        startActivityForResult(intent, GALLERY_REQUEST_CODE)
-    }
-    //TODO : 요기까지가 중복...
-
 
 /*            intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", createImageFile()))*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
+        val permissioncheck = PermissionCheck(this, this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love_write_article)
         val cora = intent.getIntExtra("QuestionAnswerArticle", -1)
@@ -182,79 +79,11 @@ class LoveWriteArticle : AppCompatActivity() {
 
 
         lovearticlespicupload.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    android.Manifest.permission.READ_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                //if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                //}
-                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 0)
-
-                if (ContextCompat.checkSelfPermission(
-                        this,
-                        android.Manifest.permission.READ_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
-                    //if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    val intent = Intent(this, com.example.WhateverMyAge.AddcontactActivity::class.java)
-                    startActivityForResult(intent, 1)
-                    //}
-                    //ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 0)
-                } else {
-                    toast("사진을 업로드 하려면 권한이 필요해요.")
-                    finish()
-                }
-            }
-
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    android.Manifest.permission.CAMERA
-                ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
-                    this,
-                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                if (ContextCompat.checkSelfPermission(
-                        this,
-                        android.Manifest.permission.CAMERA
-                    ) != PackageManager.PERMISSION_GRANTED
-                )
-                    ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), 0)
-                if (ContextCompat.checkSelfPermission(
-                        this,
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    ) != PackageManager.PERMISSION_GRANTED
-                )
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                        0
-                    )
-
-                if (ContextCompat.checkSelfPermission(
-                        this,
-                        android.Manifest.permission.CAMERA
-                    ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
-                        this,
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
-                    //CameraUpload.captureFromCamera()
-                    val intent = Intent(this, com.example.WhateverMyAge.CameraOrGallery::class.java)
-                    //intent.putExtra("QuestionOrArticle", 1)
-                    startActivityForResult(intent, 1)
-                } else {
-                    toast("카메라로 업로드 하려면 권한이 필요해요.")
-                    finish()
-                }
-            } else {
+            if (permissioncheck.CameraCheck() == 0 && permissioncheck.GalleryCheck() == 0) {
                 //pickFromGallery()
                 val intent = Intent(this, com.example.WhateverMyAge.CameraOrGallery::class.java)
-                //intent.putExtra("QuestionOrArticle", 1)
                 startActivityForResult(intent, 1)
             }
-
         }
 
 

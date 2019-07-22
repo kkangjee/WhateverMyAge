@@ -177,40 +177,13 @@ class SettingActivity : AppCompatActivity() {
         bt_addcontact.setOnClickListener {
            // if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
 
-                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-                    //if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WRITE_CONTACTS)) {
-                    //}
-                    ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_CONTACTS), 0)
-
-                    if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-                        //if (ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.WRITE_CONTACTS)) {
-                        val intent = Intent(this, com.example.WhateverMyAge.AddcontactActivity::class.java)
-                        startActivity(intent)
-                        //}
-                        //ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_CONTACTS), 0)
-                    }
-                    else
-                        toast("연락처를 저장하려면 연락처 권한이 필요해요.")
-
-                }
-
-               /* requestPermissions(arrayOf(android.Manifest.permission.WRITE_CONTACTS), 0)
-                if (ContextCompat.checkSelfPermission(
-                        this,
-                        android.Manifest.permission.WRITE_CONTACTS
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    toast("연락처 권한을 허락해주세요")
-                }*/
-           // }
-
-
-            else {
-                val intent = Intent(this, com.example.WhateverMyAge.AddcontactActivity::class.java)
-                startActivity(intent)
-            }
+                if (PermissionCheck(this, this).ContactCheck() == 0) {
+                    val intent = Intent(this, com.example.WhateverMyAge.AddcontactActivity::class.java)
+                    startActivity(intent)
+                 }
 
         }
+
         bt_back.setOnClickListener {
             finish()
         }
