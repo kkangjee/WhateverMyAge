@@ -30,7 +30,6 @@ import android.provider.Settings.SettingNotFoundException
 import android.provider.Settings.Secure.LOCATION_MODE
 import android.os.Build
 
-
 fun isLocationEnabled(context: Context): Boolean {
     var locationMode = 0
     val locationProviders: String
@@ -51,12 +50,36 @@ fun isLocationEnabled(context: Context): Boolean {
             android.provider.Settings.Secure.getString(context.contentResolver, android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED)
         return !TextUtils.isEmpty(locationProviders)
     }
-
-
 }
 
-
 class LoveActivity : AppCompatActivity() {
+    fun distance(lat1 : Double, lon1 : Double, lat2 : Double, lon2 : Double, unit : String) : Double {
+
+        var theta = lon1 - lon2;
+        var dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+
+        if (unit == "kilometer") {
+            dist = dist * 1.609344;
+        } else if(unit == "meter"){
+            dist = dist * 1609.344;
+        }
+
+        return (dist);
+    }
+
+    fun deg2rad(deg : Double) : Double {
+        return (deg * Math.PI / 180.0)
+    }
+
+    // This function converts radians to decimal degrees
+    fun rad2deg(rad : Double) : Double {
+        return (rad * 180 / Math.PI)
+    }
+
     var contentlist = arrayListOf(
         LoveArticles("story1", "sarangbang", "오늘은 여기에 놀러 갔어요", "3", "5"),
         LoveArticles("story2", "whats wrong", "멋쟁이 사자처럼 화이팅", "32", "6"),
@@ -123,13 +146,14 @@ class LoveActivity : AppCompatActivity() {
                     val stateName = addresses[0].getAddressLine(1)
                     val countryName = addresses[0].getAddressLine(2)
 
-                    toast(cityName)
+                    var dist = distance(lat, lng, 37.3044, 127.0040, "kilometer")
+
+                    toast("$dist" + "km입니다.")
                 }
             }
         }
 
     }
-
 
 
 
