@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_camera_or_gallery.*
 
 class CameraOrGallery : Activity() {
 
-    val camera = CameraUpload()
+    val camera = CameraUpload(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

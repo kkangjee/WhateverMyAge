@@ -1,6 +1,7 @@
 package com.example.WhateverMyAge
 
 import android.app.Activity
+import android.app.PendingIntent.getActivity
 import android.content.Intent
 import android.database.Cursor
 import android.graphics.BitmapFactory
@@ -9,6 +10,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.FileProvider
 import kotlinx.android.synthetic.main.activity_love_write_article.*
 import java.io.File
@@ -20,7 +22,10 @@ const val GALLERY_REQUEST_CODE = 1
 const val CAMERA_REQUEST_CODE = 2
 var cameraFilePath: String? = null
 
-class CameraUpload : AppCompatActivity()  {
+class CameraUpload (activity : Activity){
+
+    val activity = activity
+
     fun newOnActivityResult (requestCode : Int, resultCode : Int, data: Intent?) {
         Log.i("결과를 받긴 받았네", "$requestCode $resultCode")
         if (resultCode != Activity.RESULT_CANCELED) {
@@ -36,16 +41,16 @@ class CameraUpload : AppCompatActivity()  {
                 pickFromGallery()
             }
 
-            else if (requestCode == GALLERY_REQUEST_CODE && data != null) {
-                toast("사진 요청 완료")
+            else if (requestCode == GALLERY_REQUEST_CODE) {
+                //toast("사진 요청 완료")
                 Log.i("사진 받아옴", "$requestCode")
 
                 galleryImage(data)
             }
 
-            else if (requestCode == CAMERA_REQUEST_CODE && data != null) {
+            else if (requestCode == CAMERA_REQUEST_CODE) {
                 Log.i("사진 받아옴", cameraFilePath)
-                testimage.setImageURI(Uri.parse(cameraFilePath));
+                    activity.testimage.setImageURI(Uri.parse(cameraFilePath));
             }
 
 
@@ -61,17 +66,17 @@ class CameraUpload : AppCompatActivity()  {
 
         val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
         // Get the cursor
-        val cursor = contentResolver.query(selectedImage, filePathColumn, null, null, null) as Cursor
+        val cursor = activity.contentResolver.query(selectedImage, filePathColumn, null, null, null) as Cursor
         // Move to first row
         cursor.moveToFirst()
         //Get the column index of MediaStore.Images.Media.DATA
         val columnIndex = cursor.getColumnIndex(filePathColumn[0])
         //Gets the String value in the column
         val imgDecodableString = cursor.getString(columnIndex)
-        toast(imgDecodableString)
+        activity.toast(imgDecodableString)
         cursor.close()
         // Set the Image in ImageView after decoding the String
-        testimage.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString))
+        activity.testimage.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString))
     }
 
     private fun createImageFile(): File {
@@ -107,10 +112,10 @@ class CameraUpload : AppCompatActivity()  {
     fun captureFromCamera() {
         try {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", createImageFile()))
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID + ".provider", createImageFile()))
 
             Log.i("여기까지", "왔네?")
-            startActivityForResult(intent, CAMERA_REQUEST_CODE)
+            activity.startActivityForResult(intent, CAMERA_REQUEST_CODE)
         }
 
         catch (ex: IOException) {
@@ -129,6 +134,6 @@ class CameraUpload : AppCompatActivity()  {
         intent.putExtra(Intent.EXTRA_MIME_TYPES,mimeTypes)
         // Launching the Intent
         Log.i("사진을 골라주세요.","123")
-        startActivityForResult(intent, GALLERY_REQUEST_CODE)
+        activity.startActivityForResult(intent, GALLERY_REQUEST_CODE)
     }
 }
