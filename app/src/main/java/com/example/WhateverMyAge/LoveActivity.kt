@@ -66,6 +66,7 @@ class LoveActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love)
+        val permissioncheck = PermissionCheck(this, this)
 
         val locationMgr = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val criteria = Criteria()
@@ -76,21 +77,6 @@ class LoveActivity : AppCompatActivity() {
         criteria.isSpeedRequired = false
         criteria.isCostAllowed = true
 
-        //val gpsEnabled = android.provider.Settings.Secure.getString(getContentResolver(), android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED)
-
-        /*
-
-        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-
-            ActivityCompat.requestPermissions( this, arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION),
-                LocationService.MY_PERMISSION_ACCESS_COURSE_LOCATION );
-        }*/
-        //val mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-
-        //fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
-
         val love = LoveArticlesAdapter(this, contentlist)
         lovearticles.adapter = love
 
@@ -99,9 +85,17 @@ class LoveActivity : AppCompatActivity() {
         lovearticles.setHasFixedSize(true)
 
         bt_writeArticle.setOnClickListener {//setting 화면
-            val intent = Intent(this, LoveWriteArticle::class.java)
-            intent.putExtra("QuestionAnswerArticle", 2)  //게시글 쓰기
-            startActivity(intent)
+
+            if (signedin == 0) {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
+
+            else if (signedin == 1) {
+                val intent = Intent(this, LoveWriteArticle::class.java)
+                intent.putExtra("QuestionAnswerArticle", 2)  //게시글 쓰기
+                startActivity(intent)
+            }
         }
 
         bt_back.setOnClickListener{
@@ -110,22 +104,7 @@ class LoveActivity : AppCompatActivity() {
         }
 
         bt_locationselect.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // No one provider activated: prompt GPS
-                /* if (mProviderName == null || mProviderName.equals("")) {
-                     startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));*/
-                toast("위치 권한을 허용하지 않으면 지역별 친구 찾기를 할 수 없어요.")
-                val permission_list = arrayOf(
-                    //android.Manifest.permission.WRITE_CONTACTS,
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION
-                )
-
-                requestPermissions(permission_list, 0)
-                //, android.Manifest.permission.ACCESS_FINE_LOCATION)
-            }
-            else {
+            if (permissioncheck.LocationCheck() == 0){
                 if (!isLocationEnabled(this)) {
                     toast("위치 사용을 켜주세요.")
                     val intent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)

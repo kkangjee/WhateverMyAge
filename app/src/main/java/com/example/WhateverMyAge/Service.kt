@@ -8,6 +8,7 @@ import retrofit2.http.*
 
 
 data class RegisterForm(
+    var pk : String? = null,
     var id: String?=null,
     var username: String?=null,
     var password1: String?=null,
@@ -22,20 +23,24 @@ data class RegisterForm(
 //https://frozen-cove-44670.herokuapp.com/api/v1/registration/
 interface Service {
 
-
-
     @GET("/api/v1/users/{id}")
-    fun getReg(
+    fun getReg(                             
         @Path("username")username: String
        // @Path("pw")pw:String
     ):Call<RegisterForm>
 
+    
+    
+    //회원이름으로 검색 (미구현 0722)
     @GET("/api/v1/users/{username}")
     fun getUser(
         @Path("username")username: String
         // @Path("pw")pw:String
     ):Call<RegisterForm>
 
+    
+    
+    //회원가입
     @FormUrlEncoded
     @POST("/api/v1/registration/")
     fun postReg(
@@ -44,6 +49,8 @@ interface Service {
         @Field("password2") password2: String?
     ):Call<RegisterForm>
 
+
+    //로그인
     @FormUrlEncoded
     @POST("/api/v1/login/")
     fun login(

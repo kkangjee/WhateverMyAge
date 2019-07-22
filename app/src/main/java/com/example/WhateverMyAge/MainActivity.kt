@@ -21,8 +21,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        toast("$signedin")
-
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
@@ -73,7 +71,6 @@ class MainActivity : AppCompatActivity() {
         num = random.nextInt(5)
         quote.text = quotelist[num].Quote
         quotedfrom.text = quotelist[num].QuotedFrom
-        toast("$signedin")
 
 
     }

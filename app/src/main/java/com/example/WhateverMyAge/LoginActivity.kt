@@ -47,18 +47,7 @@ class LoginActivity : AppCompatActivity() {
                     code = response?.code()
                     if (response?.code().toString() == "200") {
                         toast("로그인 성공")
-                        finish()
-                        server.getUser(
-                            ID.text.toString()
-                        ).enqueue(object : Callback<RegisterForm> {
-                            override fun onFailure(call: Call<RegisterForm>, t:Throwable) {
-                                Log.e("서버와 통신에 실패했습니다.", "Error!")
-                            }
-                            override fun onResponse(call: Call<RegisterForm>, response: Response<RegisterForm>) {
-                                var user = response?.raw().toString()
-                                test.text = user
-                            }
-                        })
+                       finish()
                         signedin = 1
                         signedinname = id
                     }
