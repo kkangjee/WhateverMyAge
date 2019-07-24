@@ -11,9 +11,13 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 var signedin = 0
 var signedinname = ""
+
+class LoginData (username : String, password : String)
+
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,20 +26,22 @@ class LoginActivity : AppCompatActivity() {
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://frozen-cove-44670.herokuapp.com")
+            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
+
             .build()
 
         var server = retrofit.create(Service::class.java)
 
         bt_loginsubmit.setOnClickListener {
-            var code = 0
+            //var code = 0
             //TODO : 로그인
 
             var id = ID.text.toString()
             var pw = PW.text.toString()
 
             server.login(
-                id,
+               id,
                 "",
                 pw
             ).enqueue(object : Callback<RegisterForm> {
@@ -44,16 +50,27 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun onResponse(call: Call<RegisterForm>, response: Response<RegisterForm>) {
-                    code = response?.code()
+                    //code = response?.code()
+
+                    raw.text = response?.raw().toString()
+                    code.text = response?.code().toString()
+                    body.text = response?.body().toString()
+
+
                     if (response?.code().toString() == "200") {
                         toast("로그인 성공")
-                       finish()
+
+                       // test.text = response?.body().toString()
+                      //  finish()
+
                         signedin = 1
                         signedinname = id
                     }
                     else
                         toast("로그인 실패")
                 }
+
+
             })
         }
 

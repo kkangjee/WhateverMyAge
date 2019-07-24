@@ -140,6 +140,26 @@
 
         />
 
+<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/raw"
+        android:layout_margin="10dp"
+/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/code"
+                android:layout_margin="10dp"
+        />
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/body"
+                android:layout_margin="10dp"
+        />
+
+
 
     </LinearLayout>
 

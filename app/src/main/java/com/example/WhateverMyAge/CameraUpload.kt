@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.PendingIntent.getActivity
 import android.content.Intent
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
@@ -21,8 +22,10 @@ import java.util.*
 const val GALLERY_REQUEST_CODE = 1
 const val CAMERA_REQUEST_CODE = 2
 var cameraFilePath: String? = null
+var encoded : String? = null
+var file : File? = null
 
-class CameraUpload (activity : Activity){
+class CameraUpload (activity : Activity) {
 
     val activity = activity
 
@@ -45,6 +48,7 @@ class CameraUpload (activity : Activity){
         val selectedImage = data!!.data as Uri
         //testimage.setImageURI(selectedImage)
 
+        file = File(selectedImage.getPath())
         val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
         // Get the cursor
         val cursor = activity.contentResolver.query(selectedImage, filePathColumn, null, null, null) as Cursor
@@ -57,7 +61,12 @@ class CameraUpload (activity : Activity){
         activity.toast(imgDecodableString)
         cursor.close()
         // Set the Image in ImageView after decoding the String
-        activity.testimage.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString))
+        var bitmapImage = BitmapFactory.decodeFile(imgDecodableString)
+
+        encoded = LoveWriteArticle().filePathToBitmap(bitmapImage)
+
+
+        activity.testimage.setImageBitmap(bitmapImage)
     }
 
     private fun createImageFile(): File {

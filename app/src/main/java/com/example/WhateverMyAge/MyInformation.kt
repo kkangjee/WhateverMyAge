@@ -17,5 +17,9 @@ class MyInformation : AppCompatActivity() {
             signedin = 0
             finish()
         }
+
+        bt_back.setOnClickListener {
+            finish()
+        }
     }
 }
