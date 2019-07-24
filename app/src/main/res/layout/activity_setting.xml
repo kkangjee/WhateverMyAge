@@ -103,7 +103,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="30dp" android:id="@+id/bt_addcontact"/>
-
+            <Button
+                    android:text="화면이 자동으로 돌아가요"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="30dp" android:id="@+id/bt_rotation"/>
 
 
         </LinearLayout>
