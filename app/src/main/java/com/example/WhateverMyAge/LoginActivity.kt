@@ -47,7 +47,10 @@ class LoginActivity : AppCompatActivity() {
                     code = response?.code()
                     if (response?.code().toString() == "200") {
                         toast("로그인 성공")
-                       finish()
+
+                       // test.text = response?.body().toString()
+                        finish()
+
                         signedin = 1
                         signedinname = id
                     }

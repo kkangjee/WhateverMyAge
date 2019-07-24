@@ -1,11 +1,10 @@
 package com.example.WhateverMyAge
 
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
-
-
-
 
 data class RegisterForm(
     var pk : String? = null,
@@ -50,6 +49,12 @@ interface Service {
     ):Call<RegisterForm>
 
 
+    @FormUrlEncoded
+    @GET("/api/v1/login/")
+    fun getID (
+
+    ):Call<RegisterForm>
+
     //로그인
     @FormUrlEncoded
     @POST("/api/v1/login/")
@@ -57,6 +62,7 @@ interface Service {
         @Field("username") username: String?,
         @Field("email") email: String?,
         @Field("password") password1: String?
+
     ):Call<RegisterForm>
 
 
@@ -74,4 +80,12 @@ interface Service {
         @Path("id")id: String?
     ):Call<RegisterForm>
 
+    //@FormUrlEncoded
+    @Multipart
+    @PUT("/api/v1/{id}")
+    fun uploadPic (
+        @Path("id") id: String?,
+        @Part file : MultipartBody.Part,
+        @Part("name") requestBody : RequestBody
+    ):Call<RegisterForm>
 }
