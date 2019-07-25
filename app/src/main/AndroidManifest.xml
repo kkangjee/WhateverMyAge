@@ -32,18 +32,18 @@
         </activity>
         <activity android:name=".SignUpActivity">
         </activity>
-        <activity android:name=".Instruction">
+        <activity android:name=".Guide.Instruction.Instruction">
         </activity>
-        <activity android:name=".explanation_fragment">
+        <activity android:name="com.example.WhateverMyAge.Guide.Instruction.explanation_fragment">
         </activity>
-        <activity android:name=".WriteComment">
+        <activity android:name=".Love.WriteComment">
         </activity>
-        <activity android:name=".Comments">
+        <activity android:name=".Love.Comments">
         </activity>
         <activity android:name=".comments_adapter">
         </activity>
         <activity
-                android:name=".CameraOrGallery"
+                android:name=".Main.CameraOrGallery"
                 android:theme="@android:style/Theme.Dialog">
         </activity>
 
@@ -58,23 +58,23 @@
             </meta-data>
         </provider>
 
-        <activity android:name=".AddcontactActivity">
+        <activity android:name=".Guide.AddcontactActivity">
         </activity>
-        <activity android:name=".CameraUpload">
+        <activity android:name=".Main.CameraUpload">
         </activity>
-        <activity android:name=".Instruction">
+        <activity android:name=".Guide.Instruction.Instruction">
         </activity>
-        <activity android:name=".FoodFragment">
+        <activity android:name=".TravelAndFood.FoodFragment">
         </activity>
-        <activity android:name=".TravelFragment">
+        <activity android:name=".TravelAndFood.TravelFragment">
         </activity>
-        <activity android:name=".TravelAndFoodAdapter">
+        <activity android:name=".TravelAndFood.TravelAndFoodAdapter">
         </activity>
-        <activity android:name=".TravelAndFood">
+        <activity android:name=".TravelAndFood.TravelAndFood">
         </activity>
-        <activity android:name=".Explanation">
+        <activity android:name="com.example.WhateverMyAge.Guide.Instruction.Explanation">
         </activity>
-        <activity android:name=".GuideActivity">
+        <activity android:name="com.example.WhateverMyAge.Guide.GuideActivity">
         </activity>
         <activity android:name=".FAQAdapter">
         </activity>
@@ -82,23 +82,23 @@
         </activity>
         <activity android:name=".QuestionsAdapter">
         </activity>
-        <activity android:name=".QnA">
+        <activity android:name="com.example.WhateverMyAge.Guide.Questions.QnA">
         </activity>
-        <activity android:name=".LoveWriteArticle">
+        <activity android:name=".Love.LoveWriteArticle">
         </activity>
         <activity android:name=".NotyetActivicy">
         </activity>
         <activity android:name=".LoginActivity">
         </activity>
-        <activity android:name=".SettingActivity">
+        <activity android:name="com.example.WhateverMyAge.Guide.SettingActivity">
         </activity>
         <activity
                 android:name=".ui.login.SettingActivity"
                 android:label="@string/title_activity_setting">
         </activity>
-        <activity android:name=".LoveActivity">
+        <activity android:name=".Love.LoveActivity">
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
