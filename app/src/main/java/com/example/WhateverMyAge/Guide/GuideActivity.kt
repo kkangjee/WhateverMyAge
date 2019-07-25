@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.example.WhateverMyAge.Guide.Instruction.Explanation
 import com.example.WhateverMyAge.R
 import com.example.WhateverMyAge.Guide.Questions.QnA
+import com.example.WhateverMyAge.Guide.Settings.SettingActivity
 import kotlinx.android.synthetic.main.activity_guide.*
 import kotlinx.android.synthetic.main.activity_guide.bt_back
 

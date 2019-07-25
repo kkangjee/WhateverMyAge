@@ -1,4 +1,4 @@
-package com.example.WhateverMyAge.Guide
+package com.example.WhateverMyAge.Guide.Settings
 
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException

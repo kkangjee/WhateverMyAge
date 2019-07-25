@@ -1,6 +1,6 @@
 package com.example.WhateverMyAge
 
-import com.example.WhateverMyAge.Guide.toast
+import com.example.WhateverMyAge.Guide.Settings.toast
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.WhateverMyAge.Main.ConnectServer

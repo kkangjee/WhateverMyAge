@@ -58,7 +58,7 @@
             </meta-data>
         </provider>
 
-        <activity android:name=".Guide.AddcontactActivity">
+        <activity android:name=".Guide.Settings.AddcontactActivity">
         </activity>
         <activity android:name=".Main.CameraUpload">
         </activity>
@@ -90,7 +90,7 @@
         </activity>
         <activity android:name=".LoginActivity">
         </activity>
-        <activity android:name="com.example.WhateverMyAge.Guide.SettingActivity">
+        <activity android:name="com.example.WhateverMyAge.Guide.Settings.SettingActivity">
         </activity>
         <activity
                 android:name=".ui.login.SettingActivity"

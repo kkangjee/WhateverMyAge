@@ -1,6 +1,6 @@
 package com.example.WhateverMyAge.Love
 
-import com.example.WhateverMyAge.Guide.toast
+import com.example.WhateverMyAge.Guide.Settings.toast
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

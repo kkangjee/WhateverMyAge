@@ -1,6 +1,6 @@
 package com.example.WhateverMyAge.Main
 
-import com.example.WhateverMyAge.Guide.toast
+import com.example.WhateverMyAge.Guide.Settings.toast
 import android.app.Activity
 import android.content.Intent
 import android.database.Cursor
