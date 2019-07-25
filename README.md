@@ -1,6 +1,6 @@
 # "LikeLion 지훈팀 리포입니다"#
+팀원 : 강지훈, 진교준, 김동현, 김형범, 김종은
 =======
-
 ***
  0709 first commit
  
@@ -14,7 +14,7 @@
  
  0722 패키지명 'WhateverMyAge'로 변경
  
- 0725 Login and get id (success) and My information (success) - finally!
+ 0725 로그인 최종 성공
 ***
 
 
