@@ -21,7 +21,7 @@ class SignUpActivity : AppCompatActivity() {
         bt_back.setOnClickListener {
             finish()
         }
-
+        //
         bt_signup.setOnClickListener {
             //회원가입
             val ID = regID.text.toString()
