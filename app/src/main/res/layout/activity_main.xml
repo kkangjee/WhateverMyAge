@@ -9,8 +9,10 @@
         android:orientation="vertical">
 
     <TextView
+
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
+
             android:text="오늘의 명언"
             android:textStyle="bold"
             android:textSize="25dp"
@@ -18,14 +20,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/todayQuote"/>
 
-
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="30dp"
             android:id="@+id/quote"
-            android:text="당신을 죽일 수 없는 것은 당신을 더 강하게 만든다."
             android:textStyle="bold"
+            android:text="당신을 죽일 수 없는 것은 당신을 더 강하게 만든다."
             android:layout_margin="10dp"
     />
     <TextView
@@ -36,8 +37,10 @@
             android:textSize="25dp"
             android:textStyle="bold"
             android:text="- 프리드리히 니체"
+
             android:layout_marginRight="10dp"
             android:layout_marginBottom="15dp"
+
     />
 
 
@@ -61,7 +64,6 @@
                 android:layout_weight="1"
                 android:textSize="40dp"
                 android:id="@+id/bt_guide" style="@style/Widget.AppCompat.Button"
-
         />
 
         <Button

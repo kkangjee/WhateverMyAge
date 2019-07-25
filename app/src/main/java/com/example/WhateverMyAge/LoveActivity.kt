@@ -114,7 +114,7 @@ class LoveActivity : AppCompatActivity() {
                 startActivity(intent)
             }
 
-            else if (signedin == 1) {
+            else {
                 val intent = Intent(this, LoveWriteArticle::class.java)
                 intent.putExtra("QuestionAnswerArticle", 2)  //게시글 쓰기
                 startActivity(intent)

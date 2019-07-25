@@ -9,6 +9,9 @@
         <!-- No Title Bar-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <!-- Custom font style 일괄적용 -->
+
         <item name="android:textViewStyle">@style/TextViewStyle</item>
         <item name="android:editTextStyle">@style/EditTextStyle</item>
         <item name="android:buttonStyle">@style/ButtonStyle</item>
@@ -24,7 +27,9 @@
     </style>
 
     <style name="ButtonStyle" parent="@style/Widget.AppCompat.Button">
+
         <item name="android:fontFamily">@font/font_family</item>
+
 
     </style>
 

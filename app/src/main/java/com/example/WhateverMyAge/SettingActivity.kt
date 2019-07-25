@@ -185,17 +185,17 @@ class SettingActivity : AppCompatActivity() {
 
         }
 
-        bt_back.setOnClickListener {
-            finish()
-        }
-
         bt_rotation.setOnClickListener{
             if  (android.provider.Settings.System.getInt(getContentResolver(),Settings.System.ACCELEROMETER_ROTATION, 0) == 1) {
                 android.provider.Settings.System.putInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0)
                 toast("화면 자동 회전이 꺼졌습니다.")
-            }
+                }
             else
                 toast("화면 자동 회전이 이미 꺼져있어요.")
+            }
+
+        bt_back.setOnClickListener {
+            finish()
         }
 
     }

@@ -60,10 +60,6 @@ class LoveWriteArticle : AppCompatActivity() {
         }
     }
 
-
-
-    //TODO : CameraUpload 클래스랑 합치기....
-
     val camera = CameraUpload(this)
 
     override fun onActivityResult (requestCode : Int, resultCode : Int, data: Intent?) {
@@ -135,21 +131,20 @@ class LoveWriteArticle : AppCompatActivity() {
                 val name = file!!.getName()
 
                // Log.i("file path", "$cameraFilePath")
-
                 //이미지 업로드 via MultiPart (failed)
-                val json = Gson().toJson(RegisterForm())
+              //  val json = Gson().toJson(RegisterForm())
                 val fileReqBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
                 val part = MultipartBody.Part.createFormData("user_photo", name, fileReqBody)
                 Log.i("file name", "$name")
-                val description = RequestBody.create(MediaType.parse("multipart/form-data"), json)
+              //  val description = RequestBody.create(MediaType.parse("multipart/form-data"), json)
                 val descriptionPart = RequestBody.create(MultipartBody.FORM, "user_photo")
 
                 //val bitmapImage = filePathToBitmap(cameraFilePath!!)
 
                 server.uploadPic(
                     "10",
-                    part,
-                    descriptionPart
+                    file!!
+                    //descriptionPart
                 ).enqueue(object : Callback<RegisterForm> {
                     override fun onFailure(call: Call<RegisterForm>, t: Throwable) {
                         Log.e("서버와 통신에 실패했습니다.", "Error!")
