@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }
-            else if (signedin == 1) {
+            else  {
                 val intent = Intent(this, MyInformation::class.java)
                 //intent.putExtra("username", username)
                 startActivity(intent)
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         if (signedin == 0)
             bt_login.text = "로그인"
-        else if (signedin == 1)
+        else
             bt_login.text = "내 정보"
         num = random.nextInt(5)
         quote.text = quotelist[num].Quote

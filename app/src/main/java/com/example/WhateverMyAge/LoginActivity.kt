@@ -14,24 +14,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 var signedin = 0
-var signedinname = ""
-
-class LoginData (username : String, password : String)
-
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://frozen-cove-44670.herokuapp.com")
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-
-            .build()
-
-        var server = retrofit.create(Service::class.java)
 
         bt_loginsubmit.setOnClickListener {
             //var code = 0
@@ -40,38 +27,7 @@ class LoginActivity : AppCompatActivity() {
             var id = ID.text.toString()
             var pw = PW.text.toString()
 
-            server.login(
-               id,
-                "",
-                pw
-            ).enqueue(object : Callback<RegisterForm> {
-                override fun onFailure(call: Call<RegisterForm>, t: Throwable) {
-                    Log.e("서버와 통신에 실패했습니다.", "Error!")
-                }
-
-                override fun onResponse(call: Call<RegisterForm>, response: Response<RegisterForm>) {
-                    //code = response?.code()
-
-                    raw.text = response?.raw().toString()
-                    code.text = response?.code().toString()
-                    body.text = response?.body().toString()
-
-
-                    if (response?.code().toString() == "200") {
-                        toast("로그인 성공")
-
-                       // test.text = response?.body().toString()
-                      //  finish()
-
-                        signedin = 1
-                        signedinname = id
-                    }
-                    else
-                        toast("로그인 실패")
-                }
-
-
-            })
+            ConnectServer(this).Login(id, pw)
         }
 
         bt_back.setOnClickListener{ //
@@ -91,8 +47,5 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
-
-
     }
-
 }
