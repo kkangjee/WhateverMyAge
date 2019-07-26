@@ -14,7 +14,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class ConnectServer(activity: Activity) {
+
     var activity = activity
+
     val retrofit = Retrofit.Builder()
         .baseUrl("https://frozen-cove-44670.herokuapp.com")
         .addConverterFactory(ScalarsConverterFactory.create())
@@ -37,10 +39,10 @@ class ConnectServer(activity: Activity) {
 
             override fun onResponse(call: Call<LoginForm>, response: Response<LoginForm>) {
                 //code = response?.code()
-                if (response?.code() == 200) {
+                if (response.code() == 200) {
                     activity.toast("로그인에 성공했습니다.")
                     // test.text = response?.body().toString()
-                    signedin = response?.body()?.user?.id!!.toInt()
+                    signedin = response.body()?.user?.id!!.toInt()
                     Log.i("id", "$signedin")
                     activity.finish()
                 }
@@ -59,10 +61,10 @@ class ConnectServer(activity: Activity) {
 
             override fun onResponse(call: Call<RegisterForm>, response: Response<RegisterForm>) {
                 //code = response?.code()
-                if (response?.code() == 200) {
+                if (response.code() == 200) {
                     //activity.toast("로그인 성공")
                     // test.text = response?.body().toString()
-                    activity.username.text = "내 이름 : " + response?.body()?.username!!.toString() + ", 회원번호 : $signedin"
+                    activity.username.text = "내 이름 : " + response.body()?.username!!.toString() + ", 회원번호 : $signedin"
                 }
             }
         })

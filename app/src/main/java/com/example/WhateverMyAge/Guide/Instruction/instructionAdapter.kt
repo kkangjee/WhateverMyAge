@@ -12,23 +12,19 @@ class InstructionAdapter  (fm: FragmentManager): FragmentStatePagerAdapter(fm) {
 
     override fun getItem(p0: Int): Fragment { //viewpager 보여줄 뷰 객체 반환
 
-        var num = p0%6
+        val num = p0
         return when(num) {
-            0-> HowToMessageA()    //p 값이 0이면 AFragment로 갈래
-            1-> HowToMessageB()
-            2-> HowToMessageC()
-            3-> HowToMessageD()
-            4-> HowToMessageE()
-            5-> HowToMessageF()
-            else -> HowToMessageA()
+            0-> InstructionA()    //p 값이 0이면 AFragment로 갈래
+            1-> InstructionB()
+            2-> InstructionC()
+            3-> InstructionD()
+            4-> InstructionE()
+            5-> InstructionF()
+            else -> InstructionA()
         }
     }
 
     override fun getCount() = cnt//뷰페이저에서 보여줄 뷰의 개수
-
-    fun addFragment() {
-
-    }
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position){

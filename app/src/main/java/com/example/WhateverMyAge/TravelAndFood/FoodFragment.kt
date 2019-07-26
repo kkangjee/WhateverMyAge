@@ -74,11 +74,5 @@ class FoodFragment : Fragment(){
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.dalbodre.kr/"))
             startActivity(intent)
         }
-        //tvFragmentMain.setImageResource(R.drawable.avengers)     //text 대신 tv~~.ImageView = drawable.. 하면 됨
-        //View v = getView()
     }
-
-
-
-
 }

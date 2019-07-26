@@ -11,6 +11,7 @@ import android.location.Geocoder
 import java.util.*
 import android.location.LocationManager
 import android.location.Criteria
+import android.location.Location
 import android.text.TextUtils
 import android.provider.Settings.SettingNotFoundException
 import android.os.Build
@@ -20,52 +21,50 @@ import com.example.WhateverMyAge.R
 import com.example.WhateverMyAge.signedin
 
 fun isLocationEnabled(context: Context): Boolean {
-    var locationMode = 0
-    val locationProviders: String
+    val locationMode: Int
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-        try {
-            locationMode = android.provider.Settings.Secure.getInt(context.contentResolver, android.provider.Settings.Secure.LOCATION_MODE)
+    try {
+        locationMode = android.provider.Settings.Secure.getInt(
+            context.contentResolver,
+            android.provider.Settings.Secure.LOCATION_MODE
+        )
 
-        } catch (e: SettingNotFoundException) {
-            e.printStackTrace()
-            return false
-        }
-
-        return locationMode != android.provider.Settings.Secure.LOCATION_MODE_OFF
-
-    } else {
-        locationProviders =
-            android.provider.Settings.Secure.getString(context.contentResolver, android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED)
-        return !TextUtils.isEmpty(locationProviders)
+    } catch (e: SettingNotFoundException) {
+        e.printStackTrace()
+        return false
     }
+
+    return locationMode != android.provider.Settings.Secure.LOCATION_MODE_OFF
 }
 
 class LoveActivity : AppCompatActivity() {
-    fun distance(lat1 : Double, lon1 : Double, lat2 : Double, lon2 : Double, unit : String) : Double {
+    fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double, unit: String): Double {
 
-        var theta = lon1 - lon2;
-        var dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        val theta = lon1 - lon2
+        var dist =
+            Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(
+                deg2rad(theta)
+            )
 
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
+        dist = Math.acos(dist)
+        dist = rad2deg(dist)
+        dist = dist * 60 * 1.1515
 
         if (unit == "kilometer") {
-            dist = dist * 1.609344;
-        } else if(unit == "meter"){
-            dist = dist * 1609.344;
+            dist = dist * 1.609344
+        } else if (unit == "meter") {
+            dist = dist * 1609.344
         }
 
-        return (dist);
+        return (dist)
     }
 
-    fun deg2rad(deg : Double) : Double {
+    fun deg2rad(deg: Double): Double {
         return (deg * Math.PI / 180.0)
     }
 
     // This function converts radians to decimal degrees
-    fun rad2deg(rad : Double) : Double {
+    fun rad2deg(rad: Double): Double {
         return (rad * 180 / Math.PI)
     }
 
@@ -74,7 +73,8 @@ class LoveActivity : AppCompatActivity() {
         LoveArticles("story2", "whats wrong", "멋쟁이 사자처럼 화이팅", "32", "6"),
         LoveArticles("story3", "with my age", "내 나이가 어때서", "9", "5"),
         LoveArticles("story4", "lets do this", "ㅎㅎㅎ", "7", "15")
-        )
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love)
@@ -96,27 +96,26 @@ class LoveActivity : AppCompatActivity() {
         lovearticles.layoutManager = lm
         lovearticles.setHasFixedSize(true)
 
-        bt_writeArticle.setOnClickListener {//setting 화면
+        bt_writeArticle.setOnClickListener {
+            //setting 화면
 
             if (signedin == 0) {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
-            }
-
-            else {
+            } else {
                 val intent = Intent(this, LoveWriteArticle::class.java)
                 intent.putExtra("QuestionAnswerArticle", 2)  //게시글 쓰기
                 startActivity(intent)
             }
         }
 
-        bt_back.setOnClickListener{
+        bt_back.setOnClickListener {
             finish()
 
         }
 
         bt_locationselect.setOnClickListener {
-            if (permissioncheck.LocationCheck() == 0){
+            if (permissioncheck.LocationCheck() == 0) {
                 if (!isLocationEnabled(this)) {
                     toast("위치 사용을 켜주세요.")
                     val intent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
@@ -124,26 +123,28 @@ class LoveActivity : AppCompatActivity() {
                 } else {
                     val bestProvider = locationMgr.getBestProvider(criteria, true)
 
-                    val gps = locationMgr.getLastKnownLocation(bestProvider)
+                    var gps = locationMgr.getLastKnownLocation(bestProvider)!!
 
                     val lat = gps.getLatitude()
                     val lng = gps.getLongitude()
-                    val gcd = Geocoder(this, Locale.getDefault())
-                    val addresses = gcd.getFromLocation(lat, lng, 1)
 
-                    val cityName = addresses[0].getAddressLine(0)
-                    val stateName = addresses[0].getAddressLine(1)
-                    val countryName = addresses[0].getAddressLine(2)
+                    //주소 출력
+//                    val gcd = Geocoder(this, Locale.getDefault())
+//                    val addresses = gcd.getFromLocation(lat, lng, 1)
+//
+//                    val cityName = addresses[0].getAddressLine(0)
+//                    val stateName = addresses[0].getAddressLine(1)
+//                    val countryName = addresses[0].getAddressLine(2)
 
                     var dist = distance(lat, lng, 37.3044, 127.0040, "kilometer")
 
                     toast("$dist" + "km입니다.")
+
                 }
             }
         }
 
     }
-
 
 
 }

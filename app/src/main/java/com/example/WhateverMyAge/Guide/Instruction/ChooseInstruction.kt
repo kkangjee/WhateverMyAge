@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_explanation.*
 import kotlinx.android.synthetic.main.activity_love.bt_back
 
 
-class Explanation : AppCompatActivity() {
+class ChooseInstruction : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

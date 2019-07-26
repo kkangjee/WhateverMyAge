@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.WhateverMyAge.Guide.Instruction.Explanation"
+        tools:context="com.example.WhateverMyAge.Guide.Instruction.ChooseInstruction"
         android:orientation="vertical">
 
     <LinearLayout
@@ -30,8 +30,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#8BC34A"
-                android:text="스마트폰 설명서"
-                android:textSize="30dp"
+                android:text="설명서"
+                android:textSize="30sp"
                 android:textColor="#fff"
                 android:padding="10dp"
         />
@@ -42,13 +42,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:text="모르는 게 있으신가요?\n안내서 -> 질문하기 에서 \n질문을 남겨주세요!"
     />
 
     <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
     >
         <LinearLayout
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="카카오톡에서 메시지 보내는 법"
-            android:textSize="26dp"
+            android:textSize="26sp"
     />
 
     <Button
@@ -72,35 +72,35 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="카카오톡에서 친구를 빨리 찾는 법"
-            android:textSize="26dp"
+            android:textSize="26sp"
     />
     <Button
             android:id="@+id/bt_howtopic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="카카오톡에서 사진 보내는 법"
-            android:textSize="28dp"
+            android:textSize="28sp"
     />
     <Button
             android:id="@+id/bt_howtoplayyoutube"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="유튜브 동영상 보는 법"
-            android:textSize="28dp"
+            android:textSize="28sp"
     />
     <Button
             android:id="@+id/bt_howtosaveyoutube"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="유튜브에서 동영상 저장하기"
-            android:textSize="28dp"
+            android:textSize="28sp"
     />
     <Button
             android:id="@+id/bt_howtoyoutubecomment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="유튜브에서 댓글 달기"
-            android:textSize="28dp"
+            android:textSize="28sp"
     />
 
     <Button
@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/bt_howtocontact"
             android:text="연락처에 있는 사람한테 전화하기"
-            android:textSize="28dp"
+            android:textSize="28sp"
     />
         </LinearLayout>
     </ScrollView>

@@ -3,7 +3,7 @@ package com.example.WhateverMyAge.Guide
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.WhateverMyAge.Guide.Instruction.Explanation
+import com.example.WhateverMyAge.Guide.Instruction.ChooseInstruction
 import com.example.WhateverMyAge.R
 import com.example.WhateverMyAge.Guide.Questions.QnA
 import com.example.WhateverMyAge.Guide.Settings.SettingActivity
@@ -27,7 +27,7 @@ class GuideActivity : AppCompatActivity() {
         }
 
         bt_explanation.setOnClickListener {//설명서
-            val intent = Intent(this, Explanation::class.java)
+            val intent = Intent(this, ChooseInstruction::class.java)
             startActivity(intent)
         }
 
