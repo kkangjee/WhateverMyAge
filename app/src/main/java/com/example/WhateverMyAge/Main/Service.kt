@@ -28,7 +28,7 @@ data class Body (
 interface Service {
 
     //내 정보 받아오기
-    @GET("/api/v1/{id}")
+    @GET("/api/v1/users/{id}")
     fun getReg(                             
         @Path("id") id: Int
        // @Path("pw")pw:String
@@ -36,7 +36,7 @@ interface Service {
 
     //회원가입
     @FormUrlEncoded
-    @POST("/api/v1/registration/")
+    @POST("/api/v1/users/registration/")
     fun postReg(
         @Field("username") username: String?,
         @Field("password1") password1: String?,
@@ -45,7 +45,7 @@ interface Service {
 
     //로그인
     @FormUrlEncoded
-    @POST("/api/v1/login/")
+    @POST("/api/v1/users/login/")
     fun login(
         @Field("username") username: String?,
         @Field("email") email: String?,

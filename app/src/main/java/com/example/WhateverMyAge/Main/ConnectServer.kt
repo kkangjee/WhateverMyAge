@@ -18,7 +18,7 @@ class ConnectServer(activity: Activity) {
     var activity = activity
 
     val retrofit = Retrofit.Builder()
-        .baseUrl("https://frozen-cove-44670.herokuapp.com")
+        .baseUrl("https://frozen-cove-44670.herokuapp.com/")
         .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
 
