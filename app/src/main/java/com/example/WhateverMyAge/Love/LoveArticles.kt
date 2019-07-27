@@ -10,7 +10,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import com.example.WhateverMyAge.R
 
-class LoveArticles (val Userpic : String, val Username:String, val LoveContents : String, val Like : String, val Comments : String)
+class LoveArticles (var Userpic : String, var Username:String, var LoveContents : String, var Like : String, var Comments : String)
 
 class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<LoveArticles>) :
         RecyclerView.Adapter<LoveArticlesAdapter.Holder>() {

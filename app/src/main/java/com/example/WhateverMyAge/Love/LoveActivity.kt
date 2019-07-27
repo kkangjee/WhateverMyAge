@@ -16,6 +16,7 @@ import android.text.TextUtils
 import android.provider.Settings.SettingNotFoundException
 import android.os.Build
 import com.example.WhateverMyAge.LoginActivity
+import com.example.WhateverMyAge.Main.ConnectServer
 import com.example.WhateverMyAge.Main.PermissionCheck
 import com.example.WhateverMyAge.R
 import com.example.WhateverMyAge.signedin
@@ -68,12 +69,13 @@ class LoveActivity : AppCompatActivity() {
         return (rad * 180 / Math.PI)
     }
 
-    var contentlist = arrayListOf(
-        LoveArticles("story1", "sarangbang", "오늘은 여기에 놀러 갔어요", "3", "5"),
-        LoveArticles("story2", "whats wrong", "멋쟁이 사자처럼 화이팅", "32", "6"),
-        LoveArticles("story3", "with my age", "내 나이가 어때서", "9", "5"),
-        LoveArticles("story4", "lets do this", "ㅎㅎㅎ", "7", "15")
-    )
+//    var contentlist = arrayListOf(
+//        LoveArticles("story1", "sarangbang", "오늘은 여기에 놀러 갔어요", "3", "5"),
+//        LoveArticles("story2", "whats wrong", "멋쟁이 사자처럼 화이팅", "32", "6"),
+//        LoveArticles("story3", "with my age", "내 나이가 어때서", "9", "5"),
+//        LoveArticles("story4", "lets do this", "ㅎㅎㅎ", "7", "15")
+//    )
+    var contentlist =  ConnectServer(this).postList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,7 +96,7 @@ class LoveActivity : AppCompatActivity() {
 
         val lm = LinearLayoutManager(this)
         lovearticles.layoutManager = lm
-        lovearticles.setHasFixedSize(true)
+        //lovearticles.setHasFixedSize(true)
 
         bt_writeArticle.setOnClickListener {
             //setting 화면
@@ -143,8 +145,5 @@ class LoveActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
-
-
 }

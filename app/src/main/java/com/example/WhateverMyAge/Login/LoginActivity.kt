@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.bt_back
 
 var signedin = 0
+var user_name = ""
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +27,6 @@ class LoginActivity : AppCompatActivity() {
 
         bt_back.setOnClickListener{ //
             finish()
-
         }
 
         bt_cantfindid.setOnClickListener {

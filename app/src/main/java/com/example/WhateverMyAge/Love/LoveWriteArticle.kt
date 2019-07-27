@@ -51,12 +51,7 @@ class LoveWriteArticle : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://frozen-cove-44670.herokuapp.com")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        var server = retrofit.create(Service::class.java)
+        val connect = ConnectServer(this)
 
         val permissioncheck = PermissionCheck(this, this)
         super.onCreate(savedInstanceState)
@@ -106,56 +101,32 @@ class LoveWriteArticle : AppCompatActivity() {
             }
 
             else if (cora == 2) {
+
                 //사랑방 글 작성
                // val file = File(cameraFilePath)
                 if (file == null) {
                     Log.i("파일이","null")
                 }
 
-                val name = file!!.getName()
 
-               // Log.i("file path", "$cameraFilePath")
-                //이미지 업로드 via MultiPart (failed)
-              //  val json = Gson().toJson(RegisterForm())
-                val fileReqBody = RequestBody.create(MediaType.parse("multipart/form-data"),
-                    file
-                )
-                val part = MultipartBody.Part.createFormData("user_photo", name, fileReqBody)
-                Log.i("file name", "$name")
-              //  val description = RequestBody.create(MediaType.parse("multipart/form-data"), json)
-                val descriptionPart = RequestBody.create(MultipartBody.FORM, "user_photo")
+//                val name = file!!.getName()
+//
+//               // Log.i("file path", "$cameraFilePath")
+//                //이미지 업로드 via MultiPart (failed)
+//              //  val json = Gson().toJson(RegisterForm())
+//                val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
+//                val part = MultipartBody.Part.createFormData("picture", name, fileReqBody)
+//                Log.i("file name", "$name")
+//              //  val description = RequestBody.create(MediaType.parse("multipart/form-data"), json)
+//                val descriptionPart = RequestBody.create(MultipartBody.FORM, "user_photo")
 
                 //val bitmapImage = filePathToBitmap(cameraFilePath!!)
 
-                server.uploadPic(
-                    "10",
-                    file!!
-                    //descriptionPart
-                ).enqueue(object : Callback<RegisterForm> {
-                    override fun onFailure(call: Call<RegisterForm>, t: Throwable) {
-                        Log.e("서버와 통신에 실패했습니다.", "Error!")
-                        raw.text = name
-                    }
-
-                    override fun onResponse(call: Call<RegisterForm>, response: Response<RegisterForm>) {
-                        if (response?.code().toString() == "200") {
-                            toast("로그인 성공")
-
-                            // test.text = response?.body().toString()
-
-                        }
-                        else
-                            toast("로그인 실패")
-
-                        raw.text = response?.raw().toString()
-                        code.text = name
-                        body.text = response?.body().toString()
-
-
-                    }
-                })
+                //ConnectServer(this).uploadPic(part)
+                ConnectServer(this).writeArticle(articletitle.text.toString())
+                //ConnectServer(this).putPost(1, "sssss")
+                //ConnectServer(this).delPost(articletitle.text.toString())
             }
-
 
             else {
 

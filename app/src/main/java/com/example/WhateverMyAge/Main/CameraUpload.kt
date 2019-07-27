@@ -63,7 +63,6 @@ class CameraUpload (activity : Activity) {
 
         encoded = LoveWriteArticle().filePathToBitmap(bitmapImage)
 
-
         activity.testimage.setImageBitmap(bitmapImage)
     }
 
