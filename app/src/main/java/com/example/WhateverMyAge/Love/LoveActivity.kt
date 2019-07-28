@@ -1,5 +1,6 @@
 package com.example.WhateverMyAge.Love
 
+import android.annotation.SuppressLint
 import com.example.WhateverMyAge.Guide.Settings.toast
 import android.content.Context
 import android.content.Intent
@@ -15,11 +16,20 @@ import android.location.Location
 import android.text.TextUtils
 import android.provider.Settings.SettingNotFoundException
 import android.os.Build
+import android.util.Log
 import com.example.WhateverMyAge.LoginActivity
 import com.example.WhateverMyAge.Main.ConnectServer
 import com.example.WhateverMyAge.Main.PermissionCheck
+import com.example.WhateverMyAge.Main.PostsForm
+import com.example.WhateverMyAge.Main.Service
 import com.example.WhateverMyAge.R
 import com.example.WhateverMyAge.signedin
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 fun isLocationEnabled(context: Context): Boolean {
     val locationMode: Int
@@ -75,11 +85,57 @@ class LoveActivity : AppCompatActivity() {
 //        LoveArticles("story3", "with my age", "내 나이가 어때서", "9", "5"),
 //        LoveArticles("story4", "lets do this", "ㅎㅎㅎ", "7", "15")
 //    )
-    var contentlist =  ConnectServer(this).postList()
+    //////////////
 
+    val retrofit = Retrofit.Builder()
+        .baseUrl("https://frozen-cove-44670.herokuapp.com/")
+        .addConverterFactory(ScalarsConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
+
+        .build()
+
+    var server = retrofit.create(Service::class.java)
+
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love)
+
+        //게시판 글 출력
+        var contentlist: ArrayList<LoveArticles> = arrayListOf()
+        server.showPost().enqueue(object : Callback<List<PostsForm>> {
+            override fun onFailure(call: Call<List<PostsForm>>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+            }
+
+            override fun onResponse(call: Call<List<PostsForm>>, response: Response<List<PostsForm>>) {
+                val raw = response.raw().toString()
+                val count = response.body()!!.lastIndex
+                //contentlist = arrayListOf()
+                val body = response.body()!![0].title
+
+                Log.i("dsdsd", "$count")
+                Log.i("body", "$body")
+
+                if (response?.code().toString() == "200") {
+                    contentlist = arrayListOf(
+                        LoveArticles("story1", "sarangbang", response.body()!![0].title, "3", "5"),
+                        LoveArticles("story2", "whats wrong", response.body()!![1].title, "32", "6"),
+                        LoveArticles("story3", "with my age", response.body()!![2].title, "9", "5"),
+                        LoveArticles("story4", "lets do this", response.body()!![3].title, "7", "15"),
+                        LoveArticles("story4", "lets do this", response.body()!![4].title, "7", "15")
+                    )
+                }
+
+
+                val love = LoveArticlesAdapter(this@LoveActivity, contentlist)
+                lovearticles.adapter = love
+
+
+            }
+        })
+
+        ///////////
         val permissioncheck = PermissionCheck(this, this)
 
         val locationMgr = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -91,8 +147,8 @@ class LoveActivity : AppCompatActivity() {
         criteria.isSpeedRequired = false
         criteria.isCostAllowed = true
 
-        val love = LoveArticlesAdapter(this, contentlist)
-        lovearticles.adapter = love
+//        val love = LoveArticlesAdapter(this, contentlist)
+//        lovearticles.adapter = love
 
         val lm = LinearLayoutManager(this)
         lovearticles.layoutManager = lm
