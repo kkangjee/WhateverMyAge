@@ -224,20 +224,16 @@ class ConnectServer(activity: Activity) {
             override fun onResponse(call: Call<RegisterForm>, response: Response<RegisterForm>) {
                 //code = response?.code()
                 if (response.code() == 204) {
-                    activity.toast("로그인에 성공했습니다.")
+                   // activity.toast("로그인에 성공했습니다.")
                     // test.text = response?.body().toString()
-                    Log.i("회원탈퇴", "$signedin")
-                    activity.finish()
+                  //  Log.i("회원탈퇴", "$signedin")
+                    //activity.finish()
                 } else {
                     //activity.username.text = response?.raw().toString()
-
                 }
                 val raw = response.raw().toString()
                 Log.i("dsds", "$raw")
-
             }
         })
     }
-
-
 }
