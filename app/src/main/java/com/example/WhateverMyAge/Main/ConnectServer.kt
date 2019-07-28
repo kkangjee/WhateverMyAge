@@ -165,8 +165,8 @@ class ConnectServer(activity: Activity) {
         })
     }
 
-    fun writeArticle(title : String) {
-        server.postBlog(title).enqueue(object : Callback<RegisterForm> {
+    fun writeArticle(title : String, content : String, lat : Double, lng : Double) {
+        server.postBlog(signedin, user_name, title, content, lat, lng).enqueue(object : Callback<RegisterForm> {
             override fun onFailure(call: Call<RegisterForm>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
                 activity.toast("인터넷이 없습니다.")
@@ -176,16 +176,17 @@ class ConnectServer(activity: Activity) {
                 //code = response?.code()
                 val raw = response.raw().toString()
 
-                if (response.code() == 200) {
+                if (response.code() == 201) {
                     //activity.toast("안녕히 가세요.")
                     // test.text = response?.body().toString()
-                    Log.i("글쓰기 완료", "$signedin")
+                   // Log.i("글쓰기 완료", "$signedin")
                     //signedin = 0
                     //activity.finish()
                 }
 
                 else {
                     Log.i("ddd", "$raw")
+                    Log.i("글쓰기 완료", "$user_name")
                 }
             }
         })

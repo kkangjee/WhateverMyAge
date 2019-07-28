@@ -1,6 +1,8 @@
 package com.example.WhateverMyAge.Love
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
@@ -10,7 +12,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import com.example.WhateverMyAge.R
 
-class LoveArticles (var Userpic : String, var Username:String, var LoveContents : String, var Like : String, var Comments : String)
+class LoveArticles (var ID : Int, var Userpic : String, var UserID : Int, var Username:String, var Title : String, var LoveContents : String, var Like : String, var Comments : String, var Lat : Double, var Lng : Double)
 
 class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<LoveArticles>) :
         RecyclerView.Adapter<LoveArticlesAdapter.Holder>() {
@@ -20,6 +22,9 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
         )
         return Holder(view)
     }
+
+
+
 
     override fun getItemCount(): Int {
         return contentlist.size
@@ -49,8 +54,15 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
             Like.text = lovearticles.Like
             Comments.text = lovearticles.Comments
 
-            Username.setOnClickListener {
+            LoveContents.setOnClickListener {
+                //var intent = Intent(LoveActivity@, WholeArticleActivity::class.java)
+                //intent.putExtra("id", lovearticles.ID)
+                //start
+                Log.i("글 아이디는~", " " + lovearticles.ID)
+            }
 
+            Username.setOnClickListener {
+                Log.i("유저 아이디는~", " " + lovearticles.UserID)
             }
         }
     }
