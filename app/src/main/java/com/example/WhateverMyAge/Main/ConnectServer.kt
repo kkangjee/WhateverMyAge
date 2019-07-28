@@ -191,68 +191,6 @@ class ConnectServer(activity: Activity) {
         })
     }
 
-//    fun uploadPic(MP : MultipartBody.Part) {
-//        server.uploadPic(
-//            MP
-//        ).enqueue(object : Callback<RegisterForm> {
-//            override fun onFailure(call: Call<RegisterForm>, t: Throwable) {
-//                Log.e("서버와 통신에 실패했습니다.", "Error!")
-//            }
-//
-//            override fun onResponse(call: Call<RegisterForm>, response: Response<RegisterForm>) {
-//                val raw = response.raw().toString()
-//
-//                if (response?.code().toString() == "200") {
-//
-//                    // test.text = response?.body().toString()
-//
-//                }
-//                else {
-//                    Log.i("dsdsd", "$raw")
-//                }
-//                Log.i("dsdsd", "$raw")
-//
-//            }
-//        })
-//        //connect.writeArticle(artic
-//    }
-
-    fun postList() : ArrayList<LoveArticles> {
-        var contentlist : ArrayList<LoveArticles> = arrayListOf()
-        server.showPost().enqueue(object : Callback<List<PostsForm>> {
-            override fun onFailure(call: Call<List<PostsForm>>, t: Throwable) {
-                Log.e("서버와 통신에 실패했습니다.", "Error!")
-            }
-
-            override fun onResponse(call: Call<List<PostsForm>>, response: Response<List<PostsForm>>) {
-                val raw = response.raw().toString()
-                val count = response.body()!!.lastIndex
-                //contentlist = arrayListOf()
-                val body = response.body()!![0].title.toString()
-
-                Log.i("dsdsd", "$count")
-                Log.i("body", "$body")
-
-                if (response?.code().toString() == "200") {
-                    contentlist = arrayListOf(
-                    LoveArticles("story1", "sarangbang", response.body()!![0].title, "3", "5"),
-                    LoveArticles("story2", "whats wrong", response.body()!![1].title, "32", "6"),
-                    LoveArticles("story3", "with my age", response.body()!![2].title, "9", "5"),
-                    LoveArticles("story4", "lets do this", response.body()!![3].title, "7", "15"),
-                    LoveArticles("story4", "lets do this", response.body()!![4].title, "7", "15"),
-                   LoveArticles("story4", "lets do this", response.body()!![5].title, "7", "15")
-                    )
-                }
-                val rere = contentlist[3].LoveContents
-
-                Log.i("dddd", "$rere")
-
-                Log.i("dsdsd", "$raw")
-                Log.i("body", "$body")
-            }
-        })
-        return contentlist
-    }
 
     fun putPost(id : Int, title : String) {
         server.putPost(id, title).enqueue(object : Callback<PostsForm> {
