@@ -71,17 +71,6 @@
                 >
                 </androidx.recyclerview.widget.RecyclerView>
 
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/Title"
-            />
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/Comment"
-            />
-
 
         </LinearLayout>
     </ScrollView>
