@@ -156,7 +156,6 @@ class LoveActivity : AppCompatActivity() {
 
         bt_writeArticle.setOnClickListener {
             //setting 화면
-
             if (signedin == 0) {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)

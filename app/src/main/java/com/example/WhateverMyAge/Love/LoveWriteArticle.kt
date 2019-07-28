@@ -123,9 +123,9 @@ class LoveWriteArticle : AppCompatActivity() {
                 //val bitmapImage = filePathToBitmap(cameraFilePath!!)
 
                 //ConnectServer(this).uploadPic(part)
-                ConnectServer(this).writeArticle(articletitle.text.toString())
-                //ConnectServer(this).putPost(1, "sssss")
-                //ConnectServer(this).delPost(articletitle.text.toString())
+               // ConnectServer(this).writeArticle(articletitle.text.toString())
+              //  ConnectServer(this).putPost(4, "sssss")
+                ConnectServer(this).delPost(articletitle.text.toString())
             }
 
             else {
