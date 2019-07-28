@@ -48,6 +48,10 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
             LoveContents.text = lovearticles.LoveContents
             Like.text = lovearticles.Like
             Comments.text = lovearticles.Comments
+
+            Username.setOnClickListener {
+
+            }
         }
     }
 }

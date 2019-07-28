@@ -15,7 +15,7 @@ class SignUpActivity : AppCompatActivity() {
         var returnValue = "success"
 
         val p = Pattern.compile("([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])")
-        val m = p.matcher(PW)
+        //val m = p.matcher(PW)
 
         val p2 = Pattern.compile("(\\w)\\1\\1\\1")
         val m2 = p2.matcher(PW)
