@@ -95,7 +95,6 @@ class TravelAPI {
                     + key + "&mapX=" + xpos + "&mapY=" + ypos + "&radius=1000&listYN=Y&arrange=B&MobileOS=ETC&MobileApp=AppTest"
             ); //검색 URL부분
 
-
             /*
             * arrange 를 A가 제목순 B가 조회순 E가 거리순
             * */
