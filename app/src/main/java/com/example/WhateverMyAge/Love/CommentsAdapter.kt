@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatTextView
 import com.example.WhateverMyAge.R
 
-class Comments (val Username : String, val Comment : String)
+class Comment (val Username : String, val Comment : String)
 
-class CommentsAdapter (val context : Context, val titlelist : ArrayList<Comments>) :
+class CommentsAdapter (val context : Context, val titlelist : ArrayList<Comment>) :
     RecyclerView.Adapter<CommentsAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.activity_comments_adapter, parent, false)
@@ -27,8 +28,8 @@ class CommentsAdapter (val context : Context, val titlelist : ArrayList<Comments
 
     inner class Holder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         val Username = itemView.findViewById<AppCompatButton>(R.id.username)
-        val Comment = itemView.findViewById<AppCompatButton>(R.id.comment)
-        fun bind(comments: Comments, context: Context) {
+        val Comment = itemView.findViewById<AppCompatTextView>(R.id.comment)
+        fun bind(comments: Comment, context: Context) {
             Username.text = comments.Username
             Comment.text = comments.Comment
         }

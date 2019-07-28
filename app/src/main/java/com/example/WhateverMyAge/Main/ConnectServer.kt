@@ -2,12 +2,15 @@ package com.example.WhateverMyAge.Main
 
 import com.example.WhateverMyAge.Guide.Settings.toast
 import android.app.Activity
+import android.graphics.drawable.Drawable
 import android.util.Log
 import com.example.WhateverMyAge.Love.LoveArticles
 import com.example.WhateverMyAge.signedin
 import com.example.WhateverMyAge.user_name
+import kotlinx.android.synthetic.main.activity_comments.*
 import kotlinx.android.synthetic.main.activity_love_write_article.*
 import kotlinx.android.synthetic.main.activity_my_information.*
+import kotlinx.android.synthetic.main.activity_my_information.username
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import okhttp3.MultipartBody
 import okhttp3.Request
@@ -234,6 +237,33 @@ class ConnectServer(activity: Activity) {
                 }
                 val raw = response.raw().toString()
                 Log.i("dsds", "$raw")
+            }
+        })
+    }
+
+    fun getPost (id : Int, activity : Activity) {
+        server.getPost(id).enqueue(object : Callback<PostsForm> {
+            override fun onFailure(call: Call<PostsForm>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+            }
+
+            override fun onResponse(call: Call<PostsForm>, response: Response<PostsForm>) {
+                val raw = response.raw().toString()
+                val body = response.body()!!
+                if (response?.code().toString() == "200") {
+                    // test.text = response?.body().toString()
+                    activity.userpic.setImageResource(activity.getResources().getIdentifier("@drawable/story1", "id", activity.packageName))
+                    activity.username.text = body.author_username
+                    activity.lovecontents.text = body.content
+                    activity.like.text = body.like.toString()
+                    activity.comments.text = body.cnt.toString()
+                }
+
+                else {
+
+                }
+                Log.i("dsdsd", "$raw")
+                Log.i("body", "$body")
             }
         })
     }

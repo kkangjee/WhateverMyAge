@@ -138,6 +138,7 @@ class LoveActivity : AppCompatActivity() {
             }
         })
 
+
         ///////////
         val permissioncheck = PermissionCheck(this, this)
 

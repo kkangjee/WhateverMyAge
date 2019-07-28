@@ -66,6 +66,12 @@ interface Service {
        // @Path("pw")pw:String
     ):Call<RegisterForm>
 
+    @GET("api/v1/blog/postings/{id}")
+    fun getPost(
+        @Path("id") id : Int
+    ): Call <PostsForm>
+
+
     //회원가입
     @FormUrlEncoded
     @POST("/api/v1/users/registration")
@@ -147,5 +153,8 @@ interface Service {
     fun delPost (
         @Path("id") id : String
         ):Call<RegisterForm>
+
+
+
 
 }

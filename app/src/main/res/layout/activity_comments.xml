@@ -44,7 +44,7 @@
         />
     </LinearLayout>
 
-    <Button
+    <TextView
             android:id="@+id/lovecontents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,9 +57,8 @@
             android:textSize="40dp"
     />
 
-    TODO1 : 사진 미리보기
-    TODO2 : 각 게시글에 해당하는 버튼으로 만들기
-
+    <!--TODO1 : 사진 미리보기-->
+    <!--TODO2 : 각 게시글에 해당하는 버튼으로 만들기-->
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
