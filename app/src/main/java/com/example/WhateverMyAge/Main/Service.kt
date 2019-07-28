@@ -25,6 +25,13 @@ data class PostsForm(
 //    var author_name : String? = null,
 //      var opop : Array<Post?> = arrayOfNulls<Post?>(100)
     var title : String,
+    var author_username: String,
+    var author_id : Int,
+    var like : Int,
+    var cnt: Int,
+    var content : String,
+    var lat : Double,
+    var lng : Double,
     var id : Int
 //    var like : Int = 0,
 //    var content : String? = null,
@@ -113,11 +120,14 @@ interface Service {
     @POST("/api/v1/blog/postings/")
     fun postBlog (
 //        @Field("id") id : Int,
-//        @Field("author_username") author_username : String?,
-        @Field("title") title : String?
+            @Field("author_id") author_id : Int,
+          @Field("author_username") author_username : String?,
+          @Field("title") title : String?,
 //        @Field("like") like : Int,
-//        @Field("content") content : String?,
-//        @Field("photo") photo : File?,
+          @Field("content") content : String?,
+          //@Field("photo") photo : File? = null,
+          @Field("lat") lat : Double?,
+          @Field ("lng") lng : Double?
 //        @Field("gps") gps : String?
     ):Call<RegisterForm>
 

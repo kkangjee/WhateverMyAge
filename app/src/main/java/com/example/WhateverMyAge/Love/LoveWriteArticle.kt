@@ -123,15 +123,14 @@ class LoveWriteArticle : AppCompatActivity() {
                 //val bitmapImage = filePathToBitmap(cameraFilePath!!)
 
                 //ConnectServer(this).uploadPic(part)
-               // ConnectServer(this).writeArticle(articletitle.text.toString())
+                ConnectServer(this).writeArticle("qqwqw",articlecontent.text.toString(), lat, lng)
               //  ConnectServer(this).putPost(4, "sssss")
-                ConnectServer(this).delPost(articletitle.text.toString())
+              //  ConnectServer(this).delPost(articletitle.text.toString())
             }
 
             else {
 
             }
         }
-
     }
 }

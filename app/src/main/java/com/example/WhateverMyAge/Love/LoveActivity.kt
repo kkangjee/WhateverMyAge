@@ -24,12 +24,16 @@ import com.example.WhateverMyAge.Main.PostsForm
 import com.example.WhateverMyAge.Main.Service
 import com.example.WhateverMyAge.R
 import com.example.WhateverMyAge.signedin
+import kotlinx.android.synthetic.main.activity_comments.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+
+var lat : Double = 0.0
+var lng : Double = 0.0
 
 fun isLocationEnabled(context: Context): Boolean {
     val locationMode: Int
@@ -47,6 +51,7 @@ fun isLocationEnabled(context: Context): Boolean {
 
     return locationMode != android.provider.Settings.Secure.LOCATION_MODE_OFF
 }
+
 
 class LoveActivity : AppCompatActivity() {
     fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double, unit: String): Double {
@@ -112,26 +117,26 @@ class LoveActivity : AppCompatActivity() {
                 val raw = response.raw().toString()
                 val count = response.body()!!.lastIndex
                 //contentlist = arrayListOf()
-                val body = response.body()!![0].title
+                val body = response.body()!!
 
                 Log.i("dsdsd", "$count")
                 Log.i("body", "$body")
 
-                if (response?.code().toString() == "200") {
-                    contentlist = arrayListOf(
-                        LoveArticles("story1", "sarangbang", response.body()!![0].title, "3", "5"),
-                        LoveArticles("story2", "whats wrong", response.body()!![1].title, "32", "6"),
-                        LoveArticles("story3", "with my age", response.body()!![2].title, "9", "5"),
-                        LoveArticles("story4", "lets do this", response.body()!![3].title, "7", "15"),
-                        LoveArticles("story4", "lets do this", response.body()!![4].title, "7", "15")
-                    )
+                if (response.code().toString() == "200") {
+//                    contentlist = arrayListOf(
+//                        LoveArticles("story1", "sarangbang", response.body()!![0].title, "3", "5"),
+//                        LoveArticles("story2", "whats wrong", response.body()!![1].title, "32", "6"),
+//                        LoveArticles("story3", "with my age", response.body()!![2].title, "9", "5"),
+//                        LoveArticles("story4", "lets do this", response.body()!![3].title, "7", "15"),
+//                        LoveArticles("story4", "lets do this", response.body()!![4].title, "7", "15")
+//                    )
+                    for (i in 0..count) {
+                        contentlist.add(LoveArticles(body[i].id, "story1", body[i].author_id, body[i].author_username,  body[i].title, body[i].content, body[i].like.toString(), body[i].cnt.toString(), body[i].lat, body[i].lng))
+                    }
                 }
-
 
                 val love = LoveArticlesAdapter(this@LoveActivity, contentlist)
                 lovearticles.adapter = love
-
-
             }
         })
 
@@ -182,8 +187,8 @@ class LoveActivity : AppCompatActivity() {
 
                     var gps = locationMgr.getLastKnownLocation(bestProvider)!!
 
-                    val lat = gps.getLatitude()
-                    val lng = gps.getLongitude()
+                    lat = gps.getLatitude()
+                    lng = gps.getLongitude()
 
                     //주소 출력
 //                    val gcd = Geocoder(this, Locale.getDefault())
@@ -200,5 +205,6 @@ class LoveActivity : AppCompatActivity() {
                 }
             }
         }
+
     }
 }
