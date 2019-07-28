@@ -114,11 +114,9 @@ class LoveActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<List<PostsForm>>, response: Response<List<PostsForm>>) {
-                val raw = response.raw().toString()
                 val count = response.body()!!.lastIndex
                 //contentlist = arrayListOf()
                 val body = response.body()!!
-
                 Log.i("dsdsd", "$count")
                 Log.i("body", "$body")
 
@@ -183,7 +181,7 @@ class LoveActivity : AppCompatActivity() {
                     val intent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                     startActivityForResult(intent, 0)
                 } else {
-                    val bestProvider = locationMgr.getBestProvider(criteria, true)
+                    val bestProvider:String? = locationMgr.getBestProvider(criteria, true)
 
                     var gps = locationMgr.getLastKnownLocation(bestProvider)!!
 

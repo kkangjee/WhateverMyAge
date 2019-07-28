@@ -51,7 +51,7 @@ class LoveWriteArticle : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val connect = ConnectServer(this)
+        //val connect = ConnectServer(this)
 
         val permissioncheck = PermissionCheck(this, this)
         super.onCreate(savedInstanceState)
