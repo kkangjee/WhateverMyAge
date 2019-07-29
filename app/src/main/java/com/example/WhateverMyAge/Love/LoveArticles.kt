@@ -1,5 +1,7 @@
 package com.example.WhateverMyAge.Love
 
+import android.app.Activity
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -10,21 +12,22 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat.startActivity
 import com.example.WhateverMyAge.R
 
 class LoveArticles (var ID : Int, var Userpic : String, var UserID : Int, var Username:String, var Title : String, var LoveContents : String, var Like : String, var Comments : String, var Lat : Double, var Lng : Double)
 
-class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<LoveArticles>) :
+public class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<LoveArticles>, val activity: Activity) :
         RecyclerView.Adapter<LoveArticlesAdapter.Holder>() {
+
+    public var love = context
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(
             R.layout.lovearticles, parent, false
         )
         return Holder(view)
     }
-
-
-
 
     override fun getItemCount(): Int {
         return contentlist.size
@@ -59,6 +62,9 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
                 //intent.putExtra("id", lovearticles.ID)
                 //start
                 Log.i("글 아이디는~", " " + lovearticles.ID)
+                var intent = Intent(activity, com.example.WhateverMyAge.Love.Comments::class.java)
+                intent.putExtra("ID", lovearticles.ID)
+                activity.startActivity(intent)
             }
 
             Username.setOnClickListener {

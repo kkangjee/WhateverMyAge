@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.content.pm.PackageManager
 import android.os.Build
 import com.example.WhateverMyAge.*
+import com.example.WhateverMyAge.Love.Comments
 import com.example.WhateverMyAge.Love.LoveActivity
 import com.example.WhateverMyAge.TravelAndFood.TravelAndFood
 
