@@ -126,6 +126,7 @@ class LoveWriteArticle : AppCompatActivity() {
                 ConnectServer(this).writeArticle("qqwqw",articlecontent.text.toString(), lat, lng)
               //  ConnectServer(this).putPost(4, "sssss")
               //  ConnectServer(this).delPost(articletitle.text.toString())
+                finish()
             }
 
             else {

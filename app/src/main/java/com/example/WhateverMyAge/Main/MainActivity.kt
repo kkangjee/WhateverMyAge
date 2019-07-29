@@ -13,6 +13,7 @@ import com.example.WhateverMyAge.*
 import com.example.WhateverMyAge.Love.Comments
 import com.example.WhateverMyAge.Love.LoveActivity
 import com.example.WhateverMyAge.TravelAndFood.TravelAndFood
+import java.util.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -57,7 +58,8 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             } else {
                 val intent = Intent(this, MyInformation::class.java)
-                //intent.putExtra("username", username)
+                val arr : Array<String> = arrayOf(signedin.toString(), user_name)
+                intent.putExtra("user_info", arr)
                 startActivity(intent)
             }
 

@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#8BC34A"
-                android:text="내 정보"
+                android:id="@+id/activitytitle"
                 android:textSize="30dp"
                 android:textColor="#fff"
                 android:padding="10dp"
