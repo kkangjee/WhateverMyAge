@@ -4,6 +4,9 @@ import com.example.WhateverMyAge.Guide.Settings.toast
 import android.app.Activity
 import android.graphics.drawable.Drawable
 import android.util.Log
+import androidx.recyclerview.widget.RecyclerView
+import com.example.WhateverMyAge.Love.Comment
+import com.example.WhateverMyAge.Love.Comments
 import com.example.WhateverMyAge.Love.LoveArticles
 import com.example.WhateverMyAge.signedin
 import com.example.WhateverMyAge.user_name
@@ -196,8 +199,8 @@ class ConnectServer(activity: Activity) {
     }
 
 
-    fun putPost(id : Int, title : String) {
-        server.putPost(id, title).enqueue(object : Callback<PostsForm> {
+    fun putPost(id : Int, title : String, content: String) {
+        server.putPost(id, title, content).enqueue(object : Callback<PostsForm> {
             override fun onFailure(call: Call<PostsForm>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
             }
@@ -268,7 +271,7 @@ class ConnectServer(activity: Activity) {
         })
     }
 
-    fun postComment(posting : Int, reply : String) {
+    fun postComment(posting : Int, reply : String, cl : RecyclerView) {
         server.postComment(posting, reply, user_name, signedin).enqueue(object : Callback<PostsForm> {
             override fun onFailure(call: Call<PostsForm>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
@@ -277,8 +280,12 @@ class ConnectServer(activity: Activity) {
             override fun onResponse(call: Call<PostsForm>, response: Response<PostsForm>) {
                 val raw = response.raw().toString()
               //  val body = response.body()!!
-                if (response?.code().toString() == "200") {
+                if (response?.code().toString() == "201") {
                     // test.text = response?.body().toString()
+                    //commentlist = arrayListOf()
+                    Log.i("posting", "$posting")
+                    //var commentlist: ArrayList<Comment> = arrayListOf()
+                   // Comments().getComment(commentlist, posting)
                 }
 
                 else {
@@ -309,6 +316,27 @@ class ConnectServer(activity: Activity) {
                 }
                 Log.i("dsdsd", "$raw")
                 Log.i("body", "$body")
+            }
+        })
+    }
+
+    fun deleteComment(id : Int) {
+        server.deleteComment(id).enqueue(object : Callback<Body> {
+            override fun onFailure(call: Call<Body>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+
+            }
+
+            override fun onResponse(call: Call<Body>, response: Response<Body>) {
+                //code = response?.code()
+                if (response.code() == 204) {
+                    // test.text = response?.body().toString()
+                } else {
+
+                }
+
+                Log.i("댓삭", " " + response.raw().toString())
+
             }
         })
     }

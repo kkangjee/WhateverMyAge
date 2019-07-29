@@ -66,7 +66,8 @@ public class LoveArticlesAdapter (val context : Context, val contentlist : Array
                 //start
                 Log.i("글 아이디는~", " " + lovearticles.ID)
                 var intent = Intent(activity, com.example.WhateverMyAge.Love.Comments::class.java)
-                intent.putExtra("ID", lovearticles.ID)
+                val arr : Array<String> = arrayOf (lovearticles.ID.toString(), lovearticles.UserID.toString(), lovearticles.Username, lovearticles.LoveContents, lovearticles.Like, lovearticles.Comments)
+                intent.putExtra("Post", arr)
                 activity.startActivity(intent)
             }
 
