@@ -17,7 +17,7 @@ import com.example.WhateverMyAge.R
 
 class LoveArticles (var ID : Int, var Userpic : String, var UserID : Int, var Username:String, var Title : String, var LoveContents : String, var Like : String, var Comments : String, var Lat : Double, var Lng : Double)
 
-public class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<LoveArticles>) :
+public class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<LoveArticles>, val activity: Activity) :
         RecyclerView.Adapter<LoveArticlesAdapter.Holder>() {
 
     public var love = context
@@ -62,9 +62,9 @@ public class LoveArticlesAdapter (val context : Context, val contentlist : Array
                 //intent.putExtra("id", lovearticles.ID)
                 //start
                 Log.i("글 아이디는~", " " + lovearticles.ID)
-                var intent = Intent(love, Comments::class.java)
+                var intent = Intent(activity, com.example.WhateverMyAge.Love.Comments::class.java)
                 intent.putExtra("ID", lovearticles.ID)
-                love.startActivity(intent)
+                activity.startActivity(intent)
             }
 
             Username.setOnClickListener {

@@ -267,4 +267,49 @@ class ConnectServer(activity: Activity) {
             }
         })
     }
+
+    fun postComment(posting : Int, reply : String) {
+        server.postComment(posting, reply, user_name, signedin).enqueue(object : Callback<PostsForm> {
+            override fun onFailure(call: Call<PostsForm>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+            }
+
+            override fun onResponse(call: Call<PostsForm>, response: Response<PostsForm>) {
+                val raw = response.raw().toString()
+              //  val body = response.body()!!
+                if (response?.code().toString() == "200") {
+                    // test.text = response?.body().toString()
+                }
+
+                else {
+
+                }
+                Log.i("dsdsd", "$raw")
+                Log.i("dssdssss", " " +posting + " " + reply + " " + user_name + " " + signedin)
+            //    Log.i("body", "$body")
+            }
+        })
+    }
+
+    fun getComment(id : Int) {
+        server.getComment(id).enqueue(object : Callback<List<CommentsForm>> {
+            override fun onFailure(call: Call<List<CommentsForm>>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+            }
+
+            override fun onResponse(call: Call<List<CommentsForm>>, response: Response<List<CommentsForm>>) {
+                val raw = response.raw().toString()
+                 val body = response?.body()
+                if (response?.code().toString() == "200") {
+                    // test.text = response?.body().toString()
+                }
+
+                else {
+
+                }
+                Log.i("dsdsd", "$raw")
+                Log.i("body", "$body")
+            }
+        })
+    }
 }

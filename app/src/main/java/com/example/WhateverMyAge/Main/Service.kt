@@ -56,6 +56,15 @@ data class Post (
     var id : Int
 )
 
+data class CommentsForm (
+    var posting : Int,
+    var reply : String,
+    var id: Int,
+    var author_username: String,
+    var author_id: Int
+)
+
+
 //https://frozen-cove-44670.herokuapp.com/api/v1/registration/
 interface Service {
 
@@ -70,7 +79,6 @@ interface Service {
     fun getPost(
         @Path("id") id : Int
     ): Call <PostsForm>
-
 
     //회원가입
     @FormUrlEncoded
@@ -94,7 +102,6 @@ interface Service {
     @GET("/api/v1/users/logout")
     fun logout (
     ):Call<RegisterForm>
-
 
     //회원정보 수정
     @FormUrlEncoded
@@ -154,7 +161,17 @@ interface Service {
         @Path("id") id : String
         ):Call<RegisterForm>
 
+    @FormUrlEncoded
+    @POST("/api/v1/blog/comments")
+    fun postComment (
+        @Field ("posting") posting : Int,
+        @Field("reply") reply : String,
+        @Field("author_username") author_username: String,
+        @Field("author_id") author_id: Int
+    ):Call<PostsForm>
 
-
-
+    @GET("/api/v1/blog/postings/{id}/comments")
+    fun getComment (
+        @Path("id") id : Int
+    ):Call <List<CommentsForm>>
 }
