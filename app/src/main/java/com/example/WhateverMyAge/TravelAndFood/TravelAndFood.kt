@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.WhateverMyAge.Main.LoadingActivity
 import com.example.WhateverMyAge.R
 import kotlinx.android.synthetic.main.activity_travel_and_food.*
 import kotlinx.android.synthetic.main.activity_travel_and_food.bt_back
@@ -19,6 +20,10 @@ class TravelAndFood : AppCompatActivity() {
         val myfragment = Fragment()
         myfragment.setArguments(arguments)
         supportFragmentManager.beginTransaction().replace(R.id.travelandfood, myfragment)
+
+        //로딩 액티비티 실행
+        val intent_loading = Intent(this, LoadingActivity::class.java)
+        startActivity(intent_loading)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_travel_and_food)

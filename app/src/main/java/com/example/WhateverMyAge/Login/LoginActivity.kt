@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.WhateverMyAge.Main.ConnectServer
+import com.example.WhateverMyAge.Main.LoadingActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.bt_back
 
@@ -22,7 +23,10 @@ class LoginActivity : AppCompatActivity() {
             var id = ID.text.toString()
             var pw = PW.text.toString()
 
+
             ConnectServer(this).Login(id, pw)
+            val intent = Intent(this, LoadingActivity::class.java)
+            startActivity(intent)
         }
 
         bt_back.setOnClickListener{ //

@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity() {
         ACCESS_FINE_LOCATION,
         READ_EXTERNAL_STORAGE,
         WRITE_EXTERNAL_STORAGE,
-        CAMERA)
+        CAMERA
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -36,30 +37,33 @@ class MainActivity : AppCompatActivity() {
         quotedfrom.text = quotelist[num].QuotedFrom
 
 
-        bt_guide.setOnClickListener {//setting 화면
+        bt_guide.setOnClickListener {
+            //setting 화면
             val intent = Intent(this, GuideActivity::class.java)
             startActivity(intent)
         }
-        bt_love.setOnClickListener {//사랑방 화면
-                val intent = Intent(this, LoveActivity::class.java)
-                startActivity(intent)
+        bt_love.setOnClickListener {
+            //사랑방 화면
+            val intent = Intent(this, LoveActivity::class.java)
+            startActivity(intent)
+            val intent_loading = Intent(this, LoadingActivity::class.java)
+            startActivity(intent_loading)
 
         }
-        bt_login.setOnClickListener {//로그인 화면
+        bt_login.setOnClickListener {
+            //로그인 화면
             if (signedin == 0) {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
-            }
-            else  {
+            } else {
                 val intent = Intent(this, MyInformation::class.java)
                 //intent.putExtra("username", username)
                 startActivity(intent)
             }
 
 
-
         }
-        bt_travelandfood.setOnClickListener{
+        bt_travelandfood.setOnClickListener {
             val intent = Intent(this, TravelAndFood::class.java)
             intent.putExtra("test", 2)
             startActivity(intent)
@@ -85,7 +89,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
 
 
     fun checkPermission() {
@@ -120,7 +123,6 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-
 
 
 }

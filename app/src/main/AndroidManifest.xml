@@ -21,7 +21,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
 
-
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -29,6 +28,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".Main.LoadingActivity"
+                  android:theme="@style/Theme.AppCompat"
+        >
+        </activity>
         <activity android:name=".MyInformation">
         </activity>
         <activity android:name=".SignUpActivity">
@@ -39,13 +42,10 @@
         </activity>
         <activity android:name=".Love.Comments">
         </activity>
-
         <activity
                 android:name=".Main.CameraOrGallery"
                 android:theme="@android:style/Theme.Dialog">
         </activity>
-
-
 
         <provider
                 android:name="androidx.core.content.FileProvider"
@@ -64,24 +64,20 @@
         </activity>
         <activity android:name=".Guide.Instruction.Instruction">
         </activity>
-
         <activity android:name=".TravelAndFood.TravelAndFood">
         </activity>
-        <activity android:name="com.example.WhateverMyAge.Guide.Instruction.ChooseInstruction">
+        <activity android:name=".Guide.Instruction.ChooseInstruction">
         </activity>
-        <activity android:name="com.example.WhateverMyAge.Guide.GuideActivity">
+        <activity android:name=".Guide.GuideActivity">
         </activity>
-
-        <activity android:name="com.example.WhateverMyAge.Guide.Questions.QnA">
+        <activity android:name=".Guide.Questions.QnA">
         </activity>
         <activity android:name=".Love.LoveWriteArticle">
         </activity>
-
         <activity android:name=".LoginActivity">
         </activity>
-        <activity android:name="com.example.WhateverMyAge.Guide.Settings.SettingActivity">
+        <activity android:name=".Guide.Settings.SettingActivity">
         </activity>
-
         <activity android:name=".Love.LoveActivity">
         </activity>
         <activity android:name=".Main.MainActivity">

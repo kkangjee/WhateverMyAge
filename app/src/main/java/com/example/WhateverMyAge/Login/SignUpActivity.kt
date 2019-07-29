@@ -7,6 +7,10 @@ import com.example.WhateverMyAge.Main.ConnectServer
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_sign_up.bt_back
 import java.util.regex.Pattern
+import com.example.WhateverMyAge.Main.LoadingActivity
+import android.content.Intent
+
+
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -69,7 +73,10 @@ class SignUpActivity : AppCompatActivity() {
             val PWC = PWConfirm.text.toString()
             val result = passwordValidator(ID, PW, PWC)
             if (result == "success") {
+
                 ConnectServer(this).registration(ID, PW, PWC)
+                val intent = Intent(this, LoadingActivity::class.java)
+                startActivity(intent)
             } else {
                 toast(result)
             }
