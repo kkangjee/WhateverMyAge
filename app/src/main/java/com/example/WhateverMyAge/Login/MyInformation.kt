@@ -15,9 +15,16 @@ class MyInformation : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_information)
+        val info = intent.getStringArrayExtra("user_info")
+
+        if (signedin != info[0].toInt())  {
+            activitytitle.text = "회원 정보"
+        }
+        else
+            activitytitle.text = "내 정보"
 
         //ConnectServer(this).getID(signedin)
-        username.text = user_name
+        username.text = info[1]
 
         bt_signout.setOnClickListener {
             server.logout()

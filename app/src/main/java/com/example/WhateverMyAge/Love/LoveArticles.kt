@@ -13,7 +13,10 @@ import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat.startActivity
+import com.example.WhateverMyAge.MyInformation
 import com.example.WhateverMyAge.R
+import com.example.WhateverMyAge.signedin
+import com.example.WhateverMyAge.user_name
 
 class LoveArticles (var ID : Int, var Userpic : String, var UserID : Int, var Username:String, var Title : String, var LoveContents : String, var Like : String, var Comments : String, var Lat : Double, var Lng : Double)
 
@@ -69,6 +72,10 @@ public class LoveArticlesAdapter (val context : Context, val contentlist : Array
 
             Username.setOnClickListener {
                 Log.i("유저 아이디는~", " " + lovearticles.UserID)
+                val intent = Intent(activity, MyInformation::class.java)
+                val arr : Array<String> = arrayOf(lovearticles.UserID.toString(), lovearticles.Username)
+                intent.putExtra("user_info", arr)
+                activity.startActivity(intent)
             }
         }
     }
