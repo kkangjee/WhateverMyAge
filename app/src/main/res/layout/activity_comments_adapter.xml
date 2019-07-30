@@ -25,6 +25,7 @@
                 android:layout_margin="10dp"
         />
         <Button
+                android:textAlignment="textStart"
                 android:background="@color/Invisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

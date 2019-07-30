@@ -30,7 +30,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
-var _Comment_Activity: Activity = Comments()
+lateinit var _Comment_Activity: Activity
+
+lateinit var commentsRV: RecyclerView;
+
 
 class Comments : AppCompatActivity() {
     val retrofit = Retrofit.Builder()
@@ -42,9 +45,9 @@ class Comments : AppCompatActivity() {
 
     var server = retrofit.create(Service::class.java)
 
-    var postID : Int = 0
+    var postID: Int = 0
 
-    fun postComment(posting : Int, Reply : String) {
+    fun postComment(posting: Int, Reply: String) {
         server.postComment(posting, Reply, user_name, signedin).enqueue(object : Callback<PostsForm> {
             override fun onFailure(call: Call<PostsForm>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
@@ -59,93 +62,50 @@ class Comments : AppCompatActivity() {
                     reply.setText("")
                     Log.i("posting", "$posting")
                     var commentlist: ArrayList<Comment> = arrayListOf()
-                    getComment(commentlist, posting)
-                }
-
-                else {
+                    getComment(commentlist, posting, commentslist)
+                } else {
 
                 }
                 Log.i("dsdsd", "$raw")
-                Log.i("dssdssss", " " +posting + " " + reply + " " + user_name + " " + signedin)
+                Log.i("dssdssss", " " + posting + " " + reply + " " + user_name + " " + signedin)
                 //    Log.i("body", "$body")
             }
         })
     }
 
-    fun deleteComment (id : Int, posting : Int) {
+    fun deleteComment(id: Int, posting: Int, rc: RecyclerView) {
         var server = retrofit.create(Service::class.java)
 
-                    server.deleteComment(id).enqueue(object : Callback<Body> {
-                        override fun onFailure(call: Call<Body>, t: Throwable) {
-                            Log.e("서버와 통신에 실패했습니다.", "Error!")
-                        }
+        server.deleteComment(id).enqueue(object : Callback<Body> {
+            override fun onFailure(call: Call<Body>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+            }
 
-                        override fun onResponse(call: Call<Body>, response: Response<Body>) {
-                            //code = response?.code()
-                            if (response.code() == 204) {
-                                var commentlist: ArrayList<Comment> = arrayListOf()
-                                getComment(commentlist, posting)
-                                Log.i("postID", "$posting")
-                            } else {
+            override fun onResponse(call: Call<Body>, response: Response<Body>) {
+                //code = response?.code()
+                if (response.code() == 204) {
+                    var commentlist: ArrayList<Comment> = arrayListOf()
+                    getComment(commentlist, posting, rc)
+                    Log.i("postID", "$posting")
+                } else {
 
-                            }
+                }
 
-                            Log.i("댓삭", " " + response.raw().toString())
+                Log.i("댓삭", " " + response.raw().toString())
 
-                        }
-                    })
-
-
-
-//        val popup = PopupMenu(this@Comments, comment)
-//
-//        menuInflater.inflate(R.menu.commentdelete, popup.menu)
-//        popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
-//            override
-//            fun onMenuItemClick(item: MenuItem): Boolean {
-//                when (item.itemId) {
-//                    R.id.delete -> {
-//                        server.deleteComment(id).enqueue(object : Callback<Body> {
-//                            override fun onFailure(call: Call<Body>, t: Throwable) {
-//                                Log.e("서버와 통신에 실패했습니다.", "Error!")
-//                                toast("인터넷이 없습니다.")
-//                            }
-//
-//                            override fun onResponse(call: Call<Body>, response: Response<Body>) {
-//                                //code = response?.code()
-//                                if (response.code() == 204) {
-//                                   toast("로그인에 성공했습니다.")
-//                                    // test.text = response?.body().toString()
-//                                    Log.i("회원탈퇴", "$signedin")
-//                                } else {
-//
-//                                }
-//
-//                                Log.i("댓삭", " " + response.raw().toString())
-//
-//                            }
-//                        })
-//                        return true
-//                    }
-//
-//                    else -> return false
-//                }
-//            }
-//
-//        })
-//        popup.show()
-
-
-
+            }
+        })
     }
 
 
-    fun getComment (commentlist: ArrayList<Comment>, ID : Int) {
-
+    fun getComment(commentlist: ArrayList<Comment>, ID: Int, rc: RecyclerView) {
+        commentsRV = rc
         //commentlist = arrayListOf()
         server.getComment(ID).enqueue(object : Callback<List<CommentsForm>> {
             override fun onFailure(call: Call<List<CommentsForm>>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
+                val comment = CommentsAdapter(this@Comments, commentlist, this@Comments)
+                commentsRV.adapter = comment
             }
 
             override fun onResponse(call: Call<List<CommentsForm>>, response: Response<List<CommentsForm>>) {
@@ -160,17 +120,24 @@ class Comments : AppCompatActivity() {
 
                     for (i in 0..cnt) {
                         Log.i("댓글 추가", "$i")
-                        commentlist.add(Comment(body[i].posting, body[i].id, body[i].author_id, body[i].author_username, body[i].reply))
+                        commentlist.add(
+                            Comment(
+                                body[i].posting,
+                                body[i].id,
+                                body[i].author_id,
+                                body[i].author_username,
+                                body[i].reply
+                            )
+                        )
                         Log.i("댓글 추가됨", "$i" + " " + commentlist[i].Username)
                     }
 
                     val comment = CommentsAdapter(this@Comments, commentlist, this@Comments)
 
-                    val cl = findViewById<RecyclerView>(com.example.WhateverMyAge.R.id.commentslist)
-
-                    cl.adapter = comment
+                    commentsRV.adapter = comment
 //
-                } else {
+                }
+                else {
 
                 }
                 Log.i("dsdsd", "$raw")
@@ -182,7 +149,7 @@ class Comments : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         _Comment_Activity = this
-
+        // commentsRV  =  commentslist
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comments)
 
@@ -199,7 +166,7 @@ class Comments : AppCompatActivity() {
         var commentlist: ArrayList<Comment> = arrayListOf()
         val cl = findViewById<RecyclerView>(R.id.commentslist)
 
-        getComment(commentlist, ID[0].toInt())
+        getComment(commentlist, ID[0].toInt(), commentslist)
         Log.i("ID[0]", " " + ID[0])
 
         //ConnectServer(this).getComment(ID)
@@ -215,12 +182,10 @@ class Comments : AppCompatActivity() {
         bt_submitComment.setOnClickListener {
             if (signedin == 0) {
                 toast("댓글을 작성하려면 로그인하세요")
-            }
-            else {
+            } else {
                 if (reply.text.toString() == "") {
                     toast("댓글을 작성해주세요.")
-                }
-                else {
+                } else {
                     postComment(ID[0].toInt(), reply.text.toString())
                 }
             }
@@ -275,7 +240,6 @@ class Comments : AppCompatActivity() {
             this.startActivity(intent)
 
         }
-
 
 
     }

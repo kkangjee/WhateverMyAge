@@ -30,7 +30,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class Comment (val Posting : Int, val ID : Int, val UserID : Int, val Username : String, val Comment : String)
 
-class CommentsAdapter (val context : Context, val titlelist : ArrayList<Comment>, val activity : Activity) :
+class CommentsAdapter (val context : Context, val titlelist : ArrayList<Comment>, val activity : Comments) :
     RecyclerView.Adapter<CommentsAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.activity_comments_adapter, parent, false)
@@ -59,13 +59,17 @@ class CommentsAdapter (val context : Context, val titlelist : ArrayList<Comment>
                 activity.startActivity(intent)
             }
 
+            Comment.setOnClickListener {
+                activity.toast("길게 누르면 삭제합니다.")
+            }
 
             Comment.setOnLongClickListener(object : View.OnLongClickListener {
                 override
                 fun onLongClick(v : View) : Boolean {
-                    if (signedin == comments.UserID)
-                        Comments().deleteComment(comments.ID, comments.Posting)
 
+
+                    if (signedin == comments.UserID)
+                        activity.deleteComment(comments.ID, comments.Posting, commentsRV)
 ////                    if (signedin == comments.UserID)
 ////                        Comments().deleteComment(comments.ID)
 //
@@ -100,9 +104,6 @@ class CommentsAdapter (val context : Context, val titlelist : ArrayList<Comment>
                     return true
                 }
             })
-
-
-
         }
     }
 }
