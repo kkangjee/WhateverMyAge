@@ -153,6 +153,7 @@ interface Service {
     @PUT("/api/v1/blog/postings/{id}")
     fun putPost (
         @Path("id") id :Int,
+        @Field("content") content : String,
         @Field("title") title : String
     ):Call<PostsForm>
 
@@ -162,7 +163,7 @@ interface Service {
         ):Call<RegisterForm>
 
     @FormUrlEncoded
-    @POST("/api/v1/blog/comments")
+    @POST("/api/v1/blog/comments/")
     fun postComment (
         @Field ("posting") posting : Int,
         @Field("reply") reply : String,
@@ -174,4 +175,10 @@ interface Service {
     fun getComment (
         @Path("id") id : Int
     ):Call <List<CommentsForm>>
+
+    @DELETE("/api/v1/blog/comments/{id}/")
+    fun deleteComment (
+        @Path("id") id : Int
+    ):Call<Body>
+
 }

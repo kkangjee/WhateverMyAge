@@ -1,6 +1,7 @@
 package com.example.WhateverMyAge.Love
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import com.example.WhateverMyAge.Guide.Settings.toast
 import android.content.Context
 import android.content.Intent
@@ -17,6 +18,8 @@ import android.text.TextUtils
 import android.provider.Settings.SettingNotFoundException
 import android.os.Build
 import android.util.Log
+import android.view.MenuItem
+import android.widget.PopupMenu
 import com.example.WhateverMyAge.LoginActivity
 import com.example.WhateverMyAge.Main.ConnectServer
 import com.example.WhateverMyAge.Main.PermissionCheck
@@ -24,7 +27,10 @@ import com.example.WhateverMyAge.Main.PostsForm
 import com.example.WhateverMyAge.Main.Service
 import com.example.WhateverMyAge.R
 import com.example.WhateverMyAge.signedin
+import kotlinx.android.synthetic.main.activity_comments.*
 import kotlinx.android.synthetic.main.activity_comments.view.*
+import kotlinx.android.synthetic.main.activity_comments.view.popupmenu
+import kotlinx.android.synthetic.main.activity_love.bt_back
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,8 +38,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
-var lat : Double = 0.0
-var lng : Double = 0.0
+var lat: Double = 0.0
+var lng: Double = 0.0
+var _Love_Activity: Activity = LoveActivity()
+var WholeOrAround = 0
 
 fun isLocationEnabled(context: Context): Boolean {
     val locationMode: Int
@@ -103,8 +111,11 @@ class LoveActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
+        _Love_Activity = this
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love)
+
+        bt_locationselect.text = if (WholeOrAround == 1) "내 주변" else "전체 보기"
 
         //게시판 글 출력
         var contentlist: ArrayList<LoveArticles> = arrayListOf()
@@ -121,16 +132,44 @@ class LoveActivity : AppCompatActivity() {
                 Log.i("body", "$body")
 
                 if (response.code().toString() == "200") {
-//                    contentlist = arrayListOf(
-//                        LoveArticles("story1", "sarangbang", response.body()!![0].title, "3", "5"),
-//                        LoveArticles("story2", "whats wrong", response.body()!![1].title, "32", "6"),
-//                        LoveArticles("story3", "with my age", response.body()!![2].title, "9", "5"),
-//                        LoveArticles("story4", "lets do this", response.body()!![3].title, "7", "15"),
-//                        LoveArticles("story4", "lets do this", response.body()!![4].title, "7", "15")
-//                    )
-                    for (i in 0..count) {
-                        contentlist.add(LoveArticles(body[i].id, "story1", body[i].author_id, body[i].author_username,  body[i].title, body[i].content, body[i].like.toString(), body[i].cnt.toString(), body[i].lat, body[i].lng))
+                    if (WholeOrAround == 1) {
+                        for (i in 0..count) {
+                            if (distance(body[i].lat, body[i].lng, 37.3044, 127.0040, "kilometer") < 5) {
+                                contentlist.add(
+                                    LoveArticles(
+                                        body[i].id,
+                                        "story1",
+                                        body[i].author_id,
+                                        body[i].author_username,
+                                        body[i].title,
+                                        body[i].content,
+                                        body[i].like.toString(),
+                                        body[i].cnt.toString(),
+                                        body[i].lat,
+                                        body[i].lng
+                                    )
+                                )
+                            }
+                        }
+                    } else {
+                        for (i in 0..count) {
+                            contentlist.add(
+                                LoveArticles(
+                                    body[i].id,
+                                    "story1",
+                                    body[i].author_id,
+                                    body[i].author_username,
+                                    body[i].title,
+                                    body[i].content,
+                                    body[i].like.toString(),
+                                    body[i].cnt.toString(),
+                                    body[i].lat,
+                                    body[i].lng
+                                )
+                            )
+                        }
                     }
+
                 }
 
                 val love = LoveArticlesAdapter(this@LoveActivity, contentlist, this@LoveActivity)
@@ -164,6 +203,7 @@ class LoveActivity : AppCompatActivity() {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             } else {
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 val intent = Intent(this, LoveWriteArticle::class.java)
                 intent.putExtra("QuestionAnswerArticle", 2)  //게시글 쓰기
                 startActivity(intent)
@@ -172,24 +212,26 @@ class LoveActivity : AppCompatActivity() {
 
         bt_back.setOnClickListener {
             finish()
-
         }
 
+        if (permissioncheck.LocationCheck() == 0) {
+            if (!isLocationEnabled(this)) {
+                toast("위치 사용을 켜면 내 주변의 글을 확인할 수 있어요.")
+            } else {
+                val bestProvider: String? = locationMgr.getBestProvider(criteria, true)
+
+                var gps = locationMgr.getLastKnownLocation(bestProvider)!!
+
+                lat = gps.getLatitude()
+                lng = gps.getLongitude()
+            }
+        }
+
+
         bt_locationselect.setOnClickListener {
-            if (permissioncheck.LocationCheck() == 0) {
-                if (!isLocationEnabled(this)) {
-                    toast("위치 사용을 켜주세요.")
-                    val intent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                    startActivityForResult(intent, 0)
-                } else {
-                    val bestProvider:String? = locationMgr.getBestProvider(criteria, true)
 
-                    var gps = locationMgr.getLastKnownLocation(bestProvider)!!
 
-                    lat = gps.getLatitude()
-                    lng = gps.getLongitude()
-
-                    //주소 출력
+            //주소 출력
 //                    val gcd = Geocoder(this, Locale.getDefault())
 //                    val addresses = gcd.getFromLocation(lat, lng, 1)
 //
@@ -197,13 +239,51 @@ class LoveActivity : AppCompatActivity() {
 //                    val stateName = addresses[0].getAddressLine(1)
 //                    val countryName = addresses[0].getAddressLine(2)
 
-                    var dist = distance(lat, lng, 37.3044, 127.0040, "kilometer")
+            //var dist = distance(lat, lng, 37.3044, 127.0040, "kilometer")
 
-                    toast("$dist" + "km입니다.")
+            //toast("$dist" + "km입니다.")
+            if (!isLocationEnabled(this)) {
+                toast("위치 사용을 켜주세요.")
+                val intent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivityForResult(intent, 0)
+            } else {
 
-                }
+                val popup = PopupMenu(this, bt_locationselect)
+
+                menuInflater.inflate(R.menu.showpost, popup.menu)
+                popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
+                    override
+                    fun onMenuItemClick(item: MenuItem): Boolean {
+                        when (item.itemId) {
+                            R.id.currentLocation -> {
+                                WholeOrAround = 1
+                                val LA = _Love_Activity
+                                LA.finish()
+
+                                val intent = Intent(this@LoveActivity, LoveActivity::class.java)
+                                startActivity(intent)
+
+                                return true
+                            }
+
+                            R.id.whole -> {
+                                WholeOrAround = 0
+                                val LA = _Love_Activity
+                                LA.finish()
+
+                                val intent = Intent(this@LoveActivity, LoveActivity::class.java)
+                                startActivity(intent)
+                                return true
+                            }
+
+                            else -> return false
+                        }
+                    }
+
+                })
+                popup.show()
             }
         }
 
+        }
     }
-}

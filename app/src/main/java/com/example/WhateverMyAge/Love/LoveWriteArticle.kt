@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.activity_love_write_article.*
 import android.graphics.Bitmap
 import android.util.Log
 import android.util.Base64
+import android.widget.EditText
 import com.example.WhateverMyAge.Main.*
 import com.example.WhateverMyAge.R
 import kotlinx.android.synthetic.main.activity_love_write_article.bt_back
@@ -72,12 +73,26 @@ class LoveWriteArticle : AppCompatActivity() {
         bt_back.setOnClickListener {
             finish()
         }
+
+        var content : Array<String> = arrayOf()
+
         when (cora) {
             0 -> QuestionAnswerArticle.text = "질문 남기기"
             1 -> QuestionAnswerArticle.text = "답변하기"
             2 -> QuestionAnswerArticle.text = "글쓰기"
+            3 -> {QuestionAnswerArticle.text = "글 수정"
+
+                content = intent.getStringArrayExtra("put")!!
+
+                val putcontent = findViewById<EditText>(R.id.articlecontent)
+                putcontent.setText(content[1])
+
+            }
             else -> QuestionAnswerArticle.text = "???"
         }
+
+
+
 
         lovearticlespicupload.setOnClickListener {
             if (permissioncheck.CameraCheck() == 0 && permissioncheck.GalleryCheck() == 0) {
@@ -123,14 +138,35 @@ class LoveWriteArticle : AppCompatActivity() {
                 //val bitmapImage = filePathToBitmap(cameraFilePath!!)
 
                 //ConnectServer(this).uploadPic(part)
-                ConnectServer(this).writeArticle("qqwqw",articlecontent.text.toString(), lat, lng)
+                val actual = articlecontent.text.toString()
+                ConnectServer(this).writeArticle(if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, lat, lng)
               //  ConnectServer(this).putPost(4, "sssss")
               //  ConnectServer(this).delPost(articletitle.text.toString())
+
                 finish()
+                val LA = _Love_Activity
+                LA.finish()
+
+                val CA = _Comment_Activity
+                CA.finish()
+
+                val intent = Intent(this, LoveActivity::class.java)
+                startActivity(intent)
             }
 
-            else {
+            else if (cora==3) {
+                //글 수정
+                val actual = articlecontent.text.toString()
+                ConnectServer(this).putPost(content[0].toInt(), if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual)
+                finish()
+                val LA = _Love_Activity
+                LA.finish()
 
+                val CA = _Comment_Activity
+                CA.finish()
+
+                val intent = Intent(this, LoveActivity::class.java)
+                startActivity(intent)
             }
         }
     }

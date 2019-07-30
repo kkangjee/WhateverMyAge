@@ -71,7 +71,7 @@
             />
 
             <Button
-                    android:id="@+id/username"
+                    android:id="@+id/authorname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#00ff0000"
@@ -136,6 +136,20 @@
                     android:text="-"
                     android:textSize="30dp"
             />
+
+            <View android:layout_width="wrap_content" android:layout_height="1dp"
+            android:layout_weight="1">
+
+            </View>
+
+           <ImageButton
+                   android:layout_width="50dp"
+                   android:layout_height="50dp"
+                   android:src="@drawable/ic_more_vert_black_24dp"
+                   android:background="?selectableItemBackground"
+                    android:id="@+id/popupmenu"
+           />
+
         </LinearLayout>
 
         <LinearLayout

@@ -74,7 +74,7 @@ class TravelAPI {
     Bitmap bitmap;
     public static String baseURL;
 
-    APIdata[] getAPI () {
+    APIdata[] getAPI (double lat, double lng) {
 
         StrictMode.enableDefaults();
 
@@ -82,8 +82,9 @@ class TravelAPI {
 
         String addr1 = null, addr2 = null, dist = null, title = null, image = null;
         String key = "yOv5P9kxcP5VnWt8txP86aulztqNFQ1Tx848A4ZIyOgQCl0nnx6Zgp2iZO768lX2VyqpNqF8eXFYosPaxm6z%2FQ%3D%3D";
-        double xpos = 126.9815706850;
-        double ypos = 37.5685207373;
+
+        double xpos = lat == 0 ? 126.9815706850 : lat;
+        double ypos = lng == 0 ? 37.5685207373 : lng;
 
         final APIdata[] apiData = new APIdata[100];
 
