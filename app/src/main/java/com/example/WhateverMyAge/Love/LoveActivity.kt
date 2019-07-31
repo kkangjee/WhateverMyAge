@@ -20,6 +20,7 @@ import android.os.Build
 import android.util.Log
 import android.view.MenuItem
 import android.widget.PopupMenu
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.WhateverMyAge.LoginActivity
 import com.example.WhateverMyAge.Main.ConnectServer
 import com.example.WhateverMyAge.Main.PermissionCheck
@@ -37,6 +38,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import kotlin.collections.ArrayList
 
 var lat: Double = 0.0
 var lng: Double = 0.0
@@ -62,63 +64,7 @@ fun isLocationEnabled(context: Context): Boolean {
 
 
 class LoveActivity : AppCompatActivity() {
-    fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double, unit: String): Double {
-
-        val theta = lon1 - lon2
-        var dist =
-            Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(
-                deg2rad(theta)
-            )
-
-        dist = Math.acos(dist)
-        dist = rad2deg(dist)
-        dist = dist * 60 * 1.1515
-
-        if (unit == "kilometer") {
-            dist = dist * 1.609344
-        } else if (unit == "meter") {
-            dist = dist * 1609.344
-        }
-
-        return (dist)
-    }
-
-    fun deg2rad(deg: Double): Double {
-        return (deg * Math.PI / 180.0)
-    }
-
-    // This function converts radians to decimal degrees
-    fun rad2deg(rad: Double): Double {
-        return (rad * 180 / Math.PI)
-    }
-
-//    var contentlist = arrayListOf(
-//        LoveArticles("story1", "sarangbang", "오늘은 여기에 놀러 갔어요", "3", "5"),
-//        LoveArticles("story2", "whats wrong", "멋쟁이 사자처럼 화이팅", "32", "6"),
-//        LoveArticles("story3", "with my age", "내 나이가 어때서", "9", "5"),
-//        LoveArticles("story4", "lets do this", "ㅎㅎㅎ", "7", "15")
-//    )
-    //////////////
-
-    val retrofit = Retrofit.Builder()
-        .baseUrl("https://frozen-cove-44670.herokuapp.com/")
-        .addConverterFactory(ScalarsConverterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
-
-        .build()
-
-    var server = retrofit.create(Service::class.java)
-
-    @SuppressLint("MissingPermission")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        _Love_Activity = this
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_love)
-
-        bt_locationselect.text = if (WholeOrAround == 1) "내 주변" else "전체 보기"
-
-        //게시판 글 출력
-        var contentlist: ArrayList<LoveArticles> = arrayListOf()
+    fun showPost (contentlist : ArrayList<LoveArticles>) {
         server.showPost().enqueue(object : Callback<List<PostsForm>> {
             override fun onFailure(call: Call<List<PostsForm>>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
@@ -176,7 +122,77 @@ class LoveActivity : AppCompatActivity() {
                 lovearticles.adapter = love
             }
         })
+    }
 
+
+
+    fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double, unit: String): Double {
+
+        val theta = lon1 - lon2
+        var dist =
+            Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(
+                deg2rad(theta)
+            )
+
+        dist = Math.acos(dist)
+        dist = rad2deg(dist)
+        dist = dist * 60 * 1.1515
+
+        if (unit == "kilometer") {
+            dist = dist * 1.609344
+        } else if (unit == "meter") {
+            dist = dist * 1609.344
+        }
+
+        return (dist)
+    }
+
+    fun deg2rad(deg: Double): Double {
+        return (deg * Math.PI / 180.0)
+    }
+
+    // This function converts radians to decimal degrees
+    fun rad2deg(rad: Double): Double {
+        return (rad * 180 / Math.PI)
+    }
+
+//    var contentlist = arrayListOf(
+//        LoveArticles("story1", "sarangbang", "오늘은 여기에 놀러 갔어요", "3", "5"),
+//        LoveArticles("story2", "whats wrong", "멋쟁이 사자처럼 화이팅", "32", "6"),
+//        LoveArticles("story3", "with my age", "내 나이가 어때서", "9", "5"),
+//        LoveArticles("story4", "lets do this", "ㅎㅎㅎ", "7", "15")
+//    )
+    //////////////
+
+    val retrofit = Retrofit.Builder()
+        .baseUrl("https://frozen-cove-44670.herokuapp.com/")
+        .addConverterFactory(ScalarsConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
+
+        .build()
+
+    var server = retrofit.create(Service::class.java)
+
+    @SuppressLint("MissingPermission")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        _Love_Activity = this
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_love)
+
+        val mSwipe = findViewById<SwipeRefreshLayout>(R.id.swipe)
+
+        bt_locationselect.text = if (WholeOrAround == 1) "내 주변" else "전체 보기"
+
+        //게시판 글 출력
+        var contentlist: ArrayList<LoveArticles> = arrayListOf()
+        showPost(contentlist)
+        mSwipe.setOnRefreshListener (object : SwipeRefreshLayout.OnRefreshListener {
+            override
+            fun onRefresh() {
+                showPost(contentlist)
+                mSwipe.setRefreshing(false)
+            }
+        })
 
         ///////////
         val permissioncheck = PermissionCheck(this, this)

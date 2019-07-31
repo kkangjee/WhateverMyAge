@@ -146,9 +146,9 @@ class LoveWriteArticle : AppCompatActivity() {
                 finish()
                 val LA = _Love_Activity
                 LA.finish()
-
-                val CA = _Comment_Activity
-                CA.finish()
+//
+//                val CA = _Comment_Activity
+//                CA.finish()
 
                 val intent = Intent(this, LoveActivity::class.java)
                 startActivity(intent)
