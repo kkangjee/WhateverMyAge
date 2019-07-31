@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.View
+import android.widget.Button
+import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
@@ -43,7 +45,11 @@ public class LoveArticlesAdapter (val context : Context, val contentlist : Array
     inner class Holder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         val Userpic = itemView.findViewById<AppCompatImageButton>(R.id.userpic)
         val Username = itemView.findViewById<AppCompatButton>(R.id.username)
-        val LoveContents = itemView.findViewById<AppCompatButton>(R.id.lovecontents)
+        val LoveContents = itemView.findViewById<FrameLayout>(R.id.lovecontents)
+
+
+
+        val Love = itemView.findViewById<AppCompatButton>(R.id.love)
         val Like = itemView.findViewById<AppCompatTextView>(R.id.like)
         val Comments = itemView.findViewById<AppCompatTextView>(R.id.comments)
 
@@ -56,7 +62,7 @@ public class LoveArticlesAdapter (val context : Context, val contentlist : Array
             }
 
             Username.text = lovearticles.Username
-            LoveContents.text = lovearticles.LoveContents
+            Love.text = lovearticles.LoveContents
             Like.text = lovearticles.Like
             Comments.text = lovearticles.Comments
 
@@ -64,6 +70,14 @@ public class LoveArticlesAdapter (val context : Context, val contentlist : Array
                 //var intent = Intent(LoveActivity@, WholeArticleActivity::class.java)
                 //intent.putExtra("id", lovearticles.ID)
                 //start
+                Log.i("글 아이디는~", " " + lovearticles.ID)
+                var intent = Intent(activity, com.example.WhateverMyAge.Love.Comments::class.java)
+                val arr : Array<String> = arrayOf (lovearticles.ID.toString(), lovearticles.UserID.toString(), lovearticles.Username, lovearticles.LoveContents, lovearticles.Like, lovearticles.Comments)
+                intent.putExtra("Post", arr)
+                activity.startActivity(intent)
+            }
+
+            Love.setOnClickListener {
                 Log.i("글 아이디는~", " " + lovearticles.ID)
                 var intent = Intent(activity, com.example.WhateverMyAge.Love.Comments::class.java)
                 val arr : Array<String> = arrayOf (lovearticles.ID.toString(), lovearticles.UserID.toString(), lovearticles.Username, lovearticles.LoveContents, lovearticles.Like, lovearticles.Comments)
