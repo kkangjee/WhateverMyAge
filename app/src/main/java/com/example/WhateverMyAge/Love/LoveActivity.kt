@@ -80,7 +80,7 @@ class LoveActivity : AppCompatActivity() {
                 if (response.code().toString() == "200") {
                     if (WholeOrAround == 1) {
                         for (i in 0..count) {
-                            if (distance(body[i].lat, body[i].lng, 37.3044, 127.0040, "kilometer") < 5) {
+                            if (distance(body[i].lat, body[i].lng, lat, lng, "kilometer") < 5 && lat != 0.0 && lng != 0.0) {
                                 contentlist.add(
                                     LoveArticles(
                                         body[i].id,
@@ -179,20 +179,20 @@ class LoveActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love)
 
-        val mSwipe = findViewById<SwipeRefreshLayout>(R.id.swipe)
+       // val mSwipe = findViewById<SwipeRefreshLayout>(R.id.swipe)
 
         bt_locationselect.text = if (WholeOrAround == 1) "내 주변" else "전체 보기"
 
         //게시판 글 출력
         var contentlist: ArrayList<LoveArticles> = arrayListOf()
         showPost(contentlist)
-        mSwipe.setOnRefreshListener (object : SwipeRefreshLayout.OnRefreshListener {
-            override
-            fun onRefresh() {
-                showPost(contentlist)
-                mSwipe.setRefreshing(false)
-            }
-        })
+//        mSwipe.setOnRefreshListener (object : SwipeRefreshLayout.OnRefreshListener {
+//            override
+//            fun onRefresh() {
+//                showPost(contentlist)
+//                mSwipe.setRefreshing(false)
+//            }
+//        })
 
         ///////////
         val permissioncheck = PermissionCheck(this, this)

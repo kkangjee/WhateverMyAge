@@ -1,5 +1,6 @@
 package com.example.WhateverMyAge.TravelAndFood
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.location.Criteria
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_travel_and_food.bt_back
 class TravelAndFood : AppCompatActivity() {
     private val adapter = TravelAndFoodAdapter(supportFragmentManager)
 
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         val which = intent.getIntExtra("which", -1)
 
