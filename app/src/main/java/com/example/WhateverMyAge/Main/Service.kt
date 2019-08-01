@@ -16,6 +16,10 @@ data class RegisterForm(
     var user_photo:String?=null
 )
 
+data class PicForm (
+    var picture : File? = null
+)
+
 data class PostsList (
     var test : List<PostsForm>
 )
@@ -118,16 +122,19 @@ interface Service {
         @Path("id")id: String?
     ):Call<RegisterForm>
 
-    //사진 업로드
     //@FormUrlEncoded
-//    @Multipart
-//    @PUT("/api/v1/a")
-//    fun uploadPic (
-//        //@Path("id") id: String?,
-//       // @Field("user_photo") img : File
-//        @Part file : MultipartBody.Part
-//       // @Part("File Upload") requestBody : RequestBody
-//    ):Call<RegisterForm>
+    @Multipart
+    @POST("/api/v1/a")
+    fun uploadPic (
+        //@Path("id") id: String?,
+       // @Field("user_photo") img : File
+        @Part file : MultipartBody.Part
+       //@Part("picture") requestBody : RequestBody
+    ):Call<PicForm>
+
+    @GET("/api/v1/a")
+    fun getImage(
+    ):Call<List<PicForm>>
 
     @FormUrlEncoded
     @POST("/api/v1/blog/postings/")
@@ -180,5 +187,4 @@ interface Service {
     fun deleteComment (
         @Path("id") id : Int
     ):Call<Body>
-
 }

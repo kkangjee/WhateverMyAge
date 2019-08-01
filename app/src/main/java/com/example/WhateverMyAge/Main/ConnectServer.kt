@@ -70,6 +70,53 @@ class ConnectServer(activity: Activity) {
         })
     }
 
+    fun uploadPic(file : MultipartBody.Part) {
+        server.uploadPic(file).enqueue(object : Callback<PicForm> {
+            override fun onFailure(call: Call<PicForm>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+                //activity.toast("인터넷이 없습니다.")
+            }
+
+            override fun onResponse(call: Call<PicForm>, response: Response<PicForm>) {
+                //code = response?.code()
+                if (response.code() == 200) {
+                    //user_name = response.body()?.username!!.toString()
+
+                    //activity.toast("로그인 성공")
+                    // test.text = response?.body().toString()
+                    //activity.username.text = "내 이름 : " + response.body()?.username!!.toString() + ", 회원번호 : $signedin"
+                }
+                val raw = response.raw()?.toString()
+                Log.i("error", "$raw")
+                Log.i("error", " " + response.body().toString())
+            }
+        })
+    }
+
+    fun getPic() {
+        server.getImage().enqueue(object : Callback<List<PicForm>> {
+            override fun onFailure(call: Call<List<PicForm>>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+                //activity.toast("인터넷이 없습니다.")
+            }
+
+            override fun onResponse(call: Call<List<PicForm>>, response: Response<List<PicForm>>) {
+                //code = response?.code()
+                if (response.code() == 200) {
+                    //user_name = response.body()?.username!!.toString()
+
+                    //activity.toast("로그인 성공")
+                    // test.text = response?.body().toString()
+                    //activity.username.text = "내 이름 : " + response.body()?.username!!.toString() + ", 회원번호 : $signedin"
+                }
+                val raw = response.raw()?.toString()
+                Log.i("error", "$raw")
+                Log.i("error", " " + response.body().toString())
+            }
+        })
+    }
+
+
     fun getID(id: Int) {
         server.getReg(
             id

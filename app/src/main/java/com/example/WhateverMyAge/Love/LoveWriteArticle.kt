@@ -11,6 +11,7 @@ import android.util.Base64
 import android.widget.EditText
 import com.example.WhateverMyAge.Main.*
 import com.example.WhateverMyAge.R
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_love_write_article.bt_back
 
 import okhttp3.MediaType
@@ -91,9 +92,6 @@ class LoveWriteArticle : AppCompatActivity() {
             else -> QuestionAnswerArticle.text = "???"
         }
 
-
-
-
         lovearticlespicupload.setOnClickListener {
             if (permissioncheck.CameraCheck() == 0 && permissioncheck.GalleryCheck() == 0) {
                 val intent = Intent(this, CameraOrGallery::class.java)
@@ -116,30 +114,36 @@ class LoveWriteArticle : AppCompatActivity() {
             }
 
             else if (cora == 2) {
-
+                var name = "ddd"
                 //사랑방 글 작성
                // val file = File(cameraFilePath)
-                if (file == null) {
+                if (file != null) {
                     Log.i("파일이","null")
+                    name = file!!.getName()
                 }
 
 
-//                val name = file!!.getName()
-//
-//               // Log.i("file path", "$cameraFilePath")
-//                //이미지 업로드 via MultiPart (failed)
-//              //  val json = Gson().toJson(RegisterForm())
-//                val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
-//                val part = MultipartBody.Part.createFormData("picture", name, fileReqBody)
-//                Log.i("file name", "$name")
-//              //  val description = RequestBody.create(MediaType.parse("multipart/form-data"), json)
-//                val descriptionPart = RequestBody.create(MultipartBody.FORM, "user_photo")
+                Log.i("file path", "$cameraFilePath")
+               // 이미지 업로드 via MultiPart (failed)
+                val json = Gson().toJson(RegisterForm())
+                val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
+                val part = MultipartBody.Part.createFormData("picture", name, fileReqBody)
 
-                //val bitmapImage = filePathToBitmap(cameraFilePath!!)
+                Log.i("file name", "$name")
+                Log.i("data", "$Data")
+             val description = RequestBody.create(MediaType.parse("description"), "picture")
+                Log.i("part", "$part")
+                Log.i("decription", "$description")
+                val descriptionPart = RequestBody.create(MultipartBody.FORM, "user_photo")
 
+      //          val bitmapImage = filePathToBitmap(cameraFilePath!!)
+                //성공코드 : 지우지 마시오!!
                 //ConnectServer(this).uploadPic(part)
+
+                ConnectServer(this).getPic()
+
                 val actual = articlecontent.text.toString()
-                ConnectServer(this).writeArticle(if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, lat, lng)
+                //ConnectServer(this).writeArticle(if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, lat, lng)
               //  ConnectServer(this).putPost(4, "sssss")
               //  ConnectServer(this).delPost(articletitle.text.toString())
 

@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import androidx.core.content.FileProvider
 import com.example.WhateverMyAge.BuildConfig
 import com.example.WhateverMyAge.Love.LoveWriteArticle
@@ -22,7 +23,7 @@ const val CAMERA_REQUEST_CODE = 2
 var cameraFilePath: String? = null
 var encoded : String? = null
 var file : File? = null
-
+ var Data : String? = null
 class CameraUpload (activity : Activity) {
 
     val activity = activity
@@ -42,20 +43,24 @@ class CameraUpload (activity : Activity) {
         }
     }
 
+
+
     fun galleryImage(data: Intent?) {
         val selectedImage = data!!.data as Uri
-        //testimage.setImageURI(selectedImage)
-
-        file = File(selectedImage.getPath())
         val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
         // Get the cursor
         val cursor = activity.contentResolver.query(selectedImage, filePathColumn, null, null, null) as Cursor
         // Move to first row
+        Data = activity.contentResolver.getType(data.getData()!!)!!
         cursor.moveToFirst()
         //Get the column index of MediaStore.Images.Media.DATA
         val columnIndex = cursor.getColumnIndex(filePathColumn[0])
         //Gets the String value in the column
         val imgDecodableString = cursor.getString(columnIndex)
+
+        //실제 파일 경로
+        Log.i("real image", "$imgDecodableString")
+        file = File(imgDecodableString)
         activity.toast(imgDecodableString)
         cursor.close()
         // Set the Image in ImageView after decoding the String
