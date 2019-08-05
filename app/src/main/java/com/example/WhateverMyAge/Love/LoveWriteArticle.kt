@@ -122,7 +122,6 @@ class LoveWriteArticle : AppCompatActivity() {
                     name = file!!.getName()
                 }
 
-
                 Log.i("file path", "$cameraFilePath")
                // 이미지 업로드 via MultiPart (failed)
                 val json = Gson().toJson(RegisterForm())
@@ -138,9 +137,9 @@ class LoveWriteArticle : AppCompatActivity() {
 
       //          val bitmapImage = filePathToBitmap(cameraFilePath!!)
                 //성공코드 : 지우지 마시오!!
-                //ConnectServer(this).uploadPic(part)
+                ConnectServer(this).uploadPic(part, articlecontent.text.toString())
 
-                ConnectServer(this).getPic()
+               // ConnectServer(this).getPic()
 
                 val actual = articlecontent.text.toString()
                 //ConnectServer(this).writeArticle(if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, lat, lng)

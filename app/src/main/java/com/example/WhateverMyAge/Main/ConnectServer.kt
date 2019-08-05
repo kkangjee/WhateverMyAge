@@ -70,8 +70,35 @@ class ConnectServer(activity: Activity) {
         })
     }
 
-    fun uploadPic(file : MultipartBody.Part) {
-        server.uploadPic(file).enqueue(object : Callback<PicForm> {
+    fun getLikedUsers(id : Int) {
+        server.getLikedUsers(id).enqueue(object : Callback<LikedForm> {
+            override fun onFailure(call: Call<LikedForm>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+                //activity.toast("인터넷이 없습니다.")
+            }
+
+            override fun onResponse(call: Call<LikedForm>, response: Response<LikedForm>) {
+                //code = response?.code()
+                if (response.code() == 200) {
+                    //user_name = response.body()?.username!!.toString()
+
+                    //activity.toast("로그인 성공")
+                    // test.text = response?.body().toString()
+                    //activity.username.text = "내 이름 : " + response.body()?.username!!.toString() + ", 회원번호 : $signedin"
+                }
+                val raw = response.raw()?.toString()
+                Log.i("error", "$raw")
+                Log.i("error", " " + response.body().toString())
+            }
+        })
+    }
+
+    fun putLikedUser(id : Int, user : IntArray) {
+
+    }
+
+    fun uploadPic(file : MultipartBody.Part, reply : String) {
+        server.uploadPic(file, reply).enqueue(object : Callback<PicForm> {
             override fun onFailure(call: Call<PicForm>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
                 //activity.toast("인터넷이 없습니다.")

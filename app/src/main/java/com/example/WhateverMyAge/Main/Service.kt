@@ -17,7 +17,8 @@ data class RegisterForm(
 )
 
 data class PicForm (
-    var picture : File? = null
+    var picture : File? = null,
+    var reply : String? = null
 )
 
 data class PostsList (
@@ -68,9 +69,24 @@ data class CommentsForm (
     var author_id: Int
 )
 
+data class LikedForm (
+    var likedusers : IntArray
+)
 
 //https://frozen-cove-44670.herokuapp.com/api/v1/registration/
 interface Service {
+
+    @GET("api/v1/blog/postings/{id}")
+    fun getLikedUsers(
+        @Path("id") id:Int
+    ):Call<LikedForm>
+
+    @FormUrlEncoded
+    @PUT("api/v1/blog/postings/{id}")
+    fun putLikedUser(
+        @Path("id") id:Int,
+        @Field("likedusers") likedusers : IntArray
+    ):Call<LikedForm>
 
     //내 정보 받아오기
     @GET("/api/v1/users/{id}")
@@ -109,7 +125,7 @@ interface Service {
 
     //회원정보 수정
     @FormUrlEncoded
-    @PUT("/api/v1/registration/{id}/")
+    @PUT("/api/v1/users/{id}/")
     fun putReg(
         @Path("id")id: String?,
         @Field("username")username:String?,
@@ -122,14 +138,14 @@ interface Service {
         @Path("id")id: String?
     ):Call<RegisterForm>
 
-    //@FormUrlEncoded
     @Multipart
     @POST("/api/v1/a")
     fun uploadPic (
         //@Path("id") id: String?,
        // @Field("user_photo") img : File
-        @Part file : MultipartBody.Part
+        @Part file : MultipartBody.Part,
        //@Part("picture") requestBody : RequestBody
+    @Part("reply") reply : String
     ):Call<PicForm>
 
     @GET("/api/v1/a")

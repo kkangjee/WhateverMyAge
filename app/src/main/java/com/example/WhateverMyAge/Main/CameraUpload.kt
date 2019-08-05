@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.database.Cursor
 import android.graphics.BitmapFactory
+import android.graphics.Path
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
@@ -39,6 +40,8 @@ class CameraUpload (activity : Activity) {
                 galleryImage(data)
             } else if (requestCode == CAMERA_REQUEST_CODE) {
                 activity.testimage.setImageURI(Uri.parse(cameraFilePath));
+                file = File(Uri.parse(cameraFilePath).toString())
+                Log.i("file name", " "+ file!!.getName())
             }
         }
     }

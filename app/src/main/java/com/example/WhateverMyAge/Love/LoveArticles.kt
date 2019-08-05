@@ -13,8 +13,10 @@ import android.widget.Button
 import android.widget.FrameLayout
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat.startActivity
+import com.example.WhateverMyAge.Main.ConnectServer
 import com.example.WhateverMyAge.MyInformation
 import com.example.WhateverMyAge.R
 import com.example.WhateverMyAge.signedin
@@ -46,7 +48,7 @@ public class LoveArticlesAdapter (val context : Context, val contentlist : Array
         val Userpic = itemView.findViewById<AppCompatImageButton>(R.id.userpic)
         val Username = itemView.findViewById<AppCompatButton>(R.id.username)
         val LoveContents = itemView.findViewById<FrameLayout>(R.id.lovecontents)
-
+        val LikeButton = itemView.findViewById<AppCompatCheckBox>(R.id.likebutton)
 
 
         val Love = itemView.findViewById<AppCompatButton>(R.id.love)
@@ -92,6 +94,12 @@ public class LoveArticlesAdapter (val context : Context, val contentlist : Array
                 intent.putExtra("user_info", arr)
                 activity.startActivity(intent)
             }
+
+            LikeButton.setOnClickListener {
+                Log.i("글 아이디는~", " " + lovearticles.ID)
+                ConnectServer(activity).getLikedUsers(lovearticles.ID)
+            }
+
         }
     }
 }
