@@ -162,7 +162,7 @@ interface Service {
           @Part("author_username") author_username : String?,
           @Part("title") title : String?,
 //        @Part("like") like : Int,
-            @Part file : MultipartBody.Part,
+            @Part file : MultipartBody.Part?,
             @Part("content") content : String?,
           //@Part("photo") photo : File? = null,
           @Part("lat") lat : Double?,
@@ -175,13 +175,23 @@ interface Service {
         //@Path("id") id : Int
     ):Call<List<PostsForm>>
 
-    @FormUrlEncoded
+    @Multipart
     @PUT("/api/v1/blog/postings/{id}")
     fun putPost (
         @Path("id") id :Int,
-        @Field("content") content : String,
-        @Field("title") title : String
-    ):Call<PostsForm>
+        //@Field("content") content : String,
+        //@Field("title") title : String
+        @Part file : MultipartBody.Part?,
+        @Part("content") content : String?,
+        @Part("title") title : String?
+        ):Call<PostsForm>
+
+    @Multipart
+    @PUT("/api/v1/users/{id}")
+    fun postProfilePic (
+        @Path("id") id : Int,
+        @Part file : MultipartBody.Part
+    ):Call<Profile>
 
     @DELETE("/api/v1/blog/postings/{id}")
     fun delPost (
@@ -206,11 +216,4 @@ interface Service {
     fun deleteComment (
         @Path("id") id : Int
     ):Call<Body>
-
-    @Multipart
-    @PUT("/api/v1/users/{id}")
-    fun postProfilePic (
-        @Path("id") id : Int,
-        @Part file : MultipartBody.Part
-    ):Call<Profile>
 }

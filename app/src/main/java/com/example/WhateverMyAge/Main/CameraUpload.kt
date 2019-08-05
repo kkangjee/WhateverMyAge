@@ -38,6 +38,7 @@ class CameraUpload (val activity : Activity) {
                 if (prof != 0) {  //프로필 사진 업로드일 경우
                     Log.i("image", " "+image!!.getName())
                      ConnectServer(activity).postProfilePic(prof, image!!)
+                    image = null
                     return
                 }
                 activity.testimage.setImageURI(Uri.parse(cameraFilePath));
@@ -67,7 +68,9 @@ class CameraUpload (val activity : Activity) {
         cursor.close()
 
         if (prof != 0) {                         //프로필 업로드일 경우
+            Log.i("sds", " " + image!!.getName())
             ConnectServer(activity).postProfilePic(prof, image!!)
+            image = null
             return
         }
 

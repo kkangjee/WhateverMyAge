@@ -64,8 +64,8 @@ public class LoveArticlesAdapter (val context : Context, val contentlist : Array
                 Userpic.setImageResource(R.mipmap.ic_launcher)
             }
 
-            if (lovearticles.Picture != "") {
-                Log.i("이미지 시작", " " + lovearticles.Picture)
+            if (lovearticles.Picture != null) {
+                Log.i("이미지 시작!!!!", " " + lovearticles.Picture)
                 var bit = TravelAPI().setImageURL(lovearticles.Picture)
                 Picture.setImageBitmap(bit)
             }

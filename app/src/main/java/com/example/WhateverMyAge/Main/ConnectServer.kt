@@ -29,9 +29,7 @@ import retrofit2.http.Multipart
 import java.io.File
 
 
-class ConnectServer(activity: Activity) {
-    var activity = activity
-
+class ConnectServer(var activity: Activity) {
     val retrofit = Retrofit.Builder()
         .baseUrl("https://frozen-cove-44670.herokuapp.com/")
         .addConverterFactory(ScalarsConverterFactory.create())
@@ -246,9 +244,15 @@ class ConnectServer(activity: Activity) {
         })
     }
 
-    fun writeArticle(title : String, content : String, lat : Double, lng : Double, file : File) {
-        val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
-        val part = MultipartBody.Part.createFormData("photo", file.getName(), fileReqBody)
+    fun writeArticle(title : String, content : String, lat : Double, lng : Double, file : File?) {
+        var part : MultipartBody.Part?
+        if (file != null) {
+            val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
+            part = MultipartBody.Part.createFormData("photo", file.getName(), fileReqBody)
+        }
+
+        else
+            part = null
         server.postBlog(signedin, user_name, title, part, content, lat, lng).enqueue(object : Callback<RegisterForm> {
             override fun onFailure(call: Call<RegisterForm>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
@@ -260,24 +264,30 @@ class ConnectServer(activity: Activity) {
                 val raw = response.raw().toString()
 
                 if (response.code() == 201) {
-                    //activity.toast("안녕히 가세요.")
-                    // test.text = response?.body().toString()
-                   // Log.i("글쓰기 완료", "$signedin")
-                    //signedin = 0
-                    //activity.finish()
+                    Log.i("ddd", "$raw")
+                    Log.i("글쓰기 완료", "$user_name")
                 }
 
                 else {
                     Log.i("ddd", "$raw")
-                    Log.i("글쓰기 완료", "$user_name")
+                    Log.i("글쓰기 실패", "$user_name")
                 }
             }
         })
     }
 
 
-    fun putPost(id : Int, title : String, content: String) {
-        server.putPost(id, title, content).enqueue(object : Callback<PostsForm> {
+    fun putPost(id : Int, title : String, content: String, file : File?) {
+        var part : MultipartBody.Part?
+        if (file != null) {
+            val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
+            part = MultipartBody.Part.createFormData("photo", file.getName(), fileReqBody)
+        }
+
+        else
+            part = null
+
+        server.putPost(id, part, title, content).enqueue(object : Callback<PostsForm> {
             override fun onFailure(call: Call<PostsForm>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
             }

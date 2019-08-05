@@ -128,6 +128,12 @@ class LoveWriteArticle : AppCompatActivity() {
                     finish()
                     image = null
                 }
+                else {
+                    val actual = articlecontent.text.toString()
+                    ConnectServer(this).writeArticle(if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, lat, lng, null)
+                }
+
+
                 val LA = _Love_Activity
                 LA.finish()
 //
@@ -141,7 +147,7 @@ class LoveWriteArticle : AppCompatActivity() {
             else if (cora==3) {
                 //글 수정
                 val actual = articlecontent.text.toString()
-                ConnectServer(this).putPost(content[0].toInt(), if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual)
+                ConnectServer(this).putPost(content[0].toInt(), if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, image)
                 finish()
                 val LA = _Love_Activity
                 LA.finish()

@@ -23,7 +23,7 @@ class TravelFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         val api = TravelAPI()
-        val apiList = api.getAPI(lat, lng)
+        val apiList = api.getAPI(lng, lat)
         //iv_TravelPic.setImageBitmap(bitmap)
 
         // travelspot.text = api.api[0].add1
