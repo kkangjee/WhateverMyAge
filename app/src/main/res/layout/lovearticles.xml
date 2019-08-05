@@ -64,6 +64,16 @@
             android:textSize="40dp"
     />
 
+    <ImageView
+            android:id="@+id/uploadedPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="200dp"
+            android:maxHeight="200dp"
+            android:background="@color/Invisible"
+            android:scaleType="fitCenter"
+    />
+
     TODO1 : 사진 미리보기
     TODO2 : 각 게시글에 해당하는 버튼으로 만들기
     

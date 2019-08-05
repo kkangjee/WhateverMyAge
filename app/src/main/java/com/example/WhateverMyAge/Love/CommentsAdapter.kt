@@ -60,47 +60,15 @@ class CommentsAdapter (val context : Context, val titlelist : ArrayList<Comment>
             }
 
             Comment.setOnClickListener {
-                activity.toast("길게 누르면 삭제합니다.")
+                if (signedin == comments.UserID)
+                    activity.toast("길게 누르면 삭제합니다.")
             }
 
             Comment.setOnLongClickListener(object : View.OnLongClickListener {
                 override
                 fun onLongClick(v : View) : Boolean {
-
-
                     if (signedin == comments.UserID)
                         activity.deleteComment(comments.ID, comments.Posting, commentsRV)
-////                    if (signedin == comments.UserID)
-////                        Comments().deleteComment(comments.ID)
-//
-//                    val retrofit = Retrofit.Builder()
-//                        .baseUrl("https://frozen-cove-44670.herokuapp.com/")
-//                        .addConverterFactory(ScalarsConverterFactory.create())
-//                        .addConverterFactory(GsonConverterFactory.create())
-//
-//                        .build()
-//
-//                    var server = retrofit.create(Service::class.java)
-//
-//                    server.deleteComment(comments.ID).enqueue(object : Callback<Body> {
-//                        override fun onFailure(call: Call<Body>, t: Throwable) {
-//                            Log.e("서버와 통신에 실패했습니다.", "Error!")
-//                        }
-//
-//                        override fun onResponse(call: Call<Body>, response: Response<Body>) {
-//                            //code = response?.code()
-//                            if (response.code() == 204) {
-//                                // test.text = response?.body().toString()
-//                            } else {
-//
-//                            }
-//
-//                            Log.i("댓삭", " " + response.raw().toString())
-//
-//                        }
-//                    })
-//
-
                     return true
                 }
             })

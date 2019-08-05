@@ -17,6 +17,7 @@ import com.example.WhateverMyAge.Guide.Settings.toast
 import com.example.WhateverMyAge.Main.*
 import com.example.WhateverMyAge.MyInformation
 import com.example.WhateverMyAge.R
+import com.example.WhateverMyAge.TravelAndFood.TravelAPI
 import com.example.WhateverMyAge.signedin
 import com.example.WhateverMyAge.user_name
 import kotlinx.android.synthetic.main.activity_comments.*
@@ -162,6 +163,10 @@ class Comments : AppCompatActivity() {
         lovecontents.text = ID[3]
         like.text = ID[4]
         comments.text = ID[5]
+        if (ID[6]!= "")
+            uploadedImageDetail.setImageBitmap(TravelAPI().setImageURL(ID[6]))
+//        else
+//            uploadedImageDetail.setVisibility(View.GONE)
 
         var commentlist: ArrayList<Comment> = arrayListOf()
         val cl = findViewById<RecyclerView>(R.id.commentslist)

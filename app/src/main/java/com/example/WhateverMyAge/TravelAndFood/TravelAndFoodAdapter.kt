@@ -26,7 +26,6 @@ class TravelAndFoodAdapter  (fm: FragmentManager): FragmentStatePagerAdapter(fm)
             else -> {return "여행"}
         }
     }
-
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {  //viewpager에서 뷰 사라질 때 제거
         super.destroyItem(container, position, `object`)
     }

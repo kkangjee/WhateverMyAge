@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_love_write_article.*
 import kotlinx.android.synthetic.main.activity_my_information.*
 import kotlinx.android.synthetic.main.activity_my_information.username
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -245,8 +246,10 @@ class ConnectServer(activity: Activity) {
         })
     }
 
-    fun writeArticle(title : String, content : String, lat : Double, lng : Double) {
-        server.postBlog(signedin, user_name, title, content, lat, lng).enqueue(object : Callback<RegisterForm> {
+    fun writeArticle(title : String, content : String, lat : Double, lng : Double, file : File) {
+        val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
+        val part = MultipartBody.Part.createFormData("photo", file.getName(), fileReqBody)
+        server.postBlog(signedin, user_name, title, part, content, lat, lng).enqueue(object : Callback<RegisterForm> {
             override fun onFailure(call: Call<RegisterForm>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
                 activity.toast("인터넷이 없습니다.")
@@ -398,10 +401,32 @@ class ConnectServer(activity: Activity) {
         server.deleteComment(id).enqueue(object : Callback<Body> {
             override fun onFailure(call: Call<Body>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
-
             }
 
             override fun onResponse(call: Call<Body>, response: Response<Body>) {
+                //code = response?.code()
+                if (response.code() == 204) {
+                    // test.text = response?.body().toString()
+                } else {
+
+                }
+
+                Log.i("댓삭", " " + response.raw().toString())
+
+            }
+        })
+    }
+
+    fun postProfilePic(id : Int, file : File) {
+        val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
+        val part = MultipartBody.Part.createFormData("user_photo", file.getName(), fileReqBody)
+
+        server.postProfilePic(id, part).enqueue(object : Callback<Profile> {
+            override fun onFailure(call: Call<Profile>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+            }
+
+            override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
                 //code = response?.code()
                 if (response.code() == 204) {
                     // test.text = response?.body().toString()

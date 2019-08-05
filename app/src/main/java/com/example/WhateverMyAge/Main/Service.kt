@@ -5,6 +5,7 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 import java.io.File
+import java.net.URL
 
 data class RegisterForm(
     var pk : String? = null,
@@ -21,8 +22,8 @@ data class PicForm (
     var reply : String? = null
 )
 
-data class PostsList (
-    var test : List<PostsForm>
+data class Profile (
+    var user_photo : String
 )
 
 data class PostsForm(
@@ -37,7 +38,8 @@ data class PostsForm(
     var content : String,
     var lat : Double,
     var lng : Double,
-    var id : Int
+    var id : Int,
+    var photo : String?
 //    var like : Int = 0,
 //    var content : String? = null,
 //    var photo : String? = null,
@@ -145,25 +147,26 @@ interface Service {
        // @Field("user_photo") img : File
         @Part file : MultipartBody.Part,
        //@Part("picture") requestBody : RequestBody
-    @Part("reply") reply : String
+        @Part("reply") reply : String
     ):Call<PicForm>
 
     @GET("/api/v1/a")
     fun getImage(
     ):Call<List<PicForm>>
 
-    @FormUrlEncoded
+    @Multipart
     @POST("/api/v1/blog/postings/")
     fun postBlog (
 //        @Field("id") id : Int,
-            @Field("author_id") author_id : Int,
-          @Field("author_username") author_username : String?,
-          @Field("title") title : String?,
-//        @Field("like") like : Int,
-          @Field("content") content : String?,
-          //@Field("photo") photo : File? = null,
-          @Field("lat") lat : Double?,
-          @Field ("lng") lng : Double?
+            @Part("author_id") author_id : Int,
+          @Part("author_username") author_username : String?,
+          @Part("title") title : String?,
+//        @Part("like") like : Int,
+            @Part file : MultipartBody.Part,
+            @Part("content") content : String?,
+          //@Part("photo") photo : File? = null,
+          @Part("lat") lat : Double?,
+          @Part ("lng") lng : Double?
 //        @Field("gps") gps : String?
     ):Call<RegisterForm>
 
@@ -203,4 +206,11 @@ interface Service {
     fun deleteComment (
         @Path("id") id : Int
     ):Call<Body>
+
+    @Multipart
+    @PUT("/api/v1/users/{id}")
+    fun postProfilePic (
+        @Path("id") id : Int,
+        @Part file : MultipartBody.Part
+    ):Call<Profile>
 }
