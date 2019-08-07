@@ -7,6 +7,7 @@ import android.location.Criteria
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.WhateverMyAge.Guide.Settings.toast
 import com.example.WhateverMyAge.Love.isLocationEnabled
@@ -59,7 +60,8 @@ class TravelAndFood : AppCompatActivity() {
                 val bestProvider: String? = locationMgr.getBestProvider(criteria, true)
 
                 var gps = locationMgr.getLastKnownLocation(bestProvider)!!
-
+                Log.i("ds", "$lat")
+                Log.i("ds", "$lng")
                 lat = gps.getLatitude()
                 lng = gps.getLongitude()
             }

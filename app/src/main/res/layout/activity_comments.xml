@@ -43,7 +43,16 @@
         />
 
     </LinearLayout>
-
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+    >
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+    >
     <LinearLayout
             android:layout_margin="16dp"
             android:orientation="vertical"
@@ -93,6 +102,16 @@
                 android:text="내용"
 
                 android:textSize="40dp"
+        />
+
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height= "wrap_content"
+                android:maxHeight="200dp"
+                android:maxWidth="200dp"
+                android:scaleType="fitCenter"
+                android:background="@color/Invisible"
+                android:id="@+id/uploadedImageDetail"
         />
 
         <!--TODO1 : 사진 미리보기-->
@@ -186,7 +205,8 @@
 
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
-
+    </LinearLayout>
+    </ScrollView>
 
     </LinearLayout>
 

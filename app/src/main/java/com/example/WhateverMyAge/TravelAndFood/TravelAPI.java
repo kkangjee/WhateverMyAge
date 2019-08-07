@@ -70,7 +70,7 @@ class APIdata {
 }
 
 
-class TravelAPI {
+public class TravelAPI {
     Bitmap bitmap;
     public static String baseURL;
 
@@ -187,10 +187,10 @@ class TravelAPI {
     }
 
 
-    Bitmap setImageURL (String originalURL) {
+    public Bitmap setImageURL (String originalURL) {
         //baseURL = apiData[0].getImage();
-
-        originalURL = originalURL.substring(0, 4) + "s" + originalURL.substring(4, originalURL.length());
+        if (originalURL.charAt(4) != 's')
+            originalURL = originalURL.substring(0, 4) + "s" + originalURL.substring(4, originalURL.length());
 
         final String baseURL = originalURL;
 
@@ -201,7 +201,6 @@ class TravelAPI {
             @Override
             public void run() {
                 try {
-
                     URL url = new URL(baseURL);
                     HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
                     conn.setDoInput(true);

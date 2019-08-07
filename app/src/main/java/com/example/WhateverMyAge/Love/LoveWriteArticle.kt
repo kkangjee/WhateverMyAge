@@ -1,5 +1,6 @@
 package com.example.WhateverMyAge.Love
 
+import android.content.Context
 import com.example.WhateverMyAge.Guide.Settings.toast
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import android.util.Base64
 import android.widget.EditText
 import com.example.WhateverMyAge.Main.*
 import com.example.WhateverMyAge.R
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_love_write_article.bt_back
 
 import okhttp3.MediaType
@@ -24,36 +26,22 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.ByteArrayOutputStream
+import java.io.File
 
 class LoveWriteArticle : AppCompatActivity() {
-
-    fun filePathToBitmap(imageBitmap : Bitmap) : String {
-       // val file = File(filePath)
-        //val bOption = BitmapFactory.Options()
-        //var imageBitmap = BitmapFactory.decodeFile(file.absolutePath, bOption)
-
-        var stream = ByteArrayOutputStream()
-        if (imageBitmap != null) {
-            Log.i("이미지가 널 아님", "not null")
-            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 60, stream)
-            var byteArray = stream.toByteArray()
-            return Base64.encodeToString(byteArray, Base64.DEFAULT)
-        }
-        else{
-            Log.i("이미지가 널임", "null")
-            return ""
-        }
+    public val camera = CameraUpload(this)
+    public lateinit var context : Context
+    override fun onActivityResult (requestCode : Int, resultCode : Int, data: Intent?) {
+        camera.newOnActivityResult(0, requestCode, resultCode, data)
     }
 
-    val camera = CameraUpload(this)
-
-    override fun onActivityResult (requestCode : Int, resultCode : Int, data: Intent?) {
-        camera.newOnActivityResult(requestCode, resultCode, data)
+    public fun uploadingImage (file : File) {
+        image = file
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //val connect = ConnectServer(this)
-
+        context = this
         val permissioncheck = PermissionCheck(this, this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love_write_article)
@@ -91,9 +79,6 @@ class LoveWriteArticle : AppCompatActivity() {
             else -> QuestionAnswerArticle.text = "???"
         }
 
-
-
-
         lovearticlespicupload.setOnClickListener {
             if (permissioncheck.CameraCheck() == 0 && permissioncheck.GalleryCheck() == 0) {
                 val intent = Intent(this, CameraOrGallery::class.java)
@@ -116,34 +101,39 @@ class LoveWriteArticle : AppCompatActivity() {
             }
 
             else if (cora == 2) {
-
+                var name = "ddd"
                 //사랑방 글 작성
-               // val file = File(cameraFilePath)
-                if (file == null) {
-                    Log.i("파일이","null")
+                if (image != null) {
+                    Log.i("파일이", "null")
+                    name = image!!.getName()
+                    Log.i("image", " " + image!!.getName())
+
+//
+//                    val fileReqBody = RequestBody.create(MediaType.parse("image/*"), image)
+//                    val part = MultipartBody.Part.createFormData("picture", name, fileReqBody)
+
+                    Log.i("file name", "$name")
+                    // val description = RequestBody.create(MediaType.parse("description"), "picture")
+                  //  Log.i("part", "$part")
+                    //  Log.i("decription", "$description")
+                    val descriptionPart = RequestBody.create(MultipartBody.FORM, "user_photo")
+
+                    //성공코드 : 지우지 마시오!!
+                    //ConnectServer(this).uploadPic(part, articlecontent.text.toString())
+                    // ConnectServer(this).getPic()
+                    val actual = articlecontent.text.toString()
+                    ConnectServer(this).writeArticle(if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, lat, lng, image!!)
+                    //  ConnectServer(this).putPost(4, "sssss")
+                    //  ConnectServer(this).delPost(articletitle.text.toString())
+                    finish()
+                    image = null
+                }
+                else {
+                    val actual = articlecontent.text.toString()
+                    ConnectServer(this).writeArticle(if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, lat, lng, null)
                 }
 
 
-//                val name = file!!.getName()
-//
-//               // Log.i("file path", "$cameraFilePath")
-//                //이미지 업로드 via MultiPart (failed)
-//              //  val json = Gson().toJson(RegisterForm())
-//                val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
-//                val part = MultipartBody.Part.createFormData("picture", name, fileReqBody)
-//                Log.i("file name", "$name")
-//              //  val description = RequestBody.create(MediaType.parse("multipart/form-data"), json)
-//                val descriptionPart = RequestBody.create(MultipartBody.FORM, "user_photo")
-
-                //val bitmapImage = filePathToBitmap(cameraFilePath!!)
-
-                //ConnectServer(this).uploadPic(part)
-                val actual = articlecontent.text.toString()
-                ConnectServer(this).writeArticle(if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, lat, lng)
-              //  ConnectServer(this).putPost(4, "sssss")
-              //  ConnectServer(this).delPost(articletitle.text.toString())
-
-                finish()
                 val LA = _Love_Activity
                 LA.finish()
 //
@@ -157,7 +147,7 @@ class LoveWriteArticle : AppCompatActivity() {
             else if (cora==3) {
                 //글 수정
                 val actual = articlecontent.text.toString()
-                ConnectServer(this).putPost(content[0].toInt(), if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual)
+                ConnectServer(this).putPost(content[0].toInt(), if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, image)
                 finish()
                 val LA = _Love_Activity
                 LA.finish()

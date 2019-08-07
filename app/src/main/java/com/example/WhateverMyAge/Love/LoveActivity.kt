@@ -80,6 +80,9 @@ class LoveActivity : AppCompatActivity() {
                 if (response.code().toString() == "200") {
                     if (WholeOrAround == 1) {
                         for (i in 0..count) {
+                            if (body[i].photo!= null)
+                                Log.i("photo", " " + body[i].photo)
+
                             if (distance(body[i].lat, body[i].lng, lat, lng, "kilometer") < 5 && lat != 0.0 && lng != 0.0) {
                                 contentlist.add(
                                     LoveArticles(
@@ -92,7 +95,8 @@ class LoveActivity : AppCompatActivity() {
                                         body[i].like.toString(),
                                         body[i].cnt.toString(),
                                         body[i].lat,
-                                        body[i].lng
+                                        body[i].lng,
+                                        body[i].photo
                                     )
                                 )
                             }
@@ -110,7 +114,8 @@ class LoveActivity : AppCompatActivity() {
                                     body[i].like.toString(),
                                     body[i].cnt.toString(),
                                     body[i].lat,
-                                    body[i].lng
+                                    body[i].lng,
+                                    body[i].photo
                                 )
                             )
                         }
