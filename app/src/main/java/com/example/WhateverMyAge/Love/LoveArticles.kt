@@ -14,12 +14,21 @@ import android.widget.FrameLayout
 import androidx.appcompat.widget.*
 import androidx.core.content.ContextCompat.startActivity
 import com.example.WhateverMyAge.Main.ConnectServer
+import com.example.WhateverMyAge.Main.Profile
+import com.example.WhateverMyAge.Main.Service
 import com.example.WhateverMyAge.MyInformation
 import com.example.WhateverMyAge.R
 import com.example.WhateverMyAge.TravelAndFood.TravelAPI
 
 import com.example.WhateverMyAge.signedin
 import com.example.WhateverMyAge.user_name
+import kotlinx.android.synthetic.main.activity_my_information.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.net.URL
 
 class LoveArticles (var ID : Int, var Userpic : String, var UserID : Int, var Username:String, var Title : String, var LoveContents : String, var Like : String, var Comments : String, var Lat : Double, var Lng : Double, var Picture : String?)
@@ -57,12 +66,12 @@ public class LoveArticlesAdapter (val context : Context, val contentlist : Array
         val Comments = itemView.findViewById<AppCompatTextView>(R.id.comments)
 
         fun bind(lovearticles: LoveArticles, context: Context) {
-            if (lovearticles.Userpic != "") {
-                val resource = context.resources.getIdentifier(lovearticles.Userpic, "drawable", context.packageName)
-                Userpic.setImageResource(resource)
-            } else {
-                Userpic.setImageResource(R.mipmap.ic_launcher)
-            }
+//            if (lovearticles.Userpic != "") {
+//                val resource = context.resources.getIdentifier(lovearticles.Userpic, "drawable", context.packageName)
+//                Userpic.setImageResource(resource)
+//            } else {
+//                Userpic.setImageResource(R.mipmap.ic_launcher)
+//            }
 
             if (lovearticles.Picture != null) {
                 Log.i("이미지 시작!!!!", " " + lovearticles.Picture)
@@ -108,6 +117,49 @@ public class LoveArticlesAdapter (val context : Context, val contentlist : Array
                 Log.i("글 아이디는~", " " + lovearticles.ID)
                 ConnectServer(activity).getLikedUsers(lovearticles.ID)
             }
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl("https://frozen-cove-44670.herokuapp.com/")
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+
+                .build()
+
+            var server = retrofit.create(Service::class.java)
+
+            server.getProfilePic(lovearticles.UserID).enqueue(object : Callback<Profile> {
+                override fun onFailure(call: Call<Profile>, t: Throwable) {
+                    Log.e("서버와 통신에 실패했습니다.", "Error!")
+                }
+
+                override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
+                    //code = response?.code()
+                    if (response.code() == 204) {
+                        // test.text = response?.body().toString()
+                    } else {
+
+                    }
+                    Log.i("profile image", " " + response.raw())
+                    Log.i("profile image", " " + response.body())
+
+                    val pic = if (response.body() != null) response.body()!!.user_photo else null
+                    Log.i("dsd", "$pic")
+                    if (pic != null) {
+                        Log.i("pic", "exists" + pic)
+                        val bit = TravelAPI().setImageURL(pic)
+                        Userpic.setImageBitmap(bit)
+                        Log.i("image bitmap", "$pic")
+                    }
+
+                    else {
+                        Log.i("no pic", " dd")
+                        val resource = context.resources.getIdentifier(lovearticles.Userpic, "drawable", context.packageName)
+                        Userpic.setImageResource(resource)
+                    }
+
+                }
+            })
+
         }
     }
 }

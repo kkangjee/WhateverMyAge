@@ -9,7 +9,14 @@ import android.widget.Button
 import androidx.appcompat.widget.AppCompatButton
 import com.example.WhateverMyAge.Guide.Settings.toast
 import com.example.WhateverMyAge.Main.*
+import com.example.WhateverMyAge.TravelAndFood.TravelAPI
 import kotlinx.android.synthetic.main.activity_my_information.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 class MyInformation : AppCompatActivity() {
 
@@ -22,11 +29,52 @@ class MyInformation : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val server = ConnectServer(this)
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://frozen-cove-44670.herokuapp.com/")
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+
+            .build()
+
+        var server2 = retrofit.create(Service::class.java)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_information)
         val info = intent.getStringArrayExtra("user_info")
         id = info[0].toInt()
+        var pic : String? = null
+        server2.getProfilePic(id).enqueue(object : Callback<Profile> {
+            override fun onFailure(call: Call<Profile>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+            }
+
+            override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
+                //code = response?.code()
+                if (response.code() == 204) {
+                    // test.text = response?.body().toString()
+                } else {
+
+                }
+                    Log.i("profile image", " " + response.raw())
+                Log.i("profile image", " " + response.body()!!)
+
+                pic = if (response.body()!!.user_photo != null) response.body()!!.user_photo else null
+                Log.i("dsd", "$pic")
+                if (pic != null) {
+                    Log.i("pic", "exists" + pic)
+                    val bit = TravelAPI().setImageURL(pic)
+                    ProfileUpload.setImageBitmap(bit)
+                    Log.i("image bitmap", "$pic")
+                }
+
+                else {
+                    Log.i("no pic", " dd")
+                    val drawable = this@MyInformation.getDrawable(R.drawable.story1)
+                    ProfileUpload.setImageDrawable(drawable)
+                }
+
+            }
+        })
 
         if (signedin != info[0].toInt())  {
             activitytitle.text = "회원 정보"
