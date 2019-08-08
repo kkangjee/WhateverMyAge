@@ -50,9 +50,7 @@ class LoveWriteArticle : AppCompatActivity() {
         //TODO : 사진 촬영 후 업로드 혹은 갤러리 업로드
         //TODO : 카메라, 갤러리 권한
 
-        lovearticlesvideoupload.setOnClickListener {
 
-        }
 
         lovearticlescancel.setOnClickListener {
             finish()
