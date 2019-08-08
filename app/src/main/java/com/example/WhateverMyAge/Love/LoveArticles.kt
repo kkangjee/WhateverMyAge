@@ -1,16 +1,18 @@
 package com.example.WhateverMyAge.Love
 
+import android.app.ActionBar
 import android.app.Activity
 import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
+import android.location.GnssMeasurement
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.View
-import android.widget.Button
-import android.widget.FrameLayout
+import android.view.ViewTreeObserver
+import android.widget.*
 import androidx.appcompat.widget.*
 import androidx.core.content.ContextCompat.startActivity
 import com.example.WhateverMyAge.Main.ConnectServer
@@ -33,6 +35,22 @@ import java.net.URL
 
 class LoveArticles (var ID : Int, var Userpic : String, var UserID : Int, var Username:String, var Title : String, var LoveContents : String, var Like : String, var Comments : String, var Lat : Double, var Lng : Double, var Picture : String?)
 
+
+class OnViewGlobalLayoutListener(private val view: View) : ViewTreeObserver.OnGlobalLayoutListener {
+
+    override fun onGlobalLayout() {
+        if (view.height > maxHeight || view.width > maxWidth) {
+            view.layoutParams.height = maxHeight
+            view.layoutParams.width = maxWidth
+        }
+    }
+
+    companion object {
+        private val maxHeight = 3000
+        private val maxWidth = 3000
+    }
+}
+
 public class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<LoveArticles>, val activity: Activity) :
         RecyclerView.Adapter<LoveArticlesAdapter.Holder>() {
 
@@ -49,12 +67,12 @@ public class LoveArticlesAdapter (val context : Context, val contentlist : Array
         return contentlist.size
     }
 
-
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(contentlist[position], context)
     }
 
     inner class Holder (itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         val Userpic = itemView.findViewById<AppCompatImageButton>(R.id.userpic)
         val Username = itemView.findViewById<AppCompatButton>(R.id.username)
         val LoveContents = itemView.findViewById<FrameLayout>(R.id.lovecontents)
@@ -73,10 +91,18 @@ public class LoveArticlesAdapter (val context : Context, val contentlist : Array
 //                Userpic.setImageResource(R.mipmap.ic_launcher)
 //            }
 
+            Picture.viewTreeObserver.addOnGlobalLayoutListener(OnViewGlobalLayoutListener(Picture))
+
             if (lovearticles.Picture != null) {
                 Log.i("이미지 시작!!!!", " " + lovearticles.Picture)
+//                var mButton = ImageView(context)
+//                //var mView = ViewGroup(context)
+//                var pm = LinearLayout.LayoutParams(100, 100)
+//                mButton.setLayoutParams(pm)
+
                 var bit = TravelAPI().setImageURL(lovearticles.Picture)
                 Picture.setImageBitmap(bit)
+                //this.setContentView(mButton)
             }
 
             else
@@ -145,7 +171,12 @@ public class LoveArticlesAdapter (val context : Context, val contentlist : Array
                     val pic = if (response.body() != null) response.body()!!.user_photo else null
                     Log.i("dsd", "$pic")
                     if (pic != null) {
-                        Log.i("pic", "exists" + pic)
+//                        var mButton = ImageView(context)
+//                        var pm = LinearLayout.LayoutParams(100, 100)
+//
+//
+//
+//                        Log.i("pic", "exists" + pic)
                         val bit = TravelAPI().setImageURL(pic)
                         Userpic.setImageBitmap(bit)
                         Log.i("image bitmap", "$pic")
@@ -155,6 +186,7 @@ public class LoveArticlesAdapter (val context : Context, val contentlist : Array
                         Log.i("no pic", " dd")
                         val resource = context.resources.getIdentifier(lovearticles.Userpic, "drawable", context.packageName)
                         Userpic.setImageResource(resource)
+
                     }
 
                 }
