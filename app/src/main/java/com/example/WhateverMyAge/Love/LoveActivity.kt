@@ -239,12 +239,16 @@ class LoveActivity : AppCompatActivity() {
             if (!isLocationEnabled(this)) {
                 toast("위치 사용을 켜면 내 주변의 글을 확인할 수 있어요.")
             } else {
-                val bestProvider: String? = locationMgr.getBestProvider(criteria, true)
+                try {
+                    val bestProvider: String? = locationMgr.getBestProvider(criteria, true)
 
-                var gps = locationMgr.getLastKnownLocation(bestProvider)!!
+                    var gps = locationMgr.getLastKnownLocation(bestProvider)!!
 
-                lat = gps.getLatitude()
-                lng = gps.getLongitude()
+                    lat = gps.getLatitude()
+                    lng = gps.getLongitude()
+                }catch(e : SecurityException){
+
+                }
             }
         }
 
