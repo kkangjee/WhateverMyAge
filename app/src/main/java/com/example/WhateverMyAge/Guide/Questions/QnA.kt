@@ -109,10 +109,6 @@ class QnA : AppCompatActivity() {
 
         bt_back.setOnClickListener {
             finish()
-
         }
-
     }
-
-
 }
