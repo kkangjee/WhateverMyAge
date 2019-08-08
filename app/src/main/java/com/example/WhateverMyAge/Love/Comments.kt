@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewTreeObserver
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.PopupMenu
@@ -34,7 +35,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 lateinit var _Comment_Activity: Activity
 
 lateinit var commentsRV: RecyclerView;
-
 
 class Comments : AppCompatActivity() {
     val retrofit = Retrofit.Builder()
@@ -153,6 +153,7 @@ class Comments : AppCompatActivity() {
         // commentsRV  =  commentslist
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comments)
+        uploadedImageDetail.viewTreeObserver.addOnGlobalLayoutListener(OnViewGlobalLayoutListener(uploadedImageDetail))
 
         val ID = intent.getStringArrayExtra("Post")
         //ConnectServer(this).getPost(ID, this)
