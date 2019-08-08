@@ -2,6 +2,7 @@ package com.example.WhateverMyAge.Love
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ProgressDialog
 import com.example.WhateverMyAge.Guide.Settings.toast
 import android.content.Context
 import android.content.Intent
@@ -27,6 +28,7 @@ import com.example.WhateverMyAge.Main.PermissionCheck
 import com.example.WhateverMyAge.Main.PostsForm
 import com.example.WhateverMyAge.Main.Service
 import com.example.WhateverMyAge.R
+import com.example.WhateverMyAge.progressDialog
 import com.example.WhateverMyAge.signedin
 import kotlinx.android.synthetic.main.activity_comments.*
 import kotlinx.android.synthetic.main.activity_comments.view.*
@@ -64,7 +66,7 @@ fun isLocationEnabled(context: Context): Boolean {
 
 
 class LoveActivity : AppCompatActivity() {
-    fun showPost (contentlist : ArrayList<LoveArticles>) {
+    fun showPost(contentlist: ArrayList<LoveArticles>) {
         server.showPost().enqueue(object : Callback<List<PostsForm>> {
             override fun onFailure(call: Call<List<PostsForm>>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
@@ -80,10 +82,17 @@ class LoveActivity : AppCompatActivity() {
                 if (response.code().toString() == "200") {
                     if (WholeOrAround == 1) {
                         for (i in 0..count) {
-                            if (body[i].photo!= null)
+                            if (body[i].photo != null)
                                 Log.i("photo", " " + body[i].photo)
 
-                            if (distance(body[i].lat, body[i].lng, lat, lng, "kilometer") < 5 && lat != 0.0 && lng != 0.0) {
+                            if (distance(
+                                    body[i].lat,
+                                    body[i].lng,
+                                    lat,
+                                    lng,
+                                    "kilometer"
+                                ) < 5 && lat != 0.0 && lng != 0.0
+                            ) {
                                 contentlist.add(
                                     LoveArticles(
                                         body[i].id,
@@ -125,10 +134,10 @@ class LoveActivity : AppCompatActivity() {
 
                 val love = LoveArticlesAdapter(this@LoveActivity, contentlist, this@LoveActivity)
                 lovearticles.adapter = love
+                loadingEnd()
             }
         })
     }
-
 
 
     fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double, unit: String): Double {
@@ -180,17 +189,21 @@ class LoveActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
+        //로딩 시작
+        loading()
         _Love_Activity = this
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love)
 
-       // val mSwipe = findViewById<SwipeRefreshLayout>(R.id.swipe)
+        // val mSwipe = findViewById<SwipeRefreshLayout>(R.id.swipe)
 
         bt_locationselect.text = if (WholeOrAround == 1) "내 주변" else "전체 보기"
 
         //게시판 글 출력
         var contentlist: ArrayList<LoveArticles> = arrayListOf()
         showPost(contentlist)
+        //로딩 끝
+
 //        mSwipe.setOnRefreshListener (object : SwipeRefreshLayout.OnRefreshListener {
 //            override
 //            fun onRefresh() {
@@ -306,5 +319,28 @@ class LoveActivity : AppCompatActivity() {
             }
         }
 
-        }
     }
+
+    fun loading() {
+        //로딩
+        android.os.Handler().postDelayed(
+            {
+                progressDialog = ProgressDialog(this@LoveActivity)
+                progressDialog!!.setIndeterminate(true)
+                progressDialog!!.setMessage("잠시만 기다려 주세요")
+                progressDialog!!.show()
+            }, 0
+        )
+    }
+
+
+}
+fun loadingEnd() {
+    android.os.Handler().postDelayed(
+        {
+            progressDialog?.dismiss()
+
+        }, 0
+    )
+}
+

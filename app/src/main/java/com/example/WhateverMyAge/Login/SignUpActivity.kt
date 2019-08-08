@@ -1,5 +1,6 @@
 package com.example.WhateverMyAge
 
+import android.app.ProgressDialog
 import com.example.WhateverMyAge.Guide.Settings.toast
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -73,14 +74,24 @@ class SignUpActivity : AppCompatActivity() {
             val PWC = PWConfirm.text.toString()
             val result = passwordValidator(ID, PW, PWC)
             if (result == "success") {
-
+                loading()
                 ConnectServer(this).registration(ID, PW, PWC)
-                val intent = Intent(this, LoadingActivity::class.java)
-                startActivity(intent)
+
             } else {
                 toast(result)
             }
 
         }
+    }
+    fun loading() {
+        //로딩
+        android.os.Handler().postDelayed(
+            {
+                progressDialog = ProgressDialog(this@SignUpActivity)
+                progressDialog!!.setIndeterminate(true)
+                progressDialog!!.setMessage("잠시만 기다려 주세요")
+                progressDialog!!.show()
+            }, 0
+        )
     }
 }

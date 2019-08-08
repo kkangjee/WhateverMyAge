@@ -1,9 +1,11 @@
 package com.example.WhateverMyAge.TravelAndFood
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.location.Criteria
+import android.location.Location
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,14 +18,17 @@ import com.example.WhateverMyAge.Love.lng
 import com.example.WhateverMyAge.Main.LoadingActivity
 import com.example.WhateverMyAge.Main.PermissionCheck
 import com.example.WhateverMyAge.R
+import com.example.WhateverMyAge.progressDialog
 import kotlinx.android.synthetic.main.activity_travel_and_food.*
 import kotlinx.android.synthetic.main.activity_travel_and_food.bt_back
 
 class TravelAndFood : AppCompatActivity() {
     private val adapter = TravelAndFoodAdapter(supportFragmentManager)
 
-    @SuppressLint("MissingPermission")
+    //@SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         val which = intent.getIntExtra("which", -1)
 
         var arguments = Bundle()
@@ -32,13 +37,14 @@ class TravelAndFood : AppCompatActivity() {
         myfragment.setArguments(arguments)
         supportFragmentManager.beginTransaction().replace(R.id.travelandfood, myfragment)
 
-        //로딩 액티비티 실행
-        val intent_loading = Intent(this, LoadingActivity::class.java)
-        startActivity(intent_loading)
+
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_travel_and_food)
         travelandfood.adapter = TravelAndFood@adapter
+
+
+
         val intent = Intent()
         intent.putExtra("WhichExplanation", 1)
 
@@ -58,12 +64,16 @@ class TravelAndFood : AppCompatActivity() {
                 toast("위치 사용을 켜면 내 주변의 글을 확인할 수 있어요.")
             } else {
                 val bestProvider: String? = locationMgr.getBestProvider(criteria, true)
+                var gps : Location? = null
+                try {
+                    gps = locationMgr.getLastKnownLocation(bestProvider)!!
+                }catch(e : SecurityException) {
 
-                var gps = locationMgr.getLastKnownLocation(bestProvider)!!
+                }
                 Log.i("ds", "$lat")
                 Log.i("ds", "$lng")
-                lat = gps.getLatitude()
-                lng = gps.getLongitude()
+                lat = if (gps != null) gps.getLatitude() else 0.0
+                lng = if (gps != null) gps.getLongitude() else 0.0
             }
         }
 
@@ -76,4 +86,5 @@ class TravelAndFood : AppCompatActivity() {
 
 
     }
+
 }
