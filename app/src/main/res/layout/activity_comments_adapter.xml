@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/Invisible"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:textAllCaps="false"
                 android:layout_margin="10dp"
         />
@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/comment"
-                android:textSize="30dp"
+                android:textSize="30sp"
         />
 
     </LinearLayout>

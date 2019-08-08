@@ -104,28 +104,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="사진"
-                android:textSize="20dp"
+                android:textSize="20sp"
         />
         <Button
                 android:id="@+id/lovearticlesvideoupload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="동영상"
-                android:textSize="20dp"
+                android:textSize="20sp"
         />
         <Button
                 android:id="@+id/lovearticlescancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="안 쓸래요"
-                android:textSize="20dp"
+                android:textSize="20sp"
         />
         <Button
                 android:id="@+id/lovearticlessubmit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="다 썼어요"
-                android:textSize="20dp"
+                android:textSize="20sp"
         />
 
 

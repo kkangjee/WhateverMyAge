@@ -308,6 +308,30 @@ class ConnectServer(var activity: Activity) {
         })
     }
 
+    fun postProfilePic(id : Int, file : File) {
+        val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
+        val part = MultipartBody.Part.createFormData("user_photo", file.getName(), fileReqBody)
+
+        server.postProfilePic(id, part).enqueue(object : Callback<Profile> {
+            override fun onFailure(call: Call<Profile>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+            }
+
+            override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
+                //code = response?.code()
+                if (response.code() == 204) {
+                    // test.text = response?.body().toString()
+                } else {
+
+                }
+
+                Log.i("댓삭", " " + response.raw().toString())
+                Log.i("설마?", " " + response.body().toString())
+                Log.i("사진", " " + file.name)
+            }
+        })
+    }
+
     fun delPost (id :String) {
         server.delPost(id).enqueue(object : Callback<RegisterForm> {
             override fun onFailure(call: Call<RegisterForm>, t: Throwable) {
@@ -427,11 +451,8 @@ class ConnectServer(var activity: Activity) {
         })
     }
 
-    fun postProfilePic(id : Int, file : File) {
-        val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
-        val part = MultipartBody.Part.createFormData("user_photo", file.getName(), fileReqBody)
-
-        server.postProfilePic(id, part).enqueue(object : Callback<Profile> {
+    fun getProfilePic(id : Int) {
+        server.getProfilePic(id).enqueue(object : Callback<Profile> {
             override fun onFailure(call: Call<Profile>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
             }
@@ -444,9 +465,8 @@ class ConnectServer(var activity: Activity) {
 
                 }
 
-                Log.i("댓삭", " " + response.raw().toString())
-
             }
         })
     }
+
 }

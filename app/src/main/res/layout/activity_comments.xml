@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:background="#8BC34A"
                 android:text="게시글 보기"
-                android:textSize="30dp"
+                android:textSize="30sp"
                 android:textColor="#fff"
                 android:padding="10dp"
         />
@@ -85,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:background="#00ff0000"
                     android:textAllCaps="false"
-                    android:textSize="25dp"
+                    android:textSize="25sp"
                     android:layout_marginLeft="5dp"
                     android:text="게시자"
             />
@@ -101,7 +101,7 @@
                 android:gravity="left"
                 android:text="내용"
 
-                android:textSize="40dp"
+                android:textSize="40sp"
         />
 
         <ImageButton
@@ -135,7 +135,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    android:textSize="30dp"
+                    android:textSize="30sp"
                     android:layout_marginRight="10dp"
             />
 
@@ -153,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    android:textSize="30dp"
+                    android:textSize="30sp"
             />
 
             <View android:layout_width="wrap_content" android:layout_height="1dp"
@@ -184,14 +184,15 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:hint="댓글을 입력하세요"
-                    android:textSize="30dp"
+                    android:textSize="30sp"
             />
             <Button
                     android:id="@+id/bt_submitComment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="댓글 달기"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
+                    android:layout_weight="1"
             />
 
 

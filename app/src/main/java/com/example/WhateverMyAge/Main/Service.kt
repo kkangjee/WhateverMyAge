@@ -23,7 +23,9 @@ data class PicForm (
 )
 
 data class Profile (
-    var user_photo : String
+    var user_photo : String?,
+    var username : String?,
+    var id : Int
 )
 
 data class PostsForm(
@@ -175,6 +177,11 @@ interface Service {
         //@Path("id") id : Int
     ):Call<List<PostsForm>>
 
+    @GET("/api/v1/users/{id}")
+    fun getProfilePic (
+        @Path("id") id : Int
+    ):Call<Profile>
+
     @Multipart
     @PUT("/api/v1/blog/postings/{id}")
     fun putPost (
@@ -190,8 +197,10 @@ interface Service {
     @PUT("/api/v1/users/{id}")
     fun postProfilePic (
         @Path("id") id : Int,
-        @Part file : MultipartBody.Part
+        @Part file : MultipartBody.Part?
     ):Call<Profile>
+
+
 
     @DELETE("/api/v1/blog/postings/{id}")
     fun delPost (
