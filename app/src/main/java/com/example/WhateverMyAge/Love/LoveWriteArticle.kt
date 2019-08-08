@@ -10,6 +10,7 @@ import android.graphics.Bitmap
 import android.util.Log
 import android.util.Base64
 import android.widget.EditText
+import com.example.WhateverMyAge.Guide.Questions.QnA
 import com.example.WhateverMyAge.Main.*
 import com.example.WhateverMyAge.R
 import com.google.gson.Gson
@@ -74,6 +75,12 @@ class LoveWriteArticle : AppCompatActivity() {
                 putcontent.setText(content[1])
 
             }
+            4 -> {
+                QuestionAnswerArticle.text = "질문 수정"
+                content = intent.getStringArrayExtra("putQ")!!
+                val putcontent = findViewById<EditText>(R.id.articlecontent)
+                putcontent.setText(content[1])
+            }
             else -> QuestionAnswerArticle.text = "???"
         }
 
@@ -89,12 +96,54 @@ class LoveWriteArticle : AppCompatActivity() {
         }
 
         lovearticlessubmit.setOnClickListener {
+            toast("$cora")
             if (cora == 0) {
                 //질문 작성
+                var name = "ddd"
+                if (image != null) {
+                    Log.i("파일이", "null")
+                    name = image!!.getName()
+                    Log.i("image", " " + image!!.getName())
+
+//
+//                    val fileReqBody = RequestBody.create(MediaType.parse("image/*"), image)
+//                    val part = MultipartBody.Part.createFormData("picture", name, fileReqBody)
+
+                    Log.i("file name", "$name")
+                    // val description = RequestBody.create(MediaType.parse("description"), "picture")
+                    //  Log.i("part", "$part")
+                    //  Log.i("decription", "$description")
+                    val descriptionPart = RequestBody.create(MultipartBody.FORM, "user_photo")
+
+                    //성공코드 : 지우지 마시오!!
+                    //ConnectServer(this).uploadPic(part, articlecontent.text.toString())
+                    // ConnectServer(this).getPic()
+                    val actual = articlecontent.text.toString()
+                    ConnectServer(this).postQuestion(if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, image!!)
+                    //  ConnectServer(this).putPost(4, "sssss")
+                    //  ConnectServer(this).delPost(articletitle.text.toString())
+                    finish()
+                    image = null
+                }
+                else {
+                    val actual = articlecontent.text.toString()
+                    ConnectServer(this).postQuestion(if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, null)
+                }
+
+
+                // val LA = _Love_Activity
+                /// LA.finish()
+//
+//                val CA = _Comment_Activity
+//                CA.finish()
+
+                val intent = Intent(this, QnA::class.java)
+                startActivity(intent)
             }
 
             else if (cora == 1) {
                 //질문 답글 작성
+
 
             }
 
@@ -155,6 +204,12 @@ class LoveWriteArticle : AppCompatActivity() {
 
                 val intent = Intent(this, LoveActivity::class.java)
                 startActivity(intent)
+            }
+
+            else if (cora == 4) {
+                val actual = articlecontent.text.toString()
+                ConnectServer(this).putQuestion(content[0].toInt(),  if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, image)
+                finish()
             }
         }
     }

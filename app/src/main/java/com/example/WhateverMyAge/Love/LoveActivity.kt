@@ -129,7 +129,6 @@ class LoveActivity : AppCompatActivity() {
                             )
                         }
                     }
-
                 }
 
                 val love = LoveArticlesAdapter(this@LoveActivity, contentlist, this@LoveActivity)

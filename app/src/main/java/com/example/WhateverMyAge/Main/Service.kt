@@ -77,6 +77,15 @@ data class LikedForm (
     var likedusers : IntArray
 )
 
+data class QuestionForm (
+    var id : Int,
+    var q_title : String,
+    var q_content : String,
+    var q_photo : String?,
+    var author_id: Int,
+    var author_username: String
+)
+
 //https://frozen-cove-44670.herokuapp.com/api/v1/registration/
 interface Service {
 
@@ -172,10 +181,29 @@ interface Service {
 //        @Field("gps") gps : String?
     ):Call<RegisterForm>
 
+    @Multipart
+    @POST("/api/v1/question/questions/")
+    fun postQuestion (
+//        @Field("id") id : Int,
+        @Part("author_id") author_id : Int,
+        @Part("author_username") author_username : String?,
+        @Part("q_title") q_title : String?,
+//        @Part("like") like : Int,
+        @Part file : MultipartBody.Part?,
+        @Part("q_content") content : String?
+        //@Part("photo") photo : File? = null,
+//        @Field("gps") gps : String?
+    ):Call<QuestionForm>
+
+
     @GET("/api/v1/blog/postings/")
     fun showPost (
         //@Path("id") id : Int
     ):Call<List<PostsForm>>
+
+    @GET("/api/v1/question/questions/")
+    fun showQuestions (
+    ):Call<List<QuestionForm>>
 
     @GET("/api/v1/users/{id}")
     fun getProfilePic (
@@ -194,18 +222,32 @@ interface Service {
         ):Call<PostsForm>
 
     @Multipart
+    @PUT("/api/v1/question/questions/{id}")
+    fun putQuestion (
+        @Path("id") id :Int,
+        //@Field("content") content : String,
+        //@Field("title") title : String
+        @Part file : MultipartBody.Part?,
+        @Part("q_content") content : String?,
+        @Part("q_title") title : String?
+    ):Call<QuestionForm>
+
+    @Multipart
     @PUT("/api/v1/users/{id}")
     fun postProfilePic (
         @Path("id") id : Int,
         @Part file : MultipartBody.Part?
     ):Call<Profile>
 
-
-
     @DELETE("/api/v1/blog/postings/{id}")
     fun delPost (
         @Path("id") id : String
         ):Call<RegisterForm>
+
+    @DELETE("/api/v1/question/questions/{id}")
+    fun delQuestion (
+        @Path("id") id : Int
+    ):Call<QuestionForm>
 
     @FormUrlEncoded
     @POST("/api/v1/blog/comments/")
