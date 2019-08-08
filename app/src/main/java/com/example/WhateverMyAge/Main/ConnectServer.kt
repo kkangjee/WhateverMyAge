@@ -63,7 +63,7 @@ class ConnectServer(var activity: Activity) {
                 else {
                     val raw = response.raw().toString()
                     Log.e("error", "$raw")
-                    activity.toast("존재하지 않는 ID입니다.")
+                    activity.toast("아이디 또는 비밀번호를 확인해 주세요")
                 }
             }
         })

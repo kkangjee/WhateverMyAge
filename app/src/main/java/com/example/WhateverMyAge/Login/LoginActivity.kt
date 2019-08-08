@@ -3,6 +3,8 @@ package com.example.WhateverMyAge
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import com.example.WhateverMyAge.Guide.Settings.toast
 import com.example.WhateverMyAge.Main.ConnectServer
 import com.example.WhateverMyAge.Main.LoadingActivity
 import kotlinx.android.synthetic.main.activity_login.*
@@ -24,9 +26,15 @@ class LoginActivity : AppCompatActivity() {
             var pw = PW.text.toString()
 
 
-            ConnectServer(this).Login(id, pw)
-            val intent = Intent(this, LoadingActivity::class.java)
-            startActivity(intent)
+            if(id==""||pw==""){
+                toast("아이디 또는 비밀번호가 비어있습니다")
+            }
+            else{
+                ConnectServer(this).Login(id, pw)
+                val intent = Intent(this, LoadingActivity::class.java)
+                startActivity(intent)
+            }
+
         }
 
         bt_back.setOnClickListener{ //
