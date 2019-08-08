@@ -180,10 +180,10 @@ class Comments : AppCompatActivity() {
             Log.i("ID[0]", " " + ID[0])
 
             //ConnectServer(this).getComment(ID)
-
-            val lm = LinearLayoutManager(this)
-            commentslist.layoutManager = lm
-            commentslist.setHasFixedSize(true)
+//
+//            val lm = LinearLayoutManager(this)
+//            commentslist.layoutManager = lm
+//            commentslist.setHasFixedSize(true)
 
             bt_back.setOnClickListener {
                 finish()

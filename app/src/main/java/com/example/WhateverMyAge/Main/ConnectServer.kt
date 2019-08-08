@@ -280,7 +280,7 @@ class ConnectServer(var activity: Activity) {
         var part : MultipartBody.Part?
         if (file != null) {
             val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
-            part = MultipartBody.Part.createFormData("photo", file.getName(), fileReqBody)
+            part = MultipartBody.Part.createFormData("q_photo", file.getName(), fileReqBody)
         }
 
         else

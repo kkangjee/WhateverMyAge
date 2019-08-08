@@ -222,14 +222,15 @@ interface Service {
         ):Call<PostsForm>
 
     @Multipart
-    @PUT("/api/v1/question/questions/{id}")
+    @PUT("/api/v1/question/questions/{id}/")
     fun putQuestion (
         @Path("id") id :Int,
         //@Field("content") content : String,
         //@Field("title") title : String
         @Part file : MultipartBody.Part?,
-        @Part("q_content") content : String?,
-        @Part("q_title") title : String?
+
+        @Part("q_title") title : String?,
+        @Part("q_content") content : String?
     ):Call<QuestionForm>
 
     @Multipart
@@ -244,7 +245,7 @@ interface Service {
         @Path("id") id : String
         ):Call<RegisterForm>
 
-    @DELETE("/api/v1/question/questions/{id}")
+    @DELETE("/api/v1/question/questions/{id}/")
     fun delQuestion (
         @Path("id") id : Int
     ):Call<QuestionForm>
