@@ -4,14 +4,11 @@ import android.app.Activity
 import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-class PermissionCheck(context : Context, activity: Activity) {
-
-    val context = context
-    val activity = activity
-
+class PermissionCheck(val context : Context, val activity: Activity) {
     fun CameraCheck() : Int {
         var checked = 0
         if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -53,7 +50,8 @@ class PermissionCheck(context : Context, activity: Activity) {
             ActivityCompat.requestPermissions(activity, arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION), 0)
             checked = 1
         }
-
+        if (checked == 0)
+            Log.i("위치권한", "있음")
         return checked
     }
 }

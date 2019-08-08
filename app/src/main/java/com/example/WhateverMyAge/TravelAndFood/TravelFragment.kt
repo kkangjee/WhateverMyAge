@@ -32,8 +32,10 @@ class TravelFragment : Fragment() {
 
         if(last>0) {
         var rand = random.nextInt(last)
+            if (apiList[rand].image != null) {
                 val bitmap = api.setImageURL(apiList[rand].image)
                 iv_TravelPic1.setImageBitmap(bitmap)
+            }
 
                 travelspot1.text =
                     "여행지 : " + apiList[rand]?.title + "\n주소 : " + apiList[rand]?.add1 + "\n거리 : " + apiList[rand]?.dist
