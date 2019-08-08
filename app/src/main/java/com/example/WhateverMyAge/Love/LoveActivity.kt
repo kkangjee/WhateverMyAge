@@ -105,7 +105,7 @@ class LoveActivity : AppCompatActivity() {
                                         body[i].cnt.toString(),
                                         body[i].lat,
                                         body[i].lng,
-                                        body[i].photo
+                                        "https://frozen-cove-44670.herokuapp.com"+body[i].photo
                                     )
                                 )
                             }
@@ -124,7 +124,7 @@ class LoveActivity : AppCompatActivity() {
                                     body[i].cnt.toString(),
                                     body[i].lat,
                                     body[i].lng,
-                                    body[i].photo
+                                    "https://frozen-cove-44670.herokuapp.com"+body[i].photo
                                 )
                             )
                         }

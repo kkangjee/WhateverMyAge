@@ -87,7 +87,7 @@
                         android:layout_height="match_parent"
                         android:hint="아이디를 입력해주세요"
                         android:textSize="20sp"
-                />
+                        android:text="qlalf"/>
                 <EditText
                         android:id="@+id/PW"
                         android:layout_width="match_parent"
@@ -95,7 +95,7 @@
                         android:inputType="textPassword"
                         android:hint="비밀번호를 입력해주세요"
                         android:textSize="20sp"
-                ></EditText>
+                        android:text="qlalfqlalf"></EditText>
 
             </LinearLayout>
 

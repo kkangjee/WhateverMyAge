@@ -89,6 +89,7 @@ class LoveWriteArticle : AppCompatActivity() {
         }
 
         lovearticlessubmit.setOnClickListener {
+
             if (cora == 0) {
                 //질문 작성
             }
@@ -125,6 +126,7 @@ class LoveWriteArticle : AppCompatActivity() {
                     //  ConnectServer(this).delPost(articletitle.text.toString())
                     finish()
                     image = null
+
                 }
                 else {
                     val actual = articlecontent.text.toString()

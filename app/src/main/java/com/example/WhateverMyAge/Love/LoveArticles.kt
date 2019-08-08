@@ -51,10 +51,10 @@ class OnViewGlobalLayoutListener(private val view: View) : ViewTreeObserver.OnGl
     }
 }
 
-public class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<LoveArticles>, val activity: Activity) :
+class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<LoveArticles>, val activity: Activity) :
         RecyclerView.Adapter<LoveArticlesAdapter.Holder>() {
 
-    public var love = context
+    var love = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(
