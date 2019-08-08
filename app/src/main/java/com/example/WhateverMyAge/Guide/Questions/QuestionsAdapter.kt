@@ -1,16 +1,19 @@
 package com.example.WhateverMyAge.Guide.Questions
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
+import com.example.WhateverMyAge.Love.Comments
 import com.example.WhateverMyAge.R
 
-class QuestionsTitles (val Title : String)
+class QuestionsTitles (val Title : String, val Id : Int, val Content : String, val photo : String?, val Author : String, val Author_id : Int)
 
-class QuestionTitlesAdapter (val context : Context, val titlelist : ArrayList<QuestionsTitles>) :
+class QuestionTitlesAdapter (val context : Context, val titlelist : ArrayList<QuestionsTitles>, val activity : Activity) :
     RecyclerView.Adapter<QuestionTitlesAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(
@@ -32,6 +35,14 @@ class QuestionTitlesAdapter (val context : Context, val titlelist : ArrayList<Qu
 
         fun bind(questiontitles: QuestionsTitles, context: Context) {
             Title.text = questiontitles.Title
+
+            Title.setOnClickListener {
+                var intent = Intent(activity, Comments::class.java)
+                val arr : Array<String> = arrayOf(questiontitles.Id.toString(), questiontitles.Author, questiontitles.Author_id.toString(), questiontitles.Title, questiontitles.Content, (if (questiontitles.photo != null) questiontitles.photo else ""), "Q")
+                intent.putExtra("Question", arr)
+                activity.startActivity(intent)
+
+            }
         }
     }
 }

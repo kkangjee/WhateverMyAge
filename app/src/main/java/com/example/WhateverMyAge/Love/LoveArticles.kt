@@ -126,7 +126,7 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
             Love.setOnClickListener {
                 Log.i("글 아이디는~", " " + lovearticles.ID)
                 var intent = Intent(activity, com.example.WhateverMyAge.Love.Comments::class.java)
-                val arr : Array<String> = arrayOf (lovearticles.ID.toString(), lovearticles.UserID.toString(), lovearticles.Username, lovearticles.LoveContents, lovearticles.Like, lovearticles.Comments, (if (lovearticles.Picture != null) lovearticles.Picture else "")!!)
+                val arr : Array<String> = arrayOf (lovearticles.ID.toString(), lovearticles.UserID.toString(), lovearticles.Username, lovearticles.LoveContents, lovearticles.Like, lovearticles.Comments, (if (lovearticles.Picture != null) lovearticles.Picture else "")!!, "P")
                 intent.putExtra("Post", arr)
                 activity.startActivity(intent)
             }
