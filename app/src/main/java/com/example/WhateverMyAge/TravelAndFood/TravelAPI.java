@@ -18,6 +18,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -28,6 +29,8 @@ class APIdata {
     private String dist;
     private String title;
     private String image;
+    private String cat2;
+    private String cat3;
 
     public APIdata (String add1, String add2, String dist, String title, String image) {
         this.add1 = add1;
@@ -35,6 +38,8 @@ class APIdata {
         this.dist = dist;
         this.title = title;
         this.image = image;
+        this.cat2=cat2;
+        this.cat3=cat3;
     }
 
     String getAdd1() {
@@ -52,6 +57,8 @@ class APIdata {
     String getImage() {
         return this.image;
     }
+    String getCat2() { return this.cat2;}
+    String getCat3() { return this.cat3;}
     void setAdd1(String add1) {
         this.add1 = add1;
     }
@@ -67,6 +74,12 @@ class APIdata {
     void setImage(String image) {
         this.image = image;
     }
+    void setCat2(String cat2) {
+        this.cat2 = cat2;
+    }
+    void setCat3(String cat3) {
+        this.image = cat3;
+    }
 }
 
 
@@ -74,19 +87,19 @@ public class TravelAPI {
     Bitmap bitmap;
     public static String baseURL;
 
-    APIdata[] getAPI (double lat, double lng) {
+   ArrayList<APIdata> getAPI (double lat, double lng) {
 
         StrictMode.enableDefaults();
 
-        boolean initem = false, inaddr1 = false, inaddr2 = false, indist = false, intitle = false, inimage = false;
+        boolean initem = false, inaddr1 = false, inaddr2 = false, indist = false, intitle = false, inimage = false,incat2=false, incat3=false;;
 
-        String addr1 = null, addr2 = null, dist = null, title = null, image = null;
+        String addr1 = null, addr2 = null, dist = null, title = null, image = null,cat2=null, cat3=null;
         String key = "yOv5P9kxcP5VnWt8txP86aulztqNFQ1Tx848A4ZIyOgQCl0nnx6Zgp2iZO768lX2VyqpNqF8eXFYosPaxm6z%2FQ%3D%3D";
 
         double xpos = lat == 0 ? 126.9815706850 : lat;
         double ypos = lng == 0 ? 37.5685207373 : lng;
 
-        final APIdata[] apiData = new APIdata[100];
+        ArrayList<APIdata> apiData=new ArrayList<>();
 
         try {
             int index = 0;
@@ -133,6 +146,14 @@ public class TravelAPI {
                         if (parser.getName().equals("firstimage")) {
                             inimage = true;
                         }
+                        if (parser.getName().equals("cat2")) {
+                            incat2 = true;
+                        }
+
+                        if (parser.getName().equals("cat3")) {
+                            incat3 = true;
+                        }
+
 
                         if (parser.getName().equals("message")) { //message 태그를 만나면 에러 출력
                             //여기에 에러코드에 따라 다른 메세지를 출력하도록 할 수 있다.
@@ -163,19 +184,30 @@ public class TravelAPI {
                             image = parser.getText();
                             inimage = false;
                         }
+                        if (incat2) {
+                            cat2= parser.getText();
+                            incat2 = false;
+                        }
+                        if (incat3) {
+                            cat3 = parser.getText();
+                            incat3 = false;
+                        }
 
                         break;
                     case XmlPullParser.END_TAG:
                         if (parser.getName().equals("item")) {
-                            Log.i("현재 인덱스", " " + index);
-                            Log.i("현재 정보", addr1 + " " + addr2 + " " + dist + " " + title);
-                            apiData[index] = new APIdata(addr1, addr2, dist, title, image);
+                            if (cat2.equals("A0208") || cat2.equals("A0207") || cat3.equals("A04010500") || cat3.equals("A04010600")) {
+                            } else {
+                                Log.i("현재 인덱스", " " + index);
+                                Log.i("현재 정보", addr1 + " " + addr2 + " " + dist + " " + title);
+                                apiData.add(new APIdata(addr1, addr2, dist, title, image));
 //                            status1.setText(status1.getText()+"지명 : "+ addr1 +"\n 주소: "+ addr2 +"\n 거리 : " + dist + "m\n 제목 : " + title
 //                                    +"\n\n ");
 //                            initem = false;
-                            index++;
+                                index++;
+                            }
+                            break;
                         }
-                        break;
                 }
                 parserEvent = parser.next();
             }
