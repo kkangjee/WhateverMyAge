@@ -87,7 +87,11 @@ public class TravelAPI {
     Bitmap bitmap;
     public static String baseURL;
 
+<<<<<<< HEAD
     ArrayList<APIdata> getAPI (double lat, double lng) {
+=======
+   ArrayList<APIdata> getAPI (double lat, double lng) {
+>>>>>>> 075a3baee5664a7b8516d98d721776b41dfd88fb
 
         StrictMode.enableDefaults();
 
@@ -198,9 +202,15 @@ public class TravelAPI {
                         if (parser.getName().equals("item")) {
                             if (cat2.equals("A0208") || cat2.equals("A0207")||cat3.equals("A04010500")|| cat3.equals("A04010600")) {}
                             else{
+<<<<<<< HEAD
                                 Log.i("현재 인덱스", " " + index);
                                 Log.i("현재 정보", addr1 + " " + addr2 + " " + dist + " " + title);
                                 apiData.add(new APIdata(addr1, addr2, dist, title, image));
+=======
+                            Log.i("현재 인덱스", " " + index);
+                            Log.i("현재 정보", addr1 + " " + addr2 + " " + dist + " " + title);
+                            apiData.add(new APIdata(addr1, addr2, dist, title, image));
+>>>>>>> 075a3baee5664a7b8516d98d721776b41dfd88fb
 //                            status1.setText(status1.getText()+"지명 : "+ addr1 +"\n 주소: "+ addr2 +"\n 거리 : " + dist + "m\n 제목 : " + title
 //                                    +"\n\n ");
 //                            initem = false;
@@ -208,6 +218,11 @@ public class TravelAPI {
                             }
                             break;
                         }
+<<<<<<< HEAD
+=======
+                        break;
+                            }
+>>>>>>> 075a3baee5664a7b8516d98d721776b41dfd88fb
                 }
                 parserEvent = parser.next();
             }

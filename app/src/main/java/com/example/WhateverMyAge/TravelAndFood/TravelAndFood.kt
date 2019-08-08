@@ -25,7 +25,11 @@ import kotlinx.android.synthetic.main.activity_travel_and_food.bt_back
 class TravelAndFood : AppCompatActivity() {
     private val adapter = TravelAndFoodAdapter(supportFragmentManager)
 
+<<<<<<< HEAD
     //@SuppressLint("MissingPermission")
+=======
+   // @SuppressLint("MissingPermission")
+>>>>>>> 075a3baee5664a7b8516d98d721776b41dfd88fb
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
@@ -63,6 +67,7 @@ class TravelAndFood : AppCompatActivity() {
             if (!isLocationEnabled(this)) {
                 toast("위치 사용을 켜면 내 주변의 글을 확인할 수 있어요.")
             } else {
+<<<<<<< HEAD
                 val bestProvider: String? = locationMgr.getBestProvider(criteria, true)
                 var gps : Location? = null
                 try {
@@ -74,6 +79,23 @@ class TravelAndFood : AppCompatActivity() {
                 Log.i("ds", "$lng")
                 lat = if (gps != null) gps.getLatitude() else 0.0
                 lng = if (gps != null) gps.getLongitude() else 0.0
+=======
+                    var gps : Location? = null
+                    val bestProvider: String? = locationMgr.getBestProvider(criteria, true)
+                    Log.i("provider", "$bestProvider")
+
+                    try {
+                        gps = locationMgr.getLastKnownLocation(bestProvider!!)!!
+                    }catch (e : SecurityException) {
+                        Log.i("위치정보", "not granted")
+                    }
+                    Log.i("ds", "$lat")
+                    Log.i("ds", "$lng")
+
+                    lat = if (gps != null) gps.getLatitude() else 0.0
+                    lng = if (gps != null) gps.getLongitude() else 0.0
+
+>>>>>>> 075a3baee5664a7b8516d98d721776b41dfd88fb
             }
         }
 
