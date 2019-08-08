@@ -46,9 +46,10 @@ class TravelFragment : Fragment() {
             travelspot1.text = "주변에 여행지가 없어요 ~ ㅠㅠ"
         if (last > 0) {
             var rand2 = random.nextInt(last)
-            val bitmap = api.setImageURL(apiList[rand2].image)
-            iv_TravelPic2.setImageBitmap(bitmap)
-
+            if (apiList[rand2].image != null) {
+                val bitmap = api.setImageURL(apiList[rand2].image)
+                iv_TravelPic2.setImageBitmap(bitmap)
+            }
             travelspot2.text =
                 "여행지 : " + apiList[rand2]?.title + "\n주소 : " + apiList[rand2]?.add1 + "\n거리 : " + apiList[rand2]?.dist
             if (rand2 != last)
@@ -57,8 +58,10 @@ class TravelFragment : Fragment() {
         }
         if (last > 0) {
             var rand3 = random.nextInt(last)
-            val bitmap = api.setImageURL(apiList[rand3].image)
-            iv_TravelPic3.setImageBitmap(bitmap)
+            if (apiList[rand3].image != null) {
+                val bitmap = api.setImageURL(apiList[rand3].image)
+                iv_TravelPic3.setImageBitmap(bitmap)
+            }
             travelspot3.text =
                 "여행지 : " + apiList[rand3]?.title + "\n주소 : " + apiList[rand3]?.add1 + "\n거리 : " + apiList[rand3]?.dist
             if (rand3 != last)
@@ -67,8 +70,10 @@ class TravelFragment : Fragment() {
         }
         if (last > 0) {
             var rand4 = random.nextInt(last)
-            val bitmap = api.setImageURL(apiList[rand4].image)
-            iv_TravelPic4.setImageBitmap(bitmap)
+            if (apiList[rand4].image != null) {
+                val bitmap = api.setImageURL(apiList[rand4].image)
+                iv_TravelPic4.setImageBitmap(bitmap)
+            }
             travelspot4.text =
                 "여행지 : " + apiList[rand4]?.title + "\n주소 : " + apiList[rand4]?.add1 + "\n거리 : " + apiList[rand4]?.dist
             if (rand4 != last)
@@ -77,8 +82,10 @@ class TravelFragment : Fragment() {
         }
         if (last > 0) {
             var rand5 = random.nextInt(last)
-            val bitmap = api.setImageURL(apiList[rand5].image)
-            iv_TravelPic5.setImageBitmap(bitmap)
+            if (apiList[rand5].image != null) {
+                val bitmap = api.setImageURL(apiList[rand5].image)
+                iv_TravelPic5.setImageBitmap(bitmap)
+            }
             travelspot5.text =
                 "여행지 : " + apiList[rand5]?.title + "\n주소 : " + apiList[rand5]?.add1 + "\n거리 : " + apiList[rand5]?.dist
             if (rand5 != last)
