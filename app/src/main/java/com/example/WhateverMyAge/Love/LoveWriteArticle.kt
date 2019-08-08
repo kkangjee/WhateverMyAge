@@ -96,7 +96,6 @@ class LoveWriteArticle : AppCompatActivity() {
         }
 
         lovearticlessubmit.setOnClickListener {
-            toast("$cora")
             if (cora == 0) {
                 //질문 작성
                 var name = "ddd"
@@ -174,6 +173,7 @@ class LoveWriteArticle : AppCompatActivity() {
                     //  ConnectServer(this).delPost(articletitle.text.toString())
                     finish()
                     image = null
+
                 }
                 else {
                     val actual = articlecontent.text.toString()
