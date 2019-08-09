@@ -182,6 +182,14 @@ interface Service {
     ):Call<RegisterForm>
 
     @Multipart
+    @PUT("/api/v1/users/{id}")
+    fun postProfilePic (
+        @Path("id") id : Int,
+        @Part file : MultipartBody.Part?,
+        @Part("username") username : String
+    ):Call<Profile>
+
+    @Multipart
     @POST("/api/v1/question/questions/")
     fun postQuestion (
 //        @Field("id") id : Int,
@@ -232,13 +240,6 @@ interface Service {
         @Part("q_title") title : String?,
         @Part("q_content") content : String?
     ):Call<QuestionForm>
-
-    @Multipart
-    @PUT("/api/v1/users/{id}")
-    fun postProfilePic (
-        @Path("id") id : Int,
-        @Part file : MultipartBody.Part?
-    ):Call<Profile>
 
     @DELETE("/api/v1/blog/postings/{id}")
     fun delPost (
