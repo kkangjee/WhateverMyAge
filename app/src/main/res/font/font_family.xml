@@ -3,17 +3,17 @@
              xmlns:app="http://schemas.android.com/apk/res-auto">
     <font android:fontStyle="normal"
           android:fontWeight="400"
-          android:font="@font/nanumsquareroundr"
+          android:font="@font/bamin"
           app:fontStyle="normal"
           app:fontWeight="400"
-          app:font="@font/nanumsquareroundr"/>
+          app:font="@font/bamin"/>
 
     <font android:fontStyle="normal"
           android:fontWeight="700"
-          android:font="@font/nanumsquareroundb"
+          android:font="@font/bamin"
           app:fontStyle="normal"
           app:fontWeight="700"
-          app:font="@font/nanumsquareroundb" />
+          app:font="@font/bamin" />
 
 
 </font-family>

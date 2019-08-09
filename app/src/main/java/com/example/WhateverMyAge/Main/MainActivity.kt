@@ -2,13 +2,16 @@ package com.example.WhateverMyAge.Main
 
 import com.example.WhateverMyAge.Guide.GuideActivity
 import android.Manifest.permission.*
+import android.app.ProgressDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.pm.PackageManager
+import android.os.AsyncTask
 import android.os.Build
+import android.util.Log
 import com.example.WhateverMyAge.*
 import com.example.WhateverMyAge.Love.Comments
 import com.example.WhateverMyAge.Love.LoveActivity
@@ -33,6 +36,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         checkPermission()
+        for (permission in permission_list) {
+            //권한 허용 여부를 확인한다.
+            val chk = checkCallingOrSelfPermission(permission)
+            if (chk != PackageManager.PERMISSION_DENIED) {
+                Log.e("권한거절", "::$permission")
+            }
+            else{
+                Log.e("권한", "::$permission")
+            }
+        }
 
         quote.text = quotelist[num].Quote
         quotedfrom.text = quotelist[num].QuotedFrom
@@ -45,10 +58,10 @@ class MainActivity : AppCompatActivity() {
         }
         bt_love.setOnClickListener {
             //사랑방 화면
+
             val intent = Intent(this, LoveActivity::class.java)
             startActivity(intent)
-            val intent_loading = Intent(this, LoadingActivity::class.java)
-            startActivity(intent_loading)
+
 
         }
         bt_login.setOnClickListener {
@@ -66,6 +79,8 @@ class MainActivity : AppCompatActivity() {
 
         }
         bt_travelandfood.setOnClickListener {
+            //loading
+
             val intent = Intent(this, TravelAndFood::class.java)
             intent.putExtra("test", 2)
             startActivity(intent)
@@ -105,7 +120,13 @@ class MainActivity : AppCompatActivity() {
             if (chk == PackageManager.PERMISSION_DENIED) {
                 //권한 허용을여부를 확인하는 창을 띄운다
                 requestPermissions(permission_list, 0)
+
+
+
             }
+
+
+
         }
     }
 
@@ -125,6 +146,46 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+    private inner class CheckTypesTask : AsyncTask<Void, Void, Void>() {
 
+        internal var asyncDialog = ProgressDialog(this@MainActivity)
 
+        override fun onPreExecute() {
+            asyncDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER)
+            asyncDialog.setMessage("로딩중입니다..")
+
+            // show dialog
+            asyncDialog.show()
+            super.onPreExecute()
+        }
+
+        override fun doInBackground(vararg arg0: Void): Void? {
+            try {
+                for (i in 0..4) {
+                    //asyncDialog.setProgress(i * 30);
+                    Thread.sleep(500)
+                }
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
+            return null
+        }
+
+        override fun onPostExecute(result: Void) {
+            asyncDialog.dismiss()
+            super.onPostExecute(result)
+        }
+    }
+    fun loading() {
+        //로딩
+        android.os.Handler().postDelayed(
+            {
+                progressDialog = ProgressDialog(this@MainActivity)
+                progressDialog!!.setIndeterminate(true)
+                progressDialog!!.setMessage("잠시만 기다려 주세요")
+                progressDialog!!.show()
+            }, 0
+        )
+    }
 }

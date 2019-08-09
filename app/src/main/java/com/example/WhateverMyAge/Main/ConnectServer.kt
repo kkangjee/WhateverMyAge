@@ -63,7 +63,7 @@ class ConnectServer(var activity: Activity) {
                 else {
                     val raw = response.raw().toString()
                     Log.e("error", "$raw")
-                    activity.toast("존재하지 않는 ID입니다.")
+                    activity.toast("아이디 또는 비밀번호를 확인해 주세요")
                 }
             }
         })
@@ -276,8 +276,41 @@ class ConnectServer(var activity: Activity) {
         })
     }
 
+    fun postQuestion(title : String, content : String, file : File?) {
+        var part : MultipartBody.Part?
+        if (file != null) {
+            val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
+            part = MultipartBody.Part.createFormData("q_photo", file.getName(), fileReqBody)
+        }
 
-    fun putPost(id : Int, title : String, content: String, file : File?) {
+        else
+            part = null
+        server.postQuestion(signedin, user_name, title, part, content).enqueue(object : Callback<QuestionForm> {
+            override fun onFailure(call: Call<QuestionForm>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+                activity.toast("인터넷이 없습니다.")
+            }
+
+            override fun onResponse(call: Call<QuestionForm>, response: Response<QuestionForm>) {
+                //code = response?.code()
+                val raw = response.raw().toString()
+
+                if (response.code() == 201) {
+                    Log.i("ddd", "$raw")
+                    Log.i("글쓰기 완료", "$user_name")
+                }
+
+                else {
+                    Log.i("ddd", "$raw")
+                    Log.i("글쓰기 실패", "$user_name")
+                }
+            }
+        })
+    }
+
+
+
+    fun putPost( id : Int, title : String, content: String, file : File?) {
         var part : MultipartBody.Part?
         if (file != null) {
             val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
@@ -308,11 +341,42 @@ class ConnectServer(var activity: Activity) {
         })
     }
 
+    fun putQuestion(id : Int, title : String, content: String, file : File?) {
+        var part : MultipartBody.Part?
+        if (file != null) {
+            val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
+            part = MultipartBody.Part.createFormData("photo", file.getName(), fileReqBody)
+        }
+
+        else
+            part = null
+
+        server.putQuestion(id, part, title, content).enqueue(object : Callback<QuestionForm> {
+            override fun onFailure(call: Call<QuestionForm>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+            }
+
+            override fun onResponse(call: Call<QuestionForm>, response: Response<QuestionForm>) {
+                val raw = response.raw().toString()
+                val body = response.body()!!.toString()
+                if (response?.code().toString() == "200") {
+                    // test.text = response?.body().toString()
+                }
+
+                else {
+
+                }
+                Log.i("dsdsd", "$raw")
+                Log.i("body", "$body")
+            }
+        })
+    }
+
     fun postProfilePic(id : Int, file : File) {
         val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
         val part = MultipartBody.Part.createFormData("user_photo", file.getName(), fileReqBody)
 
-        server.postProfilePic(id, part).enqueue(object : Callback<Profile> {
+        server.postProfilePic(id, part, user_name).enqueue(object : Callback<Profile> {
             override fun onFailure(call: Call<Profile>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
             }
@@ -354,6 +418,31 @@ class ConnectServer(var activity: Activity) {
             }
         })
     }
+
+    fun delQuestion(id : Int) {
+        server.delQuestion(id).enqueue(object : Callback<QuestionForm> {
+            override fun onFailure(call: Call<QuestionForm>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+                activity.toast("인터넷이 없습니다.")
+            }
+
+            override fun onResponse(call: Call<QuestionForm>, response: Response<QuestionForm>) {
+                //code = response?.code()
+                if (response.code() == 204) {
+                    // activity.toast("로그인에 성공했습니다.")
+                    // test.text = response?.body().toString()
+                    //  Log.i("회원탈퇴", "$signedin")
+                    //activity.finish()
+                } else {
+                    //activity.username.text = response?.raw().toString()
+                }
+                val raw = response.raw().toString()
+                Log.i("dsds", "$raw")
+            }
+        })
+    }
+
+
 
     fun getPost (id : Int, activity : Activity) {
         server.getPost(id).enqueue(object : Callback<PostsForm> {

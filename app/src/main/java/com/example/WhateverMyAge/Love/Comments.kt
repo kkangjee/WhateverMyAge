@@ -2,12 +2,14 @@ package com.example.WhateverMyAge.Love
 
 import android.app.Activity
 import android.content.Intent
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewTreeObserver
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.PopupMenu
@@ -34,7 +36,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 lateinit var _Comment_Activity: Activity
 
 lateinit var commentsRV: RecyclerView;
-
 
 class Comments : AppCompatActivity() {
     val retrofit = Retrofit.Builder()
@@ -67,7 +68,7 @@ class Comments : AppCompatActivity() {
                 } else {
 
                 }
-                Log.i("dsdsd", "$raw")
+                Log.i("댓글 추가", "$raw")
                 Log.i("dssdssss", " " + posting + " " + reply + " " + user_name + " " + signedin)
                 //    Log.i("body", "$body")
             }
@@ -130,12 +131,12 @@ class Comments : AppCompatActivity() {
                                 body[i].reply
                             )
                         )
-                        Log.i("댓글 추가됨", "$i" + " " + commentlist[i].Username)
+                        Log.i("댓글 추가됨", "$i" + " " + commentlist[i].Username + " " + commentlist[i].Comment)
                     }
-
+//
                     val comment = CommentsAdapter(this@Comments, commentlist, this@Comments)
-
                     commentsRV.adapter = comment
+                    Log.i("야호", "$commentlist")
 //
                 }
                 else {
@@ -153,96 +154,200 @@ class Comments : AppCompatActivity() {
         // commentsRV  =  commentslist
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comments)
+        uploadedImageDetail.viewTreeObserver.addOnGlobalLayoutListener(OnViewGlobalLayoutListener(uploadedImageDetail))
+
 
         val ID = intent.getStringArrayExtra("Post")
-        //ConnectServer(this).getPost(ID, this)
-        postID = ID[0].toInt()
-        Log.i("postID", "$postID")
-        userpic.setImageResource(getResources().getIdentifier("@drawable/story1", "id", packageName))
-        authorname.text = ID[2]
-        lovecontents.text = ID[3]
-        like.text = ID[4]
-        comments.text = ID[5]
-        if (ID[6]!= "")
-            uploadedImageDetail.setImageBitmap(TravelAPI().setImageURL(ID[6]))
+        val QID = intent.getStringArrayExtra("Question")
+
+        if (ID != null && ID[7] == "P") {
+            //ConnectServer(this).getPost(ID, this)
+            postID = ID[0].toInt()
+            Log.i("postID", "$postID")
+            userpic.setImageResource(getResources().getIdentifier("@drawable/story1", "id", packageName))
+            authorname.text = ID[2]
+            lovecontents.text = ID[3]
+            like.text = ID[4]
+            comments.text = ID[5]
+            if (ID[6] != "")
+                uploadedImageDetail.setImageBitmap(TravelAPI().setImageURL(ID[6]))
 //        else
 //            uploadedImageDetail.setVisibility(View.GONE)
 
-        var commentlist: ArrayList<Comment> = arrayListOf()
-        val cl = findViewById<RecyclerView>(R.id.commentslist)
+            var commentlist: ArrayList<Comment> = arrayListOf()
 
-        getComment(commentlist, ID[0].toInt(), commentslist)
-        Log.i("ID[0]", " " + ID[0])
+            getComment(commentlist, ID[0].toInt(), commentslist)
+            Log.i("ID[0]", " " + ID[0])
+//
+//            ConnectServer(this).getComment(ID)
 
-        //ConnectServer(this).getComment(ID)
+            val lm = LinearLayoutManager(this)
+            commentslist.layoutManager = lm
+            commentslist.setHasFixedSize(true)
 
-        val lm = LinearLayoutManager(this)
-        commentslist.layoutManager = lm
-        commentslist.setHasFixedSize(true)
+            bt_back.setOnClickListener {
+                finish()
+            }
 
-        bt_back.setOnClickListener {
-            finish()
-        }
-
-        bt_submitComment.setOnClickListener {
-            if (signedin == 0) {
-                toast("댓글을 작성하려면 로그인하세요")
-            } else {
-                if (reply.text.toString() == "") {
-                    toast("댓글을 작성해주세요.")
+            bt_submitComment.setOnClickListener {
+                if (signedin == 0) {
+                    toast("댓글을 작성하려면 로그인하세요")
                 } else {
-                    postComment(ID[0].toInt(), reply.text.toString())
+                    if (reply.text.toString() == "") {
+                        toast("댓글을 작성해주세요.")
+                    } else {
+                        postComment(ID[0].toInt(), reply.text.toString())
+                    }
                 }
             }
-        }
 
-        if (signedin != ID[1].toInt()) {
-            findViewById<ImageButton>(R.id.popupmenu).setVisibility(View.GONE)
-        } else {
-            popupmenu.setOnClickListener {
-                val popup = PopupMenu(this, popupmenu)
+            if (signedin != ID[1].toInt()) {
+                findViewById<ImageButton>(R.id.popupmenu).setVisibility(View.GONE)
+            } else {
+                popupmenu.setOnClickListener {
+                    val popup = PopupMenu(this, popupmenu)
 
-                menuInflater.inflate(R.menu.postmenu, popup.menu)
-                popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
-                    override
-                    fun onMenuItemClick(item: MenuItem): Boolean {
-                        when (item.itemId) {
-                            R.id.put -> {
-                                val intent = Intent(this@Comments, LoveWriteArticle::class.java)
-                                val arr: Array<String> = arrayOf(ID[0], ID[3])
-                                intent.putExtra("put", arr)
-                                intent.putExtra("QuestionAnswerArticle", 3)
-                                startActivity(intent)
-                                return true
+                    menuInflater.inflate(R.menu.postmenu, popup.menu)
+                    popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
+                        override
+                        fun onMenuItemClick(item: MenuItem): Boolean {
+                            when (item.itemId) {
+                                R.id.put -> {
+                                    val intent = Intent(this@Comments, LoveWriteArticle::class.java)
+                                    val arr: Array<String> = arrayOf(ID[0], ID[3])
+                                    intent.putExtra("put", arr)
+                                    intent.putExtra("QuestionAnswerArticle", 3)
+                                    startActivity(intent)
+                                    return true
+                                }
+
+                                R.id.delete -> {
+                                    ConnectServer(this@Comments).delPost(ID[0])
+                                    finish()
+                                    val LA = _Love_Activity
+                                    LA.finish()
+
+                                    val intent = Intent(this@Comments, LoveActivity::class.java)
+                                    startActivity(intent)
+
+                                    return true
+                                }
+
+                                else -> return false
                             }
-
-                            R.id.delete -> {
-                                ConnectServer(this@Comments).delPost(ID[0])
-                                finish()
-                                val LA = _Love_Activity
-                                LA.finish()
-
-                                val intent = Intent(this@Comments, LoveActivity::class.java)
-                                startActivity(intent)
-
-                                return true
-                            }
-
-                            else -> return false
                         }
-                    }
 
-                })
-                popup.show()
+                    })
+                    popup.show()
+                }
+            }
+
+            authorname.setOnClickListener {
+
+                val intent = Intent(this, MyInformation::class.java)
+                val arr: Array<String> = arrayOf(ID[1], ID[2])
+                intent.putExtra("user_info", arr)
+                this.startActivity(intent)
+
             }
         }
 
-        authorname.setOnClickListener {
+        else if (QID != null && QID[6] == "Q") {
+//            0: 질문 아이디
+//            1 : 글쓴이
+//            2 : 글쓴이 아이디
+//            3 : 글 제목
+//            4 : 글 내용
+//            5 : 사진
 
-            val intent = Intent(this, MyInformation::class.java)
-            val arr: Array<String> = arrayOf(ID[1], ID[2])
-            intent.putExtra("user_info", arr)
-            this.startActivity(intent)
+            postID = QID[0].toInt()
+            Log.i("postID", "$postID")
+            userpic.setImageResource(getResources().getIdentifier("@drawable/story1", "id", packageName))
+            authorname.text = QID[1]
+            lovecontents.text = QID[4]
+           // like.text = ID[4]
+          //  comments.text = ID[5]
+            if (QID[5] != "")
+                uploadedImageDetail.setImageBitmap(TravelAPI().setImageURL(QID[5]))
+//        else
+//            uploadedImageDetail.setVisibility(View.GONE)
+
+            //var commentlist: ArrayList<Comment> = arrayListOf()
+
+        //    getComment(commentlist, QID[0].toInt(), commentslist)
+            Log.i("ID[0]", " " + QID[0])
+
+            //ConnectServer(this).getComment(ID)
+
+//            val lm = LinearLayoutManager(this)
+//            commentslist.layoutManager = lm
+//            commentslist.setHasFixedSize(true)
+
+            bt_back.setOnClickListener {
+                finish()
+            }
+
+            bt_submitComment.setOnClickListener {
+                if (signedin == 0) {
+                    toast("댓글을 작성하려면 로그인하세요")
+                } else {
+                    if (reply.text.toString() == "") {
+                        toast("댓글을 작성해주세요.")
+                    } else {
+                       // postComment(ID[0].toInt(), reply.text.toString())
+                    }
+                }
+            }
+
+            if (signedin != QID[2].toInt()) {
+                findViewById<ImageButton>(R.id.popupmenu).setVisibility(View.GONE)
+            } else {
+                popupmenu.setOnClickListener {
+                    val popup = PopupMenu(this, popupmenu)
+
+                    menuInflater.inflate(R.menu.postmenu, popup.menu)
+                    popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
+                        override
+                        fun onMenuItemClick(item: MenuItem): Boolean {
+                            when (item.itemId) {
+                                R.id.put -> {
+                                    val intent = Intent(this@Comments, LoveWriteArticle::class.java)
+                                    val arr: Array<String> = arrayOf(QID[0], QID[4])
+                                    intent.putExtra("putQ", arr)
+                                    intent.putExtra("QuestionAnswerArticle", 4)
+                                    startActivity(intent)
+                                    return true
+                                }
+
+                                R.id.delete -> {
+                                    ConnectServer(this@Comments).delQuestion(QID[0].toInt())
+                                    finish()
+//                                    val LA = _Love_Activity
+//                                    LA.finish()
+//
+//                                    val intent = Intent(this@Comments, LoveActivity::class.java)
+//                                    startActivity(intent)
+
+                                    return true
+                                }
+
+                                else -> return false
+                            }
+                        }
+
+                    })
+                    popup.show()
+                }
+            }
+
+            authorname.setOnClickListener {
+
+                val intent = Intent(this, MyInformation::class.java)
+                val arr: Array<String> = arrayOf(QID[1], QID[2])
+                intent.putExtra("user_info", arr)
+                this.startActivity(intent)
+
+            }
 
         }
 

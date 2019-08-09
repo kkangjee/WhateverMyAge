@@ -5,9 +5,10 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.WhateverMyAge.Guide.Questions.QnA"
+        tools:context=".Guide.Questions.FAQContent"
         android:orientation="vertical"
->
+    >
+
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -31,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#8BC34A"
-                android:text="질문 게시판"
+                android:text="자주 묻는 질문"
                 android:textSize="30dp"
                 android:textColor="#fff"
                 android:padding="10dp"
@@ -39,8 +40,8 @@
 
     </LinearLayout>
 
+
     <ScrollView
-            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -50,52 +51,23 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
         >
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="자주 묻는 질문들"
-                    android:textSize="30dp"
 
-                    android:layout_marginLeft="15dp"
-
-            />
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/FAQ"
-                    android:layout_width="match_parent"
-                    android:padding="16dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-            >
-            </androidx.recyclerview.widget.RecyclerView>
-
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="최근 질문"
-                    android:textSize="30dp"
-
-                    android:layout_marginLeft="15dp"
-
-            />
-
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/Questions"
-                    android:padding="16dp"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-            >
-            </androidx.recyclerview.widget.RecyclerView>
-        </LinearLayout>
-    </ScrollView>
-
-    <Button
-            android:id="@+id/bt_writeQuestion"
-            android:text="나도 질문할래요!"
-            android:textSize="40dp"
-            android:layout_width="match_parent"
+    <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textSize="30dp"
+            android:id="@+id/faq_title"
     />
 
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:id="@+id/faq_content"
+            android:textSize="25dp"
+    />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
