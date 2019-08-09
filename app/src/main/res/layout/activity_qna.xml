@@ -54,17 +54,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="자주 묻는 질문들"
-                    android:textSize="40dp"
-                    android:layout_marginTop="15dp"
+                    android:textSize="30dp"
+
                     android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="5dp"
+
             />
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/FAQ"
                     android:layout_width="match_parent"
                     android:padding="16dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
             >
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -73,10 +73,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="최근 질문"
-                    android:textSize="40dp"
-                    android:layout_marginTop="15dp"
+                    android:textSize="30dp"
+
                     android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="5dp"
+
             />
 
             <androidx.recyclerview.widget.RecyclerView

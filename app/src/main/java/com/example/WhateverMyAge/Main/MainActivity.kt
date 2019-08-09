@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.content.pm.PackageManager
 import android.os.AsyncTask
 import android.os.Build
+import android.util.Log
 import com.example.WhateverMyAge.*
 import com.example.WhateverMyAge.Love.Comments
 import com.example.WhateverMyAge.Love.LoveActivity
@@ -35,6 +36,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         checkPermission()
+        for (permission in permission_list) {
+            //권한 허용 여부를 확인한다.
+            val chk = checkCallingOrSelfPermission(permission)
+            if (chk != PackageManager.PERMISSION_DENIED) {
+                Log.e("권한거절", "::$permission")
+            }
+            else{
+                Log.e("권한", "::$permission")
+            }
+        }
 
         quote.text = quotelist[num].Quote
         quotedfrom.text = quotelist[num].QuotedFrom
@@ -109,7 +120,13 @@ class MainActivity : AppCompatActivity() {
             if (chk == PackageManager.PERMISSION_DENIED) {
                 //권한 허용을여부를 확인하는 창을 띄운다
                 requestPermissions(permission_list, 0)
+
+
+
             }
+
+
+
         }
     }
 
