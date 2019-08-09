@@ -47,6 +47,10 @@ class Instruction : AppCompatActivity() {
 
         val intent = Intent()
         intent.putExtra("WhichExplanation", 1)
+
+        bt_back.setOnClickListener {
+            finish()
+        }
     }
 
     fun sendData(): Int {

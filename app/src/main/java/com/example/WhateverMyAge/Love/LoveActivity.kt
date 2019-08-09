@@ -64,7 +64,7 @@ fun isLocationEnabled(context: Context): Boolean {
 
 
 class LoveActivity : AppCompatActivity() {
-    fun showPost(contentlist: ArrayList<LoveArticles>) {
+    fun showPost(contentlist: ArrayList<LoveArticles>, mSwipe : SwipeRefreshLayout?) {
         server.showPost().enqueue(object : Callback<List<PostsForm>> {
             override fun onFailure(call: Call<List<PostsForm>>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
@@ -132,6 +132,8 @@ class LoveActivity : AppCompatActivity() {
                 val love = LoveArticlesAdapter(this@LoveActivity, contentlist, this@LoveActivity)
                 lovearticles.adapter = love
                 Loading(this@LoveActivity).loadingEnd()
+                if (mSwipe != null)
+                    mSwipe.setRefreshing(false)
             }
         })
     }
@@ -187,8 +189,8 @@ class LoveActivity : AppCompatActivity() {
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         //로딩 시작
-        val Loading = Loading(this)
-        Loading.loading()
+        //val Loading = Loading(this)
+        Loading(this).loading()
         _Love_Activity = this
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love)
@@ -199,15 +201,16 @@ class LoveActivity : AppCompatActivity() {
 
         //게시판 글 출력
         var contentlist: ArrayList<LoveArticles> = arrayListOf()
-        showPost(contentlist)
+        showPost(contentlist, null)
         //로딩 끝
 
         mSwipe.setOnRefreshListener (object : SwipeRefreshLayout.OnRefreshListener {
             override
             fun onRefresh() {
                 var contentlist: ArrayList<LoveArticles> = arrayListOf()
-                showPost(contentlist)
-                mSwipe.setRefreshing(false)
+                showPost(contentlist, mSwipe)
+//                if (mSwipe.isRefreshing)
+//                    mSwipe.setRefreshing(false)
             }
         })
 

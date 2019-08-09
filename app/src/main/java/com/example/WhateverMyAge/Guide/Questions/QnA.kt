@@ -68,11 +68,12 @@ class QnA : AppCompatActivity() {
         setContentView(R.layout.activity_qna)
 
         var faqlist = arrayListOf(
-            FAQTitles("전화번호가 지워졌어요", 0),
-            FAQTitles("카카오톡이 안 돼요", 1),
-            FAQTitles("알림이 안 울려요", 2),
-            FAQTitles("밴드 가입이 안 돼요", 3)
-        )
+            FAQTitles("화면이 너무 어두워요, 밝아요", 0),
+            FAQTitles("벨소리 크기를 조절하고 싶어요", 1),
+            FAQTitles("음악, 동영상 크기를 조절하고 싶어요", 2),
+            FAQTitles("전화번호가 지워졌어요, 저장할래요", 3),
+            FAQTitles("카카오톡, 유튜브를 쓰고 싶어요", 4)
+            )
 
 
         val faq = FAQTitlesAdapter(this, faqlist, this)
