@@ -1,8 +1,11 @@
 package com.example.WhateverMyAge
 
+import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
+import com.example.WhateverMyAge.Main.Loading
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -12,7 +15,6 @@ import com.example.WhateverMyAge.Main.LoadingActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.bt_back
 import android.os.AsyncTask.execute
-
 
 
 var signedin = 0
@@ -36,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
             }
             else{
                 //로딩
-                loading()
+                Loading(this).loading()
 
                 ConnectServer(this).Login(id, pw)
 //                val intent = Intent(this, LoadingActivity::class.java)
@@ -62,16 +64,4 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-    fun loading() {
-        //로딩
-        android.os.Handler().postDelayed(
-            {
-                progressDialog = ProgressDialog(this@LoginActivity)
-                progressDialog!!.setIndeterminate(true)
-                progressDialog!!.setMessage("잠시만 기다려 주세요")
-                progressDialog!!.show()
-            }, 0
-        )
-    }
-
 }

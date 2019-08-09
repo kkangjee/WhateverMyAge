@@ -37,7 +37,8 @@ class FAQTitlesAdapter (val context : Context, val titlelist : ArrayList<FAQTitl
 
             Title.setOnClickListener {
                 val intent = Intent(activity, FAQContent::class.java)
-                intent.putExtra("FAQ", FAQtitles.Num)
+                val arr : ArrayList<String> = arrayListOf(FAQtitles.Num.toString(), FAQtitles.Title)
+                intent.putExtra("FAQ", arr)
                 activity.startActivity(intent)
             }
 
