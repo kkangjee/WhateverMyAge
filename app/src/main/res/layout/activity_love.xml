@@ -88,25 +88,25 @@
     <!--&gt;-->
 
 
-        <ScrollView
-                app:layout_constraintTop_toBottomOf="@id/bar"
-                android:id="@+id/content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-        >
-            <LinearLayout
-                    app:layout_constraintTop_toBottomOf="@id/bar"
-                    android:id="@+id/articles"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-            >
+        <!--<ScrollView-->
+                <!--android:id="@+id/content"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_weight="1"-->
+        <!--&gt;-->
+            <!--<LinearLayout-->
+                    <!--app:layout_constraintTop_toBottomOf="@id/bar"-->
+                    <!--android:id="@+id/articles"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="vertical"-->
+            <!--&gt;-->
 
                 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                         android:layout_width="match_parent"
-                        android:layout_height="602dp"
+                        android:layout_height="0dp"
                         android:id="@+id/swipe"
+                        android:layout_weight="1"
                 >
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/lovearticles"
@@ -121,8 +121,8 @@
                 <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
-            </LinearLayout>
-        </ScrollView>
+            <!--</LinearLayout>-->
+        <!--</ScrollView>-->
 
     <Button
 

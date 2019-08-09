@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
 import com.example.WhateverMyAge.Guide.Settings.toast
+import com.example.WhateverMyAge.Main.Loading
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -22,14 +23,11 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.PopupMenu
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.WhateverMyAge.LoginActivity
+import com.example.WhateverMyAge.*
 import com.example.WhateverMyAge.Main.ConnectServer
 import com.example.WhateverMyAge.Main.PermissionCheck
 import com.example.WhateverMyAge.Main.PostsForm
 import com.example.WhateverMyAge.Main.Service
-import com.example.WhateverMyAge.R
-import com.example.WhateverMyAge.progressDialog
-import com.example.WhateverMyAge.signedin
 import kotlinx.android.synthetic.main.activity_comments.*
 import kotlinx.android.synthetic.main.activity_comments.view.*
 import kotlinx.android.synthetic.main.activity_comments.view.popupmenu
@@ -133,7 +131,7 @@ class LoveActivity : AppCompatActivity() {
 
                 val love = LoveArticlesAdapter(this@LoveActivity, contentlist, this@LoveActivity)
                 lovearticles.adapter = love
-                loadingEnd()
+                Loading(this@LoveActivity).loadingEnd()
             }
         })
     }
@@ -189,7 +187,8 @@ class LoveActivity : AppCompatActivity() {
     @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         //로딩 시작
-        loading()
+        val Loading = Loading(this)
+        Loading.loading()
         _Love_Activity = this
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love)
@@ -325,26 +324,6 @@ class LoveActivity : AppCompatActivity() {
 
     }
 
-    fun loading() {
-        //로딩
-        android.os.Handler().postDelayed(
-            {
-                progressDialog = ProgressDialog(this@LoveActivity)
-                progressDialog!!.setIndeterminate(true)
-                progressDialog!!.setMessage("잠시만 기다려 주세요")
-                progressDialog!!.show()
-            }, 0
-        )
-    }
-
-
 }
-fun loadingEnd() {
-    android.os.Handler().postDelayed(
-        {
-            progressDialog?.dismiss()
 
-        }, 0
-    )
-}
 
