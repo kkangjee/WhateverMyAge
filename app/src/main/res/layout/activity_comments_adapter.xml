@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/comment"
                 android:textSize="30sp"
+                android:textAllCaps="false"
         />
 
     </LinearLayout>

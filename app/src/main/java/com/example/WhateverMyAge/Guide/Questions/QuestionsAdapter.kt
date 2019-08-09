@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatButton
 import com.example.WhateverMyAge.Love.Comments
 import com.example.WhateverMyAge.R
 
-class QuestionsTitles (val Title : String, val Id : Int, val Content : String, val photo : String?, val Author : String, val Author_id : Int)
+class QuestionsTitles (val Title : String, val Id : Int, val Content : String, val photo : String?, val Author : String, val Author_id : Int, val Cnt : Int)
 
 class QuestionTitlesAdapter (val context : Context, val titlelist : ArrayList<QuestionsTitles>, val activity : Activity) :
     RecyclerView.Adapter<QuestionTitlesAdapter.Holder>() {
@@ -38,7 +38,7 @@ class QuestionTitlesAdapter (val context : Context, val titlelist : ArrayList<Qu
 
             Title.setOnClickListener {
                 var intent = Intent(activity, Comments::class.java)
-                val arr : Array<String> = arrayOf(questiontitles.Id.toString(), questiontitles.Author, questiontitles.Author_id.toString(), questiontitles.Title, questiontitles.Content, (if (questiontitles.photo != null) questiontitles.photo else ""), "Q")
+                val arr : Array<String> = arrayOf(questiontitles.Id.toString(), questiontitles.Author, questiontitles.Author_id.toString(), questiontitles.Title, questiontitles.Content, (if (questiontitles.photo != null) questiontitles.photo else ""), "Q", questiontitles.Cnt.toString())
                 intent.putExtra("Question", arr)
                 activity.startActivity(intent)
 

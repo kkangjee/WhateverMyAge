@@ -38,7 +38,6 @@ class LoginActivity : AppCompatActivity() {
             else{
                 //로딩
                 Loading(this).loading()
-
                 ConnectServer(this).Login(id, pw)
 //                val intent = Intent(this, LoadingActivity::class.java)
 //                startActivity(intent)

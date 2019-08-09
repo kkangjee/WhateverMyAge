@@ -17,6 +17,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import android.os.Build
+import android.graphics.drawable.shapes.OvalShape
+import android.graphics.drawable.ShapeDrawable
+
+
 
 class MyInformation : AppCompatActivity() {
 
@@ -28,6 +33,7 @@ class MyInformation : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         val server = ConnectServer(this)
         val retrofit = Retrofit.Builder()
             .baseUrl("https://frozen-cove-44670.herokuapp.com/")
@@ -40,6 +46,12 @@ class MyInformation : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_information)
+
+        ProfileUpload.setBackground(ShapeDrawable(OvalShape()))
+        if (Build.VERSION.SDK_INT >= 21) {
+            ProfileUpload.setClipToOutline(true)
+        }
+
         val info = intent.getStringArrayExtra("user_info")
         id = info[0].toInt()
         var pic : String? = null
@@ -111,6 +123,8 @@ class MyInformation : AppCompatActivity() {
                     val intent = Intent(this, CameraOrGallery::class.java)
                     startActivityForResult(intent, 1)
                 }
+
+                ProfileUpload.setImageDrawable(resources.getDrawable(R.drawable.story1))
             }
 
         }
