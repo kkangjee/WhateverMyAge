@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.bt_back
 import android.os.AsyncTask.execute
 
-
 var signedin = 0
 var user_name = ""
 var progressDialog: ProgressDialog? = null

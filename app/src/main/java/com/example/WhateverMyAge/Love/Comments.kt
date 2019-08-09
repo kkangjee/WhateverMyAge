@@ -169,6 +169,56 @@ class Comments : AppCompatActivity() {
             lovecontents.text = ID[3]
             like.text = ID[4]
             comments.text = ID[5]
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl("https://frozen-cove-44670.herokuapp.com/")
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+
+                .build()
+
+            var server = retrofit.create(Service::class.java)
+
+            server.getProfilePic(ID[1].toInt()).enqueue(object : Callback<Profile> {
+                override fun onFailure(call: Call<Profile>, t: Throwable) {
+                    Log.e("서버와 통신에 실패했습니다.", "Error!")
+                }
+
+                override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
+                    //code = response?.code()
+                    if (response.code() == 204) {
+                        // test.text = response?.body().toString()
+                    } else {
+
+                    }
+                    Log.i("profile image", " " + response.raw())
+                    Log.i("profile image", " " + response.body())
+
+                    val pic = if (response.body() != null) response.body()!!.user_photo else null
+                    Log.i("dsd", "$pic")
+                    if (pic != null) {
+//                        var mButton = ImageView(context)
+//                        var pm = LinearLayout.LayoutParams(100, 100)
+//
+//
+//
+//                        Log.i("pic", "exists" + pic)
+                        val bit = TravelAPI().setImageURL(pic)
+                        userpic.setImageBitmap(bit)
+                        Log.i("image bitmap", "$pic")
+                    }
+
+                    else {
+                        Log.i("no pic", " dd")
+                        val resource = this@Comments.resources.getIdentifier("story1", "drawable", this@Comments.packageName)
+                        userpic.setImageResource(resource)
+
+                    }
+
+                }
+            })
+
+
             if (ID[6] != "")
                 uploadedImageDetail.setImageBitmap(TravelAPI().setImageURL(ID[6]))
 //        else
