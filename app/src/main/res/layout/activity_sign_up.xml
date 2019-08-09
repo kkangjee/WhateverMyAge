@@ -6,7 +6,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".SignUpActivity"
-
 >
 
     <LinearLayout
@@ -94,16 +93,5 @@
             />
 
         </LinearLayout>
-
-
     </LinearLayout>
-
-
-
-
-
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

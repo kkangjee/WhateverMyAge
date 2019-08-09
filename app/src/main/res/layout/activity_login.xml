@@ -87,7 +87,7 @@
                         android:layout_height="match_parent"
                         android:hint="아이디를 입력해주세요"
                         android:textSize="20sp"
-                        android:text="qlalf"/>
+                        />
                 <EditText
                         android:id="@+id/PW"
                         android:layout_width="match_parent"
@@ -95,10 +95,9 @@
                         android:inputType="textPassword"
                         android:hint="비밀번호를 입력해주세요"
                         android:textSize="20sp"
-                        android:text="qlalfqlalf"></EditText>
+                        />
 
             </LinearLayout>
-
 
             <Button
                     android:id="@+id/bt_loginsubmit"
@@ -110,24 +109,24 @@
         </LinearLayout>
 
 
-        <Button
-                android:id="@+id/bt_cantfindid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
+        <!--<Button-->
+                <!--android:id="@+id/bt_cantfindid"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="?attr/selectableItemBackground"-->
 
-                android:text="아이디가 기억이 안 나요!"
-                android:textSize="30sp"
-        />
-        <Button
-                android:id="@+id/bt_cantfindpw"
-                android:background="?attr/selectableItemBackground"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="비밀번호가 기억이 안 나요!"
-                android:textSize="30sp"
+                <!--android:text="아이디가 기억이 안 나요!"-->
+                <!--android:textSize="30sp"-->
+        <!--/>-->
+        <!--<Button-->
+                <!--android:id="@+id/bt_cantfindpw"-->
+                <!--android:background="?attr/selectableItemBackground"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="비밀번호가 기억이 안 나요!"-->
+                <!--android:textSize="30sp"-->
 
-        />
+        <!--/>-->
         <Button
                 android:id="@+id/bt_signup"
                 android:background="?attr/selectableItemBackground"

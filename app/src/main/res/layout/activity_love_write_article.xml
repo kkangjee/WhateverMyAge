@@ -120,10 +120,5 @@
                 android:text="다 썼어요"
                 android:textSize="20sp"
                 android:layout_weight="1"/>
-
-
     </LinearLayout>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

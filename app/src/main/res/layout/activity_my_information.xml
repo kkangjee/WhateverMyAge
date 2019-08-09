@@ -79,11 +79,6 @@
                 android:textSize="30dp"
         />
     </LinearLayout>
-    <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="내가 쓴 글? 또 들어가야 할 것은?"-->
-    <!--/>-->
     <Button
             android:id="@+id/bt_deleteReg"
             android:layout_width="wrap_content"
@@ -92,7 +87,6 @@
             android:theme="@style/AppTheme.GreenRipple"
             android:background="?selectableItemBackground"
     />
-
 
 
 </LinearLayout>

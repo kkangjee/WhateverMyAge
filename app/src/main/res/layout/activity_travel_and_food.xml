@@ -6,12 +6,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".TravelAndFood.TravelAndFood">
-<LinearLayout
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+    <LinearLayout
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+    >
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -20,26 +20,26 @@
                 android:gravity="center_vertical"
                 android:background="#8BC34A"
         >
-                <ImageButton
-                        android:id="@+id/bt_back"
-                        android:layout_width="50dp"
-                        android:layout_height="60dp"
-                        android:padding="8dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/back"
-                        android:theme="@style/AppTheme.GreenRipple"
-                        android:background="?selectableItemBackground"
-                />
+            <ImageButton
+                    android:id="@+id/bt_back"
+                    android:layout_width="50dp"
+                    android:layout_height="60dp"
+                    android:padding="8dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/back"
+                    android:theme="@style/AppTheme.GreenRipple"
+                    android:background="?selectableItemBackground"
+            />
 
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="#8BC34A"
-                        android:text="어디서 뭘 먹지?"
-                        android:textSize="30dp"
-                        android:textColor="#fff"
-                        android:padding="10dp"
-                />
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#8BC34A"
+                    android:text="어디서 뭘 먹지?"
+                    android:textSize="30dp"
+                    android:textColor="#fff"
+                    android:padding="10dp"
+            />
 
         </LinearLayout>
 
@@ -62,7 +62,7 @@
 
         </androidx.viewpager.widget.ViewPager>
 
-</LinearLayout>
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

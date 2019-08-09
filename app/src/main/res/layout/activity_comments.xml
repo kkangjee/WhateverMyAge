@@ -14,207 +14,182 @@
             app:layout_constraintTop_toTopOf="parent"
     >
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="#8BC34A"
-    >
-        <ImageButton
-                android:id="@+id/bt_back"
-                android:layout_width="50dp"
-                android:layout_height="60dp"
-                android:padding="8dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/back"
-                android:theme="@style/AppTheme.GreenRipple"
-                android:background="?selectableItemBackground"
-        />
-
-        <TextView
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:background="#8BC34A"
-                android:text="게시글 보기"
-                android:textSize="30sp"
-                android:textColor="#fff"
-                android:padding="10dp"
-        />
-
-    </LinearLayout>
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-    >
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-    >
-    <LinearLayout
-            android:layout_margin="16dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-    >
-        <LinearLayout
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
         >
-
-
-
             <ImageButton
-                    android:id="@+id/userpic"
+                    android:id="@+id/bt_back"
                     android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
+                    android:padding="8dp"
                     android:scaleType="fitXY"
-                    android:background="@null"
-                    android:layout_margin="5dp"
+                    android:src="@drawable/back"
+                    android:theme="@style/AppTheme.GreenRipple"
+                    android:background="?selectableItemBackground"
             />
 
-            <Button
-                    android:id="@+id/authorname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#00ff0000"
-                    android:textAllCaps="false"
-                    android:textSize="25sp"
-                    android:layout_marginLeft="5dp"
-                    android:text="게시자"
-            />
-        </LinearLayout>
-
-        <TextView
-                android:id="@+id/lovecontents"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00ff0000"
-                android:textAllCaps="false"
-                android:layout_margin="5dp"
-                android:gravity="left"
-                android:text="내용"
-
-                android:textSize="40sp"
-        />
-
-        <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height= "wrap_content"
-                android:maxHeight="200dp"
-                android:maxWidth="200dp"
-                android:scaleType="fitCenter"
-                android:background="@color/Invisible"
-                android:id="@+id/uploadedImageDetail"
-        />
-
-        <!--TODO1 : 사진 미리보기-->
-        <!--TODO2 : 각 게시글에 해당하는 버튼으로 만들기-->
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-        >
-            <!--<CheckBox-->
-                    <!--android:layout_width="40dp"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:scaleType="fitXY"-->
-                    <!--android:layout_margin="5dp"-->
-                    <!--android:button="@null"-->
-                    <!--android:background="@drawable/heart"-->
-            <!--/>-->
-            <!--<TextView-->
-                    <!--android:id="@+id/like"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="-"-->
-                    <!--android:textSize="30sp"-->
-                    <!--android:layout_marginRight="10dp"-->
-            <!--/>-->
-
-
-            <ImageButton
-                    android:layout_margin="5dp"
-                    android:layout_width="34dp"
-                    android:layout_height="35dp"
-                    android:scaleType="centerCrop"
-                    android:background="@null"
-                    android:src="@drawable/speechbubble"
-            />
             <TextView
-                    android:id="@+id/comments"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="-"
+                    android:background="#8BC34A"
+                    android:text="게시글 보기"
                     android:textSize="30sp"
+                    android:textColor="#fff"
+                    android:padding="10dp"
             />
-
-            <View android:layout_width="wrap_content" android:layout_height="1dp"
-            android:layout_weight="1">
-
-            </View>
-
-           <ImageButton
-                   android:layout_width="50dp"
-                   android:layout_height="50dp"
-                   android:src="@drawable/ic_more_vert_black_24dp"
-                   android:background="?selectableItemBackground"
-                    android:id="@+id/popupmenu"
-           />
 
         </LinearLayout>
-
-        <LinearLayout
+        <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
         >
-            <EditText
-                    android:id="@+id/reply"
-                    android:layout_width="wrap_content"
-                    android:layout_weight="1"
+            <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="댓글을 입력하세요"
-                    android:textSize="30sp"
-            />
-            <Button
-                    android:id="@+id/bt_submitComment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="댓글 달기"
-                    android:textSize="20sp"
-                    android:layout_weight="1"
-            />
+                    android:orientation="vertical"
+            >
+                <LinearLayout
+                        android:layout_margin="16dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                >
+                    <LinearLayout
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                    >
 
 
-        </LinearLayout>
+                        <ImageButton
+                                android:id="@+id/userpic"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:scaleType="fitXY"
+                                android:background="@null"
+                                android:layout_margin="5dp"
+                        />
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/commentslist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-        >
+                        <Button
+                                android:id="@+id/authorname"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="#00ff0000"
+                                android:textAllCaps="false"
+                                android:textSize="25sp"
+                                android:layout_marginLeft="5dp"
+                                android:text="게시자"
+                        />
+                    </LinearLayout>
 
-        </androidx.recyclerview.widget.RecyclerView>
+                    <TextView
+                            android:id="@+id/lovecontents"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#00ff0000"
+                            android:textAllCaps="false"
+                            android:layout_margin="5dp"
+                            android:gravity="left"
+                            android:text="내용"
+
+                            android:textSize="40sp"
+                    />
+
+                    <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxHeight="200dp"
+                            android:maxWidth="200dp"
+                            android:scaleType="fitCenter"
+                            android:background="@color/Invisible"
+                            android:id="@+id/uploadedImageDetail"
+                    />
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                    >
+
+                        <ImageButton
+                                android:layout_margin="5dp"
+                                android:layout_width="34dp"
+                                android:layout_height="35dp"
+                                android:scaleType="centerCrop"
+                                android:background="@null"
+                                android:src="@drawable/speechbubble"
+                        />
+                        <TextView
+                                android:id="@+id/comments"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="-"
+                                android:textSize="30sp"
+                        />
+
+                        <View android:layout_width="wrap_content" android:layout_height="1dp"
+                              android:layout_weight="1">
+
+                        </View>
+
+                        <ImageButton
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:src="@drawable/ic_more_vert_black_24dp"
+                                android:background="?selectableItemBackground"
+                                android:id="@+id/popupmenu"
+                        />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="10dp"
+                    >
+                        <EditText
+                                android:id="@+id/reply"
+                                android:layout_width="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:hint="댓글을 입력하세요"
+                                android:textSize="30sp"
+                        />
+                        <Button
+                                android:id="@+id/bt_submitComment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="댓글 달기"
+                                android:textSize="20sp"
+                                android:layout_weight="1"
+                        />
+
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/commentslist"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                    >
+
+                    </androidx.recyclerview.widget.RecyclerView>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
     </LinearLayout>
-    </LinearLayout>
-    </ScrollView>
-
-    </LinearLayout>
-
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
