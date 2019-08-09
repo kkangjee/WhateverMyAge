@@ -17,16 +17,16 @@
             android:gravity="center_vertical"
             android:background="#8BC34A"
     >
-    <ImageButton
-            android:id="@+id/bt_back"
-            android:layout_width="50dp"
-            android:layout_height="60dp"
-            android:padding="8dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/back"
-            android:theme="@style/AppTheme.GreenRipple"
-            android:background="?selectableItemBackground"
-    />
+        <ImageButton
+                android:id="@+id/bt_back"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:padding="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/back"
+                android:theme="@style/AppTheme.GreenRipple"
+                android:background="?selectableItemBackground"
+        />
 
         <TextView
                 android:layout_width="wrap_content"
@@ -55,30 +55,30 @@
     </LinearLayout>
 
     <!--<ScrollView-->
-            <!--android:id="@+id/content"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
+    <!--android:id="@+id/content"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_weight="1"-->
     <!--&gt;-->
-        <!--<LinearLayout-->
-                <!--app:layout_constraintTop_toBottomOf="@id/bar"-->
-                <!--android:id="@+id/articles"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="vertical"-->
-        <!--&gt;-->
+    <!--<LinearLayout-->
+    <!--app:layout_constraintTop_toBottomOf="@id/bar"-->
+    <!--android:id="@+id/articles"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical"-->
+    <!--&gt;-->
     <!--<androidx.constraintlayout.widget.ConstraintLayout -->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height=""-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/bar"-->
-            <!--app:layout_constraintBottom_toTopOf="@id/bt_writeArticle"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height=""-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/bar"-->
+    <!--app:layout_constraintBottom_toTopOf="@id/bt_writeArticle"-->
     <!--&gt;-->
 
     <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/SC"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/bar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/SC"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/bar"-->
 
     <!--&gt;-->
     <!--<androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
@@ -88,41 +88,41 @@
     <!--&gt;-->
 
 
-        <ScrollView
-                app:layout_constraintTop_toBottomOf="@id/bar"
-                android:id="@+id/content"
+    <!--<ScrollView-->
+    <!--android:id="@+id/content"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--&gt;-->
+    <!--<LinearLayout-->
+    <!--app:layout_constraintTop_toBottomOf="@id/bar"-->
+    <!--android:id="@+id/articles"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="vertical"-->
+    <!--&gt;-->
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/swipe"
+            android:layout_weight="1"
+    >
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lovearticles"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-        >
-            <LinearLayout
-                    app:layout_constraintTop_toBottomOf="@id/bar"
-                    android:id="@+id/articles"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-            >
+                android:layout_height="match_parent"
+                android:layout_margin="10dp">
+        </androidx.recyclerview.widget.RecyclerView>
 
-                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="602dp"
-                        android:id="@+id/swipe"
-                >
-                <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/lovearticles"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp">
-                </androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-                <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-                <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
-            </LinearLayout>
-        </ScrollView>
+    <!--</LinearLayout>-->
+    <!--</ScrollView>-->
 
     <Button
 
@@ -131,6 +131,6 @@
             android:textSize="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-           />
+    />
 
 </LinearLayout>
