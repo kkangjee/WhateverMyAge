@@ -75,8 +75,6 @@ class Comments : AppCompatActivity() {
     }
 
     fun deleteComment(id: Int, posting: Int, rc: RecyclerView) {
-        var server = retrofit.create(Service::class.java)
-
         server.deleteComment(id).enqueue(object : Callback<Body> {
             override fun onFailure(call: Call<Body>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
@@ -98,14 +96,13 @@ class Comments : AppCompatActivity() {
         })
     }
 
-
     fun getComment(commentlist: ArrayList<Comment>, ID: Int, rc: RecyclerView) {
         commentsRV = rc
         //commentlist = arrayListOf()
         server.getComment(ID).enqueue(object : Callback<List<CommentsForm>> {
             override fun onFailure(call: Call<List<CommentsForm>>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
-                val comment = CommentsAdapter(this@Comments, commentlist, this@Comments)
+                val comment = CommentsAdapter(this@Comments, commentlist, this@Comments, 1)
                 commentsRV.adapter = comment
             }
 
@@ -133,7 +130,7 @@ class Comments : AppCompatActivity() {
                         Log.i("댓글 추가됨", "$i" + " " + commentlist[i].Username + " " + commentlist[i].Comment)
                     }
 //
-                    val comment = CommentsAdapter(this@Comments, commentlist, this@Comments)
+                    val comment = CommentsAdapter(this@Comments, commentlist, this@Comments, 1)
                     commentsRV.adapter = comment
                     Log.i("야호", "$commentlist")
 //
@@ -147,6 +144,101 @@ class Comments : AppCompatActivity() {
         })
     }
 
+    fun getQComment(commentlist: ArrayList<Comment>, ID: Int, rc: RecyclerView) {
+        commentsRV = rc
+        server.getQComment(ID).enqueue(object : Callback<List<QCommentsForm>> {
+            override fun onFailure(call: Call<List<QCommentsForm>>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+
+            }
+
+            override fun onResponse(call: Call<List<QCommentsForm>>, response: Response<List<QCommentsForm>>) {
+                val raw = response.raw().toString()
+                if (response.code().toString() == "200") {
+
+                    val body = response.body()!!
+                    // test.text = response?.body().toString()
+                    val cnt = body.lastIndex
+
+                    Log.i("댓글 수", "$cnt")
+                    Log.i("질문댓글", "$body")
+                    Log.i("질문댓글raw", "$raw")
+
+                    for (i in 0..cnt) {
+                        Log.i("댓글 추가", "$i")
+                        Log.i("댓글 추가됨", "$i" + " " + body[i].author_username + " " + body[i].q_reply)
+
+                        commentlist.add(
+                            Comment(
+                                body[i].question,
+                                body[i].id,
+                                body[i].author_id,
+                                body[i].author_username,
+                                body[i].q_reply
+                            )
+                        )
+                        Log.i("댓글 추가됨", "$i" + " " + commentlist[i].Username + " " + commentlist[i].Comment)
+                    }
+//
+                    val comment = CommentsAdapter(this@Comments, commentlist, this@Comments, 0)
+                    commentsRV.adapter = comment
+                    Log.i("야호", "$commentlist")
+                }
+                else if (response.code() == 404) {
+                    val comment = CommentsAdapter(this@Comments, commentlist, this@Comments, 0)
+                    commentsRV.adapter = comment
+                }
+                Log.i("dsdsd", "$raw")
+                Log.i("body", " " + response?.body())
+            }
+        })
+    }
+
+    fun deleteQComment (id: Int, posting: Int, rc: RecyclerView) {
+        server.deleteQComment(id).enqueue(object : Callback<Body> {
+            override fun onFailure(call: Call<Body>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+            }
+
+            override fun onResponse(call: Call<Body>, response: Response<Body>) {
+                //code = response?.code()
+                if (response.code() == 204) {
+                    var commentlist: ArrayList<Comment> = arrayListOf()
+                    getQComment(commentlist, posting, rc)
+                    Log.i("postID", "$posting")
+                } else {
+                }
+
+                Log.i("댓삭", " " + response.raw().toString())
+            }
+        })
+    }
+
+    fun postQComment (question: Int, q_reply: String) {
+        server.postQComment(question, q_reply, user_name, signedin).enqueue(object : Callback<QCommentsForm> {
+            override fun onFailure(call: Call<QCommentsForm>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+            }
+
+            override fun onResponse(call: Call<QCommentsForm>, response: Response<QCommentsForm>) {
+                val raw = response.raw().toString()
+                //  val body = response.body()!!
+                if (response?.code().toString() == "201") {
+                    // test.text = response?.body().toString()
+                    //commentlist = arrayListOf
+                    reply.setText("")
+                    Log.i("posting", "$question")
+                    var commentlist: ArrayList<Comment> = arrayListOf()
+                    getQComment(commentlist, question, commentslist)
+                } else {
+
+                }
+                Log.i("댓글 작성", "$raw")
+                Log.i("dssdssss", " " + question + " " + q_reply + " " + user_name + " " + signedin)
+                //    Log.i("body", "$body")
+            }
+        })
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         _Comment_Activity = this
@@ -154,7 +246,6 @@ class Comments : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comments)
         uploadedImageDetail.viewTreeObserver.addOnGlobalLayoutListener(OnViewGlobalLayoutListener(uploadedImageDetail))
-
 
         val ID = intent.getStringArrayExtra("Post")
         val QID = intent.getStringArrayExtra("Question")
@@ -166,8 +257,61 @@ class Comments : AppCompatActivity() {
             userpic.setImageResource(getResources().getIdentifier("@drawable/story1", "id", packageName))
             authorname.text = ID[2]
             lovecontents.text = ID[3]
-            like.text = ID[4]
+//            like.text = ID[4]
             comments.text = ID[5]
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl("https://frozen-cove-44670.herokuapp.com/")
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+
+                .build()
+
+            var server = retrofit.create(Service::class.java)
+
+            server.getProfilePic(ID[1].toInt()).enqueue(object : Callback<Profile> {
+                override fun onFailure(call: Call<Profile>, t: Throwable) {
+                    Log.e("서버와 통신에 실패했습니다.", "Error!")
+                }
+
+                override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
+                    //code = response?.code()
+                    if (response.code() == 204) {
+                        // test.text = response?.body().toString()
+                    } else {
+
+                    }
+                    Log.i("profile image", " " + response.raw())
+                    Log.i("profile image", " " + response.body())
+
+                    val pic = if (response.body() != null) response.body()!!.user_photo else null
+
+                    Log.i("dsd", "$pic")
+                    if (pic != null) {
+//                        var mButton = ImageView(context)
+//                        var pm = LinearLayout.LayoutParams(100, 100)
+//
+//
+//
+//                        Log.i("pic", "exists" + pic)
+                        val bit = TravelAPI().setImageURL(pic)
+                        userpic.setImageBitmap(bit)
+                        Log.i("image bitmap", "$pic")
+                        ImageRounding(userpic).rounding()
+
+                    }
+
+                    else {
+                        Log.i("no pic", " dd")
+                        val resource = this@Comments.resources.getIdentifier("story1", "drawable", this@Comments.packageName)
+                        userpic.setImageResource(resource)
+                        ImageRounding(userpic).rounding()
+                    }
+
+                }
+            })
+
+
             if (ID[6] != "")
                 uploadedImageDetail.setImageBitmap(ImageURL().setImageURL(ID[6]))
 //        else
@@ -265,7 +409,7 @@ class Comments : AppCompatActivity() {
             authorname.text = QID[1]
             lovecontents.text = QID[4]
            // like.text = ID[4]
-          //  comments.text = ID[5]
+            comments.text = QID[7]
             if (QID[5] != "")
                 uploadedImageDetail.setImageBitmap(ImageURL().setImageURL(QID[5]))
 //        else
@@ -276,11 +420,14 @@ class Comments : AppCompatActivity() {
         //    getComment(commentlist, QID[0].toInt(), commentslist)
             Log.i("ID[0]", " " + QID[0])
 
-            //ConnectServer(this).getComment(ID)
+            //ConnectServer(this).getQComment(QID[0])
 
-//            val lm = LinearLayoutManager(this)
-//            commentslist.layoutManager = lm
-//            commentslist.setHasFixedSize(true)
+            var commentlist: ArrayList<Comment> = arrayListOf()
+
+            getQComment(commentlist, QID[0].toInt(), commentslist)
+            val lm = LinearLayoutManager(this)
+            commentslist.layoutManager = lm
+            commentslist.setHasFixedSize(true)
 
             bt_back.setOnClickListener {
                 finish()
@@ -293,7 +440,7 @@ class Comments : AppCompatActivity() {
                     if (reply.text.toString() == "") {
                         toast("댓글을 작성해주세요.")
                     } else {
-                       // postComment(ID[0].toInt(), reply.text.toString())
+                       postQComment(QID[0].toInt(), reply.text.toString())
                     }
                 }
             }

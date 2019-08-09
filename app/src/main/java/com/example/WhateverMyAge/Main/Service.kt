@@ -73,6 +73,14 @@ data class CommentsForm (
     var author_id: Int
 )
 
+data class QCommentsForm (
+    var question : Int,
+    var q_reply : String,
+    var id: Int,
+    var author_username: String,
+    var author_id: Int
+)
+
 data class LikedForm (
     var likedusers : IntArray
 )
@@ -83,7 +91,8 @@ data class QuestionForm (
     var q_content : String,
     var q_photo : String?,
     var author_id: Int,
-    var author_username: String
+    var author_username: String,
+    var cnt : Int
 )
 
 //https://frozen-cove-44670.herokuapp.com/api/v1/registration/
@@ -260,6 +269,15 @@ interface Service {
         @Field("author_id") author_id: Int
     ):Call<PostsForm>
 
+    @FormUrlEncoded
+    @POST("api/v1/question/q_comments/")
+    fun postQComment(
+        @Field ("question") question : Int,
+        @Field("q_reply") q_reply : String,
+        @Field("author_username") author_username: String,
+        @Field("author_id") author_id: Int
+    ):Call<QCommentsForm>
+
     @GET("/api/v1/blog/postings/{id}/comments")
     fun getComment (
         @Path("id") id : Int
@@ -267,6 +285,16 @@ interface Service {
 
     @DELETE("/api/v1/blog/comments/{id}/")
     fun deleteComment (
+        @Path("id") id : Int
+    ):Call<Body>
+
+    @GET("/api/v1/question/questions/{id}/q_comments")
+    fun getQComment (
+        @Path("id") id : Int
+    ):Call <List<QCommentsForm>>
+
+    @DELETE("/api/v1/question/q_comments/{id}/")
+    fun deleteQComment (
         @Path("id") id : Int
     ):Call<Body>
 }
