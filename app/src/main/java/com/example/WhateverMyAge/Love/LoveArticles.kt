@@ -38,6 +38,7 @@ class LoveArticles (var ID : Int, var Userpic : String, var UserID : Int, var Us
 
 class OnViewGlobalLayoutListener(private val view: View) : ViewTreeObserver.OnGlobalLayoutListener {
 
+    //사진 줄이기
     override fun onGlobalLayout() {
         if (view.height > maxHeight || view.width > maxWidth) {
             view.layoutParams.height = maxHeight
@@ -46,8 +47,8 @@ class OnViewGlobalLayoutListener(private val view: View) : ViewTreeObserver.OnGl
     }
 
     companion object {
-        private val maxHeight = 3000
-        private val maxWidth = 3000
+        private val maxHeight = 1000
+        private val maxWidth = 1000
     }
 }
 
@@ -94,7 +95,10 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
             Picture.viewTreeObserver.addOnGlobalLayoutListener(OnViewGlobalLayoutListener(Picture))
 
             if (lovearticles.Picture != null) {
+                lovearticles.Picture = "https://frozen-cove-44670.herokuapp.com"+ lovearticles.Picture
                 Log.i("이미지 시작!!!!", " " + lovearticles.Picture)
+
+
 //                var mButton = ImageView(context)
 //                //var mView = ViewGroup(context)
 //                var pm = LinearLayout.LayoutParams(100, 100)
@@ -118,7 +122,7 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
                 //start
                 Log.i("글 아이디는~", " " + lovearticles.ID)
                 var intent = Intent(activity, com.example.WhateverMyAge.Love.Comments::class.java)
-                val arr : Array<String> = arrayOf (lovearticles.ID.toString(), lovearticles.UserID.toString(), lovearticles.Username, lovearticles.LoveContents, lovearticles.Like, lovearticles.Comments, (if (lovearticles.Picture != null) lovearticles.Picture else "")!!)
+                val arr : Array<String> = arrayOf (lovearticles.ID.toString(), lovearticles.UserID.toString(), lovearticles.Username, lovearticles.LoveContents, lovearticles.Like, lovearticles.Comments, (if (lovearticles.Picture != null) lovearticles.Picture else "")!!, "P")
                 intent.putExtra("Post", arr)
                 activity.startActivity(intent)
             }
