@@ -27,7 +27,6 @@
     </style>
 
     <style name="ButtonStyle" parent="@style/Widget.AppCompat.Button">
-
         <item name="android:fontFamily">@font/font_family</item>
 
 

@@ -376,7 +376,7 @@ class ConnectServer(var activity: Activity) {
         val fileReqBody = RequestBody.create(MediaType.parse("image/*"), file)
         val part = MultipartBody.Part.createFormData("user_photo", file.getName(), fileReqBody)
 
-        server.postProfilePic(id, part).enqueue(object : Callback<Profile> {
+        server.postProfilePic(id, part, user_name).enqueue(object : Callback<Profile> {
             override fun onFailure(call: Call<Profile>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
             }

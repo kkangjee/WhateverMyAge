@@ -133,7 +133,7 @@ class Comments : AppCompatActivity() {
                         )
                         Log.i("댓글 추가됨", "$i" + " " + commentlist[i].Username + " " + commentlist[i].Comment)
                     }
-
+//
                     val comment = CommentsAdapter(this@Comments, commentlist, this@Comments)
                     commentsRV.adapter = comment
                     Log.i("야호", "$commentlist")
