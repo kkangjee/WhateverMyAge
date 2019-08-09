@@ -87,50 +87,50 @@
     <!--android:id="@+id/swipe"-->
     <!--&gt;-->
 
+
         <ScrollView
                 app:layout_constraintTop_toBottomOf="@id/bar"
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
         >
-        <LinearLayout
-        app:layout_constraintTop_toBottomOf="@id/bar"
-        android:id="@+id/articles"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-
-        <!--<androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:id="@+id/swipe"-->
-           <!--&gt;-->
-
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/lovearticles"
+            <LinearLayout
+                    app:layout_constraintTop_toBottomOf="@id/bar"
+                    android:id="@+id/articles"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp">
-            </androidx.recyclerview.widget.RecyclerView>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+            >
 
-        <!--</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="602dp"
+                        android:id="@+id/swipe"
+                >
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/lovearticles"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp">
+                </androidx.recyclerview.widget.RecyclerView>
 
-    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-    <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+                <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
-        </LinearLayout>
-    </ScrollView>
+            </LinearLayout>
+        </ScrollView>
 
     <Button
-            app:layout_constraintBottom_toBottomOf="parent"
+
             android:id="@+id/bt_writeArticle"
             android:text="나도 글 쓸래요!"
             android:textSize="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="0dp"/>
+           />
 
 </LinearLayout>

@@ -28,9 +28,11 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".Main.LoadingActivity"
-                  android:theme="@style/Theme.AppCompat"
-        >
+        <activity android:name=".Guide.Questions.FAQContent">
+        </activity>
+        <activity
+                android:name=".Main.LoadingActivity"
+                android:theme="@style/Theme.AppCompat">
         </activity>
         <activity android:name=".MyInformation">
         </activity>

@@ -194,7 +194,7 @@ class LoveActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love)
 
-        // val mSwipe = findViewById<SwipeRefreshLayout>(R.id.swipe)
+        val mSwipe = findViewById<SwipeRefreshLayout>(R.id.swipe)
 
         bt_locationselect.text = if (WholeOrAround == 1) "내 주변" else "전체 보기"
 
@@ -203,13 +203,14 @@ class LoveActivity : AppCompatActivity() {
         showPost(contentlist)
         //로딩 끝
 
-//        mSwipe.setOnRefreshListener (object : SwipeRefreshLayout.OnRefreshListener {
-//            override
-//            fun onRefresh() {
-//                showPost(contentlist)
-//                mSwipe.setRefreshing(false)
-//            }
-//        })
+        mSwipe.setOnRefreshListener (object : SwipeRefreshLayout.OnRefreshListener {
+            override
+            fun onRefresh() {
+                var contentlist: ArrayList<LoveArticles> = arrayListOf()
+                showPost(contentlist)
+                mSwipe.setRefreshing(false)
+            }
+        })
 
         ///////////
         val permissioncheck = PermissionCheck(this, this)

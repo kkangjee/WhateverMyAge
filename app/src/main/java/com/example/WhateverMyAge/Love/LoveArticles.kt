@@ -95,8 +95,8 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
             Picture.viewTreeObserver.addOnGlobalLayoutListener(OnViewGlobalLayoutListener(Picture))
 
             if (lovearticles.Picture != null) {
-                Log.i("이미지 시작!!!!", " " + lovearticles.Picture)
                 lovearticles.Picture = "https://frozen-cove-44670.herokuapp.com"+ lovearticles.Picture
+                Log.i("이미지 시작!!!!", " " + lovearticles.Picture)
 
 
 //                var mButton = ImageView(context)
