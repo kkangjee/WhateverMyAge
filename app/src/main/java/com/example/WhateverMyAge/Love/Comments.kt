@@ -19,7 +19,6 @@ import com.example.WhateverMyAge.Guide.Settings.toast
 import com.example.WhateverMyAge.Main.*
 import com.example.WhateverMyAge.MyInformation
 import com.example.WhateverMyAge.R
-import com.example.WhateverMyAge.TravelAndFood.TravelAPI
 import com.example.WhateverMyAge.signedin
 import com.example.WhateverMyAge.user_name
 import kotlinx.android.synthetic.main.activity_comments.*
@@ -170,7 +169,7 @@ class Comments : AppCompatActivity() {
             like.text = ID[4]
             comments.text = ID[5]
             if (ID[6] != "")
-                uploadedImageDetail.setImageBitmap(TravelAPI().setImageURL(ID[6]))
+                uploadedImageDetail.setImageBitmap(ImageURL().setImageURL(ID[6]))
 //        else
 //            uploadedImageDetail.setVisibility(View.GONE)
 
@@ -268,7 +267,7 @@ class Comments : AppCompatActivity() {
            // like.text = ID[4]
           //  comments.text = ID[5]
             if (QID[5] != "")
-                uploadedImageDetail.setImageBitmap(TravelAPI().setImageURL(QID[5]))
+                uploadedImageDetail.setImageBitmap(ImageURL().setImageURL(QID[5]))
 //        else
 //            uploadedImageDetail.setVisibility(View.GONE)
 

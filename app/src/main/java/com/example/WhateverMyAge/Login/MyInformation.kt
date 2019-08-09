@@ -62,7 +62,7 @@ class MyInformation : AppCompatActivity() {
                 Log.i("dsd", "$pic")
                 if (pic != null) {
                     Log.i("pic", "exists" + pic)
-                    val bit = TravelAPI().setImageURL(pic)
+                    val bit = ImageURL().setImageURL(pic)
                     ProfileUpload.setImageBitmap(bit)
                     Log.i("image bitmap", "$pic")
                 }

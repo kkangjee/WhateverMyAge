@@ -16,11 +16,11 @@ import android.widget.*
 import androidx.appcompat.widget.*
 import androidx.core.content.ContextCompat.startActivity
 import com.example.WhateverMyAge.Main.ConnectServer
+import com.example.WhateverMyAge.Main.ImageURL
 import com.example.WhateverMyAge.Main.Profile
 import com.example.WhateverMyAge.Main.Service
 import com.example.WhateverMyAge.MyInformation
 import com.example.WhateverMyAge.R
-import com.example.WhateverMyAge.TravelAndFood.TravelAPI
 
 import com.example.WhateverMyAge.signedin
 import com.example.WhateverMyAge.user_name
@@ -104,7 +104,7 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
 //                var pm = LinearLayout.LayoutParams(100, 100)
 //                mButton.setLayoutParams(pm)
 
-                var bit = TravelAPI().setImageURL(lovearticles.Picture)
+                var bit = ImageURL().setImageURL(lovearticles.Picture)
                 Picture.setImageBitmap(bit)
                 //this.setContentView(mButton)
             }
@@ -181,7 +181,7 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
 //
 //
 //                        Log.i("pic", "exists" + pic)
-                        val bit = TravelAPI().setImageURL(pic)
+                        val bit = ImageURL().setImageURL(pic)
                         Userpic.setImageBitmap(bit)
                         Log.i("image bitmap", "$pic")
                     }

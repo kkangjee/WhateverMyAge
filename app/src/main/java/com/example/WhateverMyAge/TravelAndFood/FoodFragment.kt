@@ -1,3 +1,4 @@
+
 package com.example.WhateverMyAge.TravelAndFood
 
 import android.content.Intent
@@ -7,10 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.WhateverMyAge.Love.lat
+import com.example.WhateverMyAge.Love.lng
+import com.example.WhateverMyAge.Main.ImageURL
 import kotlinx.android.synthetic.main.activity_food_fragment.*
 //import sun.invoke.util.VerifyAccess.getPackageName
 import com.example.WhateverMyAge.Main.random
 import com.example.WhateverMyAge.R
+import kotlinx.android.synthetic.main.activity_travel_fragment.*
 import java.util.*
 
 class Menu (val pic : String, val menu : String, val effect : String)
@@ -73,5 +78,26 @@ class FoodFragment : Fragment(){
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.dalbodre.kr/"))
             startActivity(intent)
         }
+
+
+        val api = TravelAPI(true)
+        val apiList = api.getAPI(lng, lat)
+        //iv_TravelPic.setImageBitmap(bitmap)
+
+        // travelspot.text = api.api[0].add1
+
+        var last = apiList.lastIndex
+        var rand = random.nextInt(last)
+        val walk=apiList[rand].dist.toInt()
+        if (apiList[rand].image != null) {
+            val bitmap = ImageURL().setImageURL(apiList[rand].image)
+            restaurantRecommend.setImageBitmap(bitmap)
+        }
+
+        resRecommend.text =
+            "여행지 : " + apiList[rand]?.title + "\n주소 : " + apiList[rand]?.add1 + "\n거리 : " + walk*3 + "걸음"
+        if (rand != last)
+            apiList[rand] = apiList[last]
+
     }
 }
