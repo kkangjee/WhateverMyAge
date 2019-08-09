@@ -202,7 +202,7 @@ public class TravelAPI {
                             Log.i("현재 인덱스", " " + index);
                             Log.i("현재 정보", addr1 + " " + addr2 + " " + dist + " " + title);
                             apiData.add(new APIdata(addr1, addr2, dist, title, image));
-//                            status1.setText(status1.getText()+"지명 : "+ addr1 +"\n 주소: "+ addr2 +"\n 거리 : " + dist + "m\n 제목 : " + title
+//                            status1.setText(status1.getText()+"지명 : "+ addr1 +"\n 주소: "+ addr2 +"\n 거리 : " + (dist*3) +"걸음" + "m\n 제목 : " + title
 //                                    +"\n\n ");
 //                            initem = false;
                                 index++;
