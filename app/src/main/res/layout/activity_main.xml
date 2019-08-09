@@ -58,7 +58,7 @@
                 android:text="안내서"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="15dp"
                 android:textStyle="bold"
                 android:layout_weight="1"
                 android:textSize="40dp"
@@ -75,7 +75,7 @@
                 android:background="@drawable/grad1"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="15dp"
                android:layout_weight="1" android:id="@+id/bt_love"/>
     </LinearLayout>
     <LinearLayout
@@ -95,8 +95,7 @@
                 android:textSize="40dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="15dp"
                 android:layout_weight="1" android:id="@+id/bt_login"/>
         <Button
                 android:layout_width="150dp"
@@ -106,8 +105,7 @@
                 android:textSize="40dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="15dp"
                 android:background="@drawable/grad1"
                 android:layout_weight="1"
                 android:id="@+id/bt_travelandfood"

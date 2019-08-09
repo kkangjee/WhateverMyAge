@@ -5,8 +5,12 @@ import android.app.Activity
 import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
+
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
+
 import android.location.GnssMeasurement
+import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
@@ -17,11 +21,11 @@ import android.widget.*
 import androidx.appcompat.widget.*
 import androidx.core.content.ContextCompat.startActivity
 import com.example.WhateverMyAge.Main.ConnectServer
+import com.example.WhateverMyAge.Main.ImageURL
 import com.example.WhateverMyAge.Main.Profile
 import com.example.WhateverMyAge.Main.Service
 import com.example.WhateverMyAge.MyInformation
 import com.example.WhateverMyAge.R
-import com.example.WhateverMyAge.TravelAndFood.TravelAPI
 
 import com.example.WhateverMyAge.signedin
 import com.example.WhateverMyAge.user_name
@@ -36,6 +40,12 @@ import java.net.URL
 
 class LoveArticles (var ID : Int, var Userpic : String, var UserID : Int, var Username:String, var Title : String, var LoveContents : String, var Like : String, var Comments : String, var Lat : Double, var Lng : Double, var Picture : String?)
 
+public class ImageRounding (val image : ImageView) {
+    fun rounding () {
+        image.setBackground(ShapeDrawable(OvalShape()))
+        image.setClipToOutline(true)
+    }
+}
 
 class OnViewGlobalLayoutListener(private val view: View) : ViewTreeObserver.OnGlobalLayoutListener {
 
@@ -78,11 +88,11 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
         val Userpic = itemView.findViewById<AppCompatImageButton>(R.id.userpic)
         val Username = itemView.findViewById<AppCompatButton>(R.id.username)
         val LoveContents = itemView.findViewById<FrameLayout>(R.id.lovecontents)
-        val LikeButton = itemView.findViewById<AppCompatCheckBox>(R.id.likebutton)
+//        val LikeButton = itemView.findViewById<AppCompatCheckBox>(R.id.likebutton)
         val Picture = itemView.findViewById<AppCompatImageView>(R.id.uploadedPicture)
 
         val Love = itemView.findViewById<AppCompatButton>(R.id.love)
-        val Like = itemView.findViewById<AppCompatTextView>(R.id.like)
+//        val Like = itemView.findViewById<AppCompatTextView>(R.id.like)
         val Comments = itemView.findViewById<AppCompatTextView>(R.id.comments)
 
         fun bind(lovearticles: LoveArticles, context: Context) {
@@ -106,9 +116,11 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
 //                var pm = LinearLayout.LayoutParams(100, 100)
 //                mButton.setLayoutParams(pm)
 
-                var bit = TravelAPI().setImageURL(lovearticles.Picture)
 
                // bit = Bitmap.createScaledBitmap(bit, 300, 300, true)
+
+
+                var bit = ImageURL().setImageURL(lovearticles.Picture)
 
                 Picture.setImageBitmap(bit)
                 //this.setContentView(mButton)
@@ -119,7 +131,7 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
                 Picture.setVisibility(View.GONE)
             Username.text = lovearticles.Username
             Love.text = lovearticles.LoveContents
-            Like.text = lovearticles.Like
+//            Like.text = lovearticles.Like
             Comments.text = lovearticles.Comments
 
             LoveContents.setOnClickListener {
@@ -148,11 +160,11 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
                 intent.putExtra("user_info", arr)
                 activity.startActivity(intent)
             }
-
-            LikeButton.setOnClickListener {
-                Log.i("글 아이디는~", " " + lovearticles.ID)
-                ConnectServer(activity).getLikedUsers(lovearticles.ID)
-            }
+//
+//            LikeButton.setOnClickListener {
+//                Log.i("글 아이디는~", " " + lovearticles.ID)
+//                ConnectServer(activity).getLikedUsers(lovearticles.ID)
+//            }
 
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://frozen-cove-44670.herokuapp.com/")
@@ -187,15 +199,17 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
 //
 //
 //                        Log.i("pic", "exists" + pic)
-                        val bit = TravelAPI().setImageURL(pic)
+                        val bit = ImageURL().setImageURL(pic)
                         Userpic.setImageBitmap(bit)
                         Log.i("image bitmap", "$pic")
+                        ImageRounding(Userpic).rounding()
                     }
 
                     else {
                         Log.i("no pic", " dd")
                         val resource = context.resources.getIdentifier(lovearticles.Userpic, "drawable", context.packageName)
                         Userpic.setImageResource(resource)
+                        ImageRounding(Userpic).rounding()
 
                     }
 

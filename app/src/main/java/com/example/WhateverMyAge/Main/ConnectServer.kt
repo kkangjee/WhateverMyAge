@@ -458,7 +458,7 @@ class ConnectServer(var activity: Activity) {
                     activity.userpic.setImageResource(activity.getResources().getIdentifier("@drawable/story1", "id", activity.packageName))
                     activity.username.text = body.author_username
                     activity.lovecontents.text = body.content
-                    activity.like.text = body.like.toString()
+//                    activity.like.text = body.like.toString()
                     activity.comments.text = body.cnt.toString()
                 }
 

@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.bt_back
 import android.os.AsyncTask.execute
 
-
 var signedin = 0
 var user_name = ""
 var progressDialog: ProgressDialog? = null
@@ -39,7 +38,6 @@ class LoginActivity : AppCompatActivity() {
             else{
                 //로딩
                 Loading(this).loading()
-
                 ConnectServer(this).Login(id, pw)
 //                val intent = Intent(this, LoadingActivity::class.java)
 //                startActivity(intent)

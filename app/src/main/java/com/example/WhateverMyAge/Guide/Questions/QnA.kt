@@ -43,7 +43,7 @@ class QnA : AppCompatActivity() {
 
                 if (response.code().toString() == "200") {
                     for (i in 0..count) {
-                        questionlist.add(QuestionsTitles(body[i].q_title!!, body[i].id, body[i].q_content, body[i].q_photo, body[i].author_username, body[i].author_id))
+                        questionlist.add(QuestionsTitles(body[i].q_title!!, body[i].id, body[i].q_content, body[i].q_photo, body[i].author_username, body[i].author_id, body[i].cnt))
 
                     }
 
