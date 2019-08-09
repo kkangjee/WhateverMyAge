@@ -30,6 +30,7 @@ class TravelFragment : Fragment() {
 
         var last = apiList.lastIndex
 
+
         if (last > 0) {
             var rand = random.nextInt(last)
             if (apiList[rand].image != null) {

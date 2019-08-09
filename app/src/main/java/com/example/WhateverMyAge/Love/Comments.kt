@@ -68,7 +68,7 @@ class Comments : AppCompatActivity() {
                 } else {
 
                 }
-                Log.i("dsdsd", "$raw")
+                Log.i("댓글 추가", "$raw")
                 Log.i("dssdssss", " " + posting + " " + reply + " " + user_name + " " + signedin)
                 //    Log.i("body", "$body")
             }
@@ -131,12 +131,12 @@ class Comments : AppCompatActivity() {
                                 body[i].reply
                             )
                         )
-                        Log.i("댓글 추가됨", "$i" + " " + commentlist[i].Username)
+                        Log.i("댓글 추가됨", "$i" + " " + commentlist[i].Username + " " + commentlist[i].Comment)
                     }
 //
                     val comment = CommentsAdapter(this@Comments, commentlist, this@Comments)
-
                     commentsRV.adapter = comment
+                    Log.i("야호", "$commentlist")
 //
                 }
                 else {
@@ -178,12 +178,12 @@ class Comments : AppCompatActivity() {
 
             getComment(commentlist, ID[0].toInt(), commentslist)
             Log.i("ID[0]", " " + ID[0])
-
-            //ConnectServer(this).getComment(ID)
 //
-//            val lm = LinearLayoutManager(this)
-//            commentslist.layoutManager = lm
-//            commentslist.setHasFixedSize(true)
+//            ConnectServer(this).getComment(ID)
+
+            val lm = LinearLayoutManager(this)
+            commentslist.layoutManager = lm
+            commentslist.setHasFixedSize(true)
 
             bt_back.setOnClickListener {
                 finish()
