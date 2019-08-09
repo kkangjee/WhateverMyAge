@@ -4,6 +4,7 @@ import com.example.WhateverMyAge.Guide.Settings.toast
 import android.app.Activity
 import android.content.Intent
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Path
 import android.net.Uri
@@ -77,6 +78,13 @@ class CameraUpload (val activity : Activity) {
         // Set the Image in ImageView after decoding the String
         var bitmapImage = BitmapFactory.decodeFile(imgDecodableString)
         activity.testimage.setImageBitmap(bitmapImage)
+
+//        val options = BitmapFactory.Options()
+//        options.inSampleSize = 2
+//        val src = BitmapFactory.decodeFile(imgDecodableString, options)
+//        val bitmapImage = Bitmap.createScaledBitmap(src, 100, 100, true)
+//
+//        activity.testimage.setImageBitmap(bitmapImage)
     }
 
     private fun createImageFile(): File {

@@ -5,8 +5,10 @@ import android.app.Activity
 import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
+
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
+
 import android.location.GnssMeasurement
 import android.os.Build
 import android.util.Log
@@ -104,6 +106,7 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
             Picture.viewTreeObserver.addOnGlobalLayoutListener(OnViewGlobalLayoutListener(Picture))
 
             if (lovearticles.Picture != null) {
+                Log.e("사진 lovearticles.Picture",lovearticles.Picture)
                 lovearticles.Picture = "https://frozen-cove-44670.herokuapp.com"+ lovearticles.Picture
                 Log.i("이미지 시작!!!!", " " + lovearticles.Picture)
 
@@ -113,9 +116,15 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
 //                var pm = LinearLayout.LayoutParams(100, 100)
 //                mButton.setLayoutParams(pm)
 
+
+               // bit = Bitmap.createScaledBitmap(bit, 300, 300, true)
+
+
                 var bit = ImageURL().setImageURL(lovearticles.Picture)
+
                 Picture.setImageBitmap(bit)
                 //this.setContentView(mButton)
+
             }
 
             else
