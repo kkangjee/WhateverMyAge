@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.example.WhateverMyAge">
+          package="com.WhateverMyAge.WhateverMyAge">
 
     <uses-feature
             android:name="android.hardware.camera"
@@ -28,24 +28,24 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".Guide.Questions.FAQContent">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.Guide.Questions.FAQContent">
         </activity>
         <activity
-                android:name=".Main.LoadingActivity"
+                android:name="com.WhateverMyAge.WhateverMyAge.Main.LoadingActivity"
                 android:theme="@style/Theme.AppCompat">
         </activity>
-        <activity android:name=".MyInformation">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.MyInformation">
         </activity>
-        <activity android:name=".SignUpActivity">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.SignUpActivity">
         </activity>
-        <activity android:name=".Guide.Instruction.Instruction">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.Guide.Instruction.Instruction">
         </activity>
         <activity android:name=".Love.WriteComment">
         </activity>
-        <activity android:name=".Love.Comments">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.Love.Comments">
         </activity>
         <activity
-                android:name=".Main.CameraOrGallery"
+                android:name="com.WhateverMyAge.WhateverMyAge.Main.CameraOrGallery"
                 android:theme="@android:style/Theme.Dialog">
         </activity>
 
@@ -60,29 +60,29 @@
             </meta-data>
         </provider>
 
-        <activity android:name=".Guide.Settings.AddContactActivity">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.Guide.Settings.AddContactActivity">
         </activity>
-        <activity android:name=".Main.CameraUpload">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.Main.CameraUpload">
         </activity>
-        <activity android:name=".Guide.Instruction.Instruction">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.Guide.Instruction.Instruction">
         </activity>
-        <activity android:name=".TravelAndFood.TravelAndFood">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.TravelAndFood.TravelAndFood">
         </activity>
-        <activity android:name=".Guide.Instruction.ChooseInstruction">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.Guide.Instruction.ChooseInstruction">
         </activity>
-        <activity android:name=".Guide.GuideActivity">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.Guide.GuideActivity">
         </activity>
-        <activity android:name=".Guide.Questions.QnA">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.Guide.Questions.QnA">
         </activity>
-        <activity android:name=".Love.LoveWriteArticle">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.Love.LoveWriteArticle">
         </activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.LoginActivity">
         </activity>
-        <activity android:name=".Guide.Settings.SettingActivity">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.Guide.Settings.SettingActivity">
         </activity>
-        <activity android:name=".Love.LoveActivity">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.Love.LoveActivity">
         </activity>
-        <activity android:name=".Main.MainActivity">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

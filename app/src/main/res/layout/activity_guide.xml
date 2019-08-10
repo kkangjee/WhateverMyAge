@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.example.WhateverMyAge.Guide.GuideActivity"
+        tools:context="com.WhateverMyAge.WhateverMyAge.Guide.GuideActivity"
 
     >
 
