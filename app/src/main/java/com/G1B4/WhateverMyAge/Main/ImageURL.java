@@ -10,7 +10,7 @@ import java.net.URL;
 
 public class ImageURL {
 
-    static Bitmap bitmap;
+    private Bitmap bitmap;
 
     public Bitmap setImageURL(String originalURL) {
         if (originalURL.charAt(4) != 's')
@@ -41,6 +41,14 @@ public class ImageURL {
 
         }
         return bitmap;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+   public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
 
