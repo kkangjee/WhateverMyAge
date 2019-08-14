@@ -59,7 +59,6 @@
     <ImageView
             app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/testimage"
-            android:src="@drawable/dalbodre"
             android:layout_width="200dp"
             android:layout_height="200dp"
     />

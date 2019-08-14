@@ -44,7 +44,23 @@
             android:id="@+id/bt_setting"
             android:drawableRight="@drawable/icon_setting2"
             android:paddingLeft="70dp"
-            android:text="설정"
+            android:text="핸드폰이\n이상해요"
+            android:textAllCaps="false"
+            android:background="@drawable/grad1"
+            android:textSize="40dp"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+    />
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_explanation"
+            android:text="설명서"
+            android:paddingLeft="70dp"
+            android:drawableRight="@drawable/icon_info2"
             android:textAllCaps="false"
             android:background="@drawable/grad1"
             android:textSize="40dp"
@@ -70,21 +86,5 @@
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
 
-    />
-    <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/bt_explanation"
-            android:text="설명서"
-            android:paddingLeft="70dp"
-            android:drawableRight="@drawable/icon_info2"
-            android:textAllCaps="false"
-            android:background="@drawable/grad1"
-            android:textSize="40dp"
-            android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
     />
 </LinearLayout>

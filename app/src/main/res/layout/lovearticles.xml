@@ -34,7 +34,11 @@
                     android:layout_height="50dp"
                     android:scaleType="fitXY"
                     android:background="@null"
-                    android:layout_margin="5dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+
             />
 
             <Button
@@ -54,7 +58,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
-                android:layout_margin="5dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:gravity="left"
                 android:id="@+id/love"
                 android:background="@color/Invisible"
@@ -69,6 +75,10 @@
                 android:maxHeight="200dp"
                 android:background="@color/Invisible"
                 android:scaleType="fitCenter"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="5dp"
         />
 
         <LinearLayout
@@ -79,12 +89,16 @@
                 android:layout_marginBottom="5dp"
         >
             <ImageButton
-                    android:layout_margin="5dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="34dp"
                     android:layout_height="35dp"
                     android:scaleType="centerCrop"
                     android:background="@null"
                     android:src="@drawable/speechbubble"
+
             />
             <TextView
                     android:id="@+id/comments"

@@ -174,7 +174,25 @@ class ConnectServer(var activity: Activity) {
 
         else
             part = null
-        server.postQuestion(signedin, user_name, title, part, content)
+        server.postQuestion(signedin, user_name, title, part, content).enqueue(object : Callback<LoginForm> {
+            override fun onFailure(call: Call<LoginForm>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+                activity.toast("인터넷이 없습니다.")
+            }
+
+            override fun onResponse(call: Call<LoginForm>, response: Response<LoginForm>) {
+                //code = response?.code()
+                val raw = response.raw().toString()
+
+                if (response.code() == 201) {
+                    Log.i("글쓰기 완료", "$user_name")
+                }
+
+                else {
+                    Log.i("글쓰기 실패", "$user_name")
+                }
+            }
+        })
     }
 
     fun putPost( id : Int, title : String, content: String, file : File?) {

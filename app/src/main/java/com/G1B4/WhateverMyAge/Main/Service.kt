@@ -137,7 +137,7 @@ interface Service {
         @Part("q_title") q_title : String?,
         @Part file : MultipartBody.Part?,
         @Part("q_content") content : String?
-    )
+    ):Call<LoginForm>
 
 
     @GET("/api/v1/blog/postings/")

@@ -234,7 +234,51 @@ class Comments : AppCompatActivity() {
         })
     }
 
+    fun getProfilePic(id : Int) {
+        server.getProfilePic(id).enqueue(object : Callback<Profile> {
+            override fun onFailure(call: Call<Profile>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+            }
+
+            override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
+                //code = response?.code()
+                if (response.code() == 200) {
+                    val pic = if (response.body() != null) response.body()!!.user_photo else null
+
+                    Log.i("dsd", "$pic")
+                    if (pic != null) {
+                        val bit = ImageURL().setImageURL(pic)
+                        userpic.setImageBitmap(bit)
+                        Log.i("image bitmap", "$pic")
+                        ImageRounding(userpic).rounding()
+                    }
+
+                    else {
+                        Log.i("no pic", " dd")
+                        val resource = this@Comments.resources.getIdentifier("story1", "drawable", this@Comments.packageName)
+                        userpic.setImageResource(resource)
+                        ImageRounding(userpic).rounding()
+                    }
+                }
+
+                else {
+
+                }
+                Log.i("profile image", " " + response.raw())
+                Log.i("profile image", " " + response.body())
+            }
+        })
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://frozen-cove-44670.herokuapp.com/")
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+
+            .build()
+
         _Comment_Activity = this
         // commentsRV  =  commentslist
         super.onCreate(savedInstanceState)
@@ -254,48 +298,7 @@ class Comments : AppCompatActivity() {
 //            like.text = ID[4]
             comments.text = ID[5]
 
-            val retrofit = Retrofit.Builder()
-                .baseUrl("https://frozen-cove-44670.herokuapp.com/")
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-
-                .build()
-
-            var server = retrofit.create(Service::class.java)
-
-            server.getProfilePic(ID[1].toInt()).enqueue(object : Callback<Profile> {
-                override fun onFailure(call: Call<Profile>, t: Throwable) {
-                    Log.e("서버와 통신에 실패했습니다.", "Error!")
-                }
-
-                override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
-                    //code = response?.code()
-                    if (response.code() == 200) {
-                        val pic = if (response.body() != null) response.body()!!.user_photo else null
-
-                        Log.i("dsd", "$pic")
-                        if (pic != null) {
-                            val bit = ImageURL().setImageURL(pic)
-                            userpic.setImageBitmap(bit)
-                            Log.i("image bitmap", "$pic")
-                            ImageRounding(userpic).rounding()
-                        }
-
-                        else {
-                            Log.i("no pic", " dd")
-                            val resource = this@Comments.resources.getIdentifier("story1", "drawable", this@Comments.packageName)
-                            userpic.setImageResource(resource)
-                            ImageRounding(userpic).rounding()
-                        }
-                    }
-
-                    else {
-
-                    }
-                    Log.i("profile image", " " + response.raw())
-                    Log.i("profile image", " " + response.body())
-                }
-            })
+            getProfilePic(ID[1].toInt())
 
             if (ID[6] != "")
                 uploadedImageDetail.setImageBitmap(ImageURL().setImageURL(ID[6]))
@@ -384,7 +387,8 @@ class Comments : AppCompatActivity() {
 
             postID = QID[0].toInt()
             Log.i("postID", "$postID")
-            userpic.setImageResource(getResources().getIdentifier("@drawable/story1", "id", packageName))
+        //    userpic.setImageResource(getResources().getIdentifier("@drawable/story1", "id", packageName))
+            getProfilePic(QID[2].toInt())
             authorname.text = QID[1]
             lovecontents.text = QID[4]
             comments.text = QID[7]
