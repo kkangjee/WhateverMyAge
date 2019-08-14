@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.G1B4.WhateverMyAge.Guide.GuideActivity"
+        tools:context="com.WhateverMyAge.WhateverMyAge.Guide.GuideActivity"
     >
 
     <LinearLayout
