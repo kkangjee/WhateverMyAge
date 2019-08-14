@@ -11,7 +11,7 @@
     <TextView
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
-            android:text="오늘의 명언"
+            android:text="명언 한 조각"
             android:textStyle="bold"
             android:textSize="25dp"
             android:layout_width="match_parent"

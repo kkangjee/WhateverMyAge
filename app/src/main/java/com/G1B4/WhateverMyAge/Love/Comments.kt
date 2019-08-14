@@ -275,7 +275,7 @@ class Comments : AppCompatActivity() {
 
                         Log.i("dsd", "$pic")
                         if (pic != null) {
-                            val bit = ImageURL().setImageURL(pic)z
+                            val bit = ImageURL().setImageURL(pic)
                             userpic.setImageBitmap(bit)
                             Log.i("image bitmap", "$pic")
                             ImageRounding(userpic).rounding()

@@ -47,9 +47,7 @@ public class ImageURL {
         return bitmap;
     }
 
-   public void setBitmap(Bitmap bitmap) {
+    public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
-
-
 }

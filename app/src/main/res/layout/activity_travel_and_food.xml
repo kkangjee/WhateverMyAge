@@ -47,7 +47,7 @@
         <com.google.android.material.tabs.TabLayout
                 android:id="@+id/travelorfood"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:layout_gravity="top"
                 app:tabIndicatorColor="#4CAF50"
                 app:tabMode="fixed"
