@@ -1,18 +1,15 @@
 package com.WhateverMyAge.WhateverMyAge
 
-import android.app.ProgressDialog
 import com.WhateverMyAge.WhateverMyAge.Guide.Settings.toast
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.WhateverMyAge.WhateverMyAge.Main.ConnectServer
+import com.WhateverMyAge.WhateverMyAge.Main.Loading
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.activity_sign_up.bt_back
 import java.util.regex.Pattern
 
-
 class SignUpActivity : AppCompatActivity() {
-
-
     fun passwordValidator(ID: String, PW: String, PW1: String): String {
         var returnValue = "success"
 
@@ -43,8 +40,8 @@ class SignUpActivity : AppCompatActivity() {
 
 
                 if (chr >= 0x61.toChar() && chr <= 0x7A.toChar())
-                else if(chr >= 0x41.toChar() && chr <= 0x5A.toChar())
-                else if(chr >= 0x30.toChar() && chr <= 0x39.toChar())
+                else if (chr >= 0x41.toChar() && chr <= 0x5A.toChar())
+                else if (chr >= 0x30.toChar() && chr <= 0x39.toChar())
                 else {
                     returnValue = "아이디는 영어와 숫자만 가능합니다."
                 }
@@ -54,15 +51,12 @@ class SignUpActivity : AppCompatActivity() {
         return returnValue
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
         bt_back.setOnClickListener {
             finish()
         }
-
-
 
         bt_signup.setOnClickListener {
             //회원가입
@@ -71,7 +65,7 @@ class SignUpActivity : AppCompatActivity() {
             val PWC = PWConfirm.text.toString()
             val result = passwordValidator(ID, PW, PWC)
             if (result == "success") {
-                loading()
+                Loading(this).loading()
                 ConnectServer(this).registration(ID, PW, PWC)
 
             } else {
@@ -79,16 +73,5 @@ class SignUpActivity : AppCompatActivity() {
             }
 
         }
-    }
-    fun loading() {
-        //로딩
-        android.os.Handler().postDelayed(
-            {
-                progressDialog = ProgressDialog(this@SignUpActivity)
-                progressDialog!!.setIndeterminate(true)
-                progressDialog!!.setMessage("잠시만 기다려 주세요")
-                progressDialog!!.show()
-            }, 0
-        )
     }
 }

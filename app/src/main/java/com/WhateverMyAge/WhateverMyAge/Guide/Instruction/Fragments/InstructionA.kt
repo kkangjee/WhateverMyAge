@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-//import sun.invoke.util.VerifyAccess.getPackageName
 import android.util.Log
 import com.WhateverMyAge.WhateverMyAge.R
 import com.WhateverMyAge.WhateverMyAge.Guide.Instruction.Instruction
@@ -18,8 +17,6 @@ class InstructionA : Fragment() {
         getData = activity.sendData()
         Log.i("data sent", "$getData")
         super.onCreate(savedInstanceState)
-
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -31,7 +28,6 @@ class InstructionA : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         val pic: String
-
 
         when (getData) {
             1 -> {

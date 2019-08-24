@@ -1,12 +1,14 @@
+
 package com.WhateverMyAge.WhateverMyAge.TravelAndFood
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.WhateverMyAge.WhateverMyAge.Love.lat
+import com.WhateverMyAge.WhateverMyAge.Love.lng
+import com.WhateverMyAge.WhateverMyAge.Main.ImageURL
 import kotlinx.android.synthetic.main.activity_food_fragment.*
 //import sun.invoke.util.VerifyAccess.getPackageName
 import com.WhateverMyAge.WhateverMyAge.Main.random
@@ -37,7 +39,6 @@ class FoodFragment : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -69,9 +70,29 @@ class FoodFragment : Fragment(){
         val id = res.getIdentifier(pic, "id", context!!.packageName)
         foodRecommend.setImageResource(id)
 
-        restaurantRecommend.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.dalbodre.kr/"))
-            startActivity(intent)
+//        restaurantRecommend.setOnClickListener {
+//            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.dalbodre.kr/"))
+//            startActivity(intent)
+//        }
+
+
+        val api = TravelAPI(true)
+        val apiList = api.getAPI(lng, lat)
+
+        val last = apiList.lastIndex
+        val rand = if (last > 0) random.nextInt(last) else 0
+
+        if (apiList.size <= 0) {
+        }
+        else {
+            val walk = apiList[rand].dist.toInt()
+            if (apiList[rand].image != null) {
+                val bitmap = ImageURL().setImageURL(apiList[rand].image)
+                restaurantRecommend.setImageBitmap(bitmap)
+            }
+
+            resRecommend.text =
+                "여행지 : " + apiList[rand]?.title + "\n주소 : " + apiList[rand]?.add1 + "\n거리 : " + walk * 3 + "걸음"
         }
     }
 }

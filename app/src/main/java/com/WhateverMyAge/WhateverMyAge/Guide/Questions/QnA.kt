@@ -36,17 +36,14 @@ class QnA : AppCompatActivity() {
 
             override fun onResponse(call: Call<List<QuestionForm>>, response: Response<List<QuestionForm>>) {
                 val count = response.body()!!.lastIndex
-                //contentlist = arrayListOf()
                 val body = response.body()!!
                 Log.i("dsdsd", "$count")
                 Log.i("body", "$body")
 
                 if (response.code().toString() == "200") {
                     for (i in 0..count) {
-                        questionlist.add(QuestionsTitles(body[i].q_title!!, body[i].id, body[i].q_content, body[i].q_photo, body[i].author_username, body[i].author_id))
-
+                        questionlist.add(QuestionsTitles(body[i].q_title!!, body[i].id, body[i].q_content, body[i].q_photo, body[i].author_username, body[i].author_id, body[i].cnt))
                     }
-
                     val questions = QuestionTitlesAdapter(this@QnA, questionlist, this@QnA)
                     Questions.adapter = questions
 
@@ -54,9 +51,6 @@ class QnA : AppCompatActivity() {
                     Questions.layoutManager = questionslm
                     Questions.setHasFixedSize(true)
                 }
-
-
-
             }
 
         })
@@ -82,24 +76,9 @@ class QnA : AppCompatActivity() {
         val faqlm = LinearLayoutManager(this)
         FAQ.layoutManager = faqlm
         FAQ.setHasFixedSize(true)
-//
-//        var questionlist = arrayListOf(
-//            QuestionsTitles("소리가 이상하게 들려요"),
-//            QuestionsTitles("카카오톡 동영상 보내고 싶어요"),
-//            QuestionsTitles("일정 확인이 안 돼요"),
-//            QuestionsTitles("어플이 사라졌어요")
-//        )
+
         var questionlist : ArrayList<QuestionsTitles> = arrayListOf()
         showQuestions(questionlist)
-//
-//
-//
-//        val questions = QuestionTitlesAdapter(this, questionlist)
-//        Questions.adapter = questions
-//
-//        val questionslm = LinearLayoutManager(this)
-//        Questions.layoutManager = questionslm
-//        Questions.setHasFixedSize(true)
 
         bt_writeQuestion.setOnClickListener {
             //setting 화면

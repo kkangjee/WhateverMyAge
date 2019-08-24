@@ -27,9 +27,6 @@ data class Profile (
 )
 
 data class PostsForm(
-//    var id : String? = null,
-//    var author_name : String? = null,
-//      var opop : Array<Post?> = arrayOfNulls<Post?>(100)
     var title : String,
     var author_username: String,
     var author_id : Int,
@@ -40,13 +37,6 @@ data class PostsForm(
     var lng : Double,
     var id : Int,
     var photo : String?
-//    var like : Int = 0,
-//    var content : String? = null,
-//    var photo : String? = null,
-//    var gps : String? = null,
-//    var created : String? = null,
-//    var updated : String? = null,
-//    var url : String? = null
 )
 
 data class LoginForm (
@@ -58,14 +48,17 @@ data class Body (
     var id : String
 )
 
-data class Post (
-    var title : String,
-    var id : Int
-)
-
 data class CommentsForm (
     var posting : Int,
     var reply : String,
+    var id: Int,
+    var author_username: String,
+    var author_id: Int
+)
+
+data class QCommentsForm (
+    var question : Int,
+    var q_reply : String,
     var id: Int,
     var author_username: String,
     var author_id: Int
@@ -81,36 +74,12 @@ data class QuestionForm (
     var q_content : String,
     var q_photo : String?,
     var author_id: Int,
-    var author_username: String
+    var author_username: String,
+    var cnt : Int
 )
 
 //https://frozen-cove-44670.herokuapp.com/api/v1/registration/
 interface Service {
-
-    @GET("api/v1/blog/postings/{id}")
-    fun getLikedUsers(
-        @Path("id") id:Int
-    ):Call<LikedForm>
-
-    @FormUrlEncoded
-    @PUT("api/v1/blog/postings/{id}")
-    fun putLikedUser(
-        @Path("id") id:Int,
-        @Field("likedusers") likedusers : IntArray
-    ):Call<LikedForm>
-
-    //내 정보 받아오기
-    @GET("/api/v1/users/{id}")
-    fun getReg(                             
-       @Path("id") id: Int
-       // @Path("pw")pw:String
-    ):Call<RegisterForm>
-
-    @GET("api/v1/blog/postings/{id}")
-    fun getPost(
-        @Path("id") id : Int
-    ): Call <PostsForm>
-
     //회원가입
     @FormUrlEncoded
     @POST("/api/v1/users/registration")
@@ -134,15 +103,6 @@ interface Service {
     fun logout (
     ):Call<RegisterForm>
 
-    //회원정보 수정
-    @FormUrlEncoded
-    @PUT("/api/v1/users/{id}/")
-    fun putReg(
-        @Path("id")id: String?,
-        @Field("username")username:String?,
-        @Field("user_photo")user_photo:String?
-    ):Call<RegisterForm>
-
     //회원 탈퇴
     @DELETE("/api/v1/users/{id}")
     fun deleteReg(
@@ -150,33 +110,15 @@ interface Service {
     ):Call<RegisterForm>
 
     @Multipart
-    @POST("/api/v1/a")
-    fun uploadPic (
-        //@Path("id") id: String?,
-       // @Field("user_photo") img : File
-        @Part file : MultipartBody.Part,
-       //@Part("picture") requestBody : RequestBody
-        @Part("reply") reply : String
-    ):Call<PicForm>
-
-    @GET("/api/v1/a")
-    fun getImage(
-    ):Call<List<PicForm>>
-
-    @Multipart
     @POST("/api/v1/blog/postings/")
     fun postBlog (
-//        @Field("id") id : Int,
             @Part("author_id") author_id : Int,
           @Part("author_username") author_username : String?,
           @Part("title") title : String?,
-//        @Part("like") like : Int,
             @Part file : MultipartBody.Part?,
             @Part("content") content : String?,
-          //@Part("photo") photo : File? = null,
           @Part("lat") lat : Double?,
           @Part ("lng") lng : Double?
-//        @Field("gps") gps : String?
     ):Call<RegisterForm>
 
     @Multipart
@@ -190,21 +132,16 @@ interface Service {
     @Multipart
     @POST("/api/v1/question/questions/")
     fun postQuestion (
-//        @Field("id") id : Int,
         @Part("author_id") author_id : Int,
         @Part("author_username") author_username : String?,
         @Part("q_title") q_title : String?,
-//        @Part("like") like : Int,
         @Part file : MultipartBody.Part?,
         @Part("q_content") content : String?
-        //@Part("photo") photo : File? = null,
-//        @Field("gps") gps : String?
-    ):Call<QuestionForm>
+    ):Call<LoginForm>
 
 
     @GET("/api/v1/blog/postings/")
     fun showPost (
-        //@Path("id") id : Int
     ):Call<List<PostsForm>>
 
     @GET("/api/v1/question/questions/")
@@ -220,8 +157,6 @@ interface Service {
     @PUT("/api/v1/blog/postings/{id}")
     fun putPost (
         @Path("id") id :Int,
-        //@Field("content") content : String,
-        //@Field("title") title : String
         @Part file : MultipartBody.Part?,
         @Part("content") content : String?,
         @Part("title") title : String?
@@ -231,8 +166,6 @@ interface Service {
     @PUT("/api/v1/question/questions/{id}/")
     fun putQuestion (
         @Path("id") id :Int,
-        //@Field("content") content : String,
-        //@Field("title") title : String
         @Part file : MultipartBody.Part?,
 
         @Part("q_title") title : String?,
@@ -258,6 +191,15 @@ interface Service {
         @Field("author_id") author_id: Int
     ):Call<PostsForm>
 
+    @FormUrlEncoded
+    @POST("api/v1/question/q_comments/")
+    fun postQComment(
+        @Field ("question") question : Int,
+        @Field("q_reply") q_reply : String,
+        @Field("author_username") author_username: String,
+        @Field("author_id") author_id: Int
+    ):Call<QCommentsForm>
+
     @GET("/api/v1/blog/postings/{id}/comments")
     fun getComment (
         @Path("id") id : Int
@@ -265,6 +207,16 @@ interface Service {
 
     @DELETE("/api/v1/blog/comments/{id}/")
     fun deleteComment (
+        @Path("id") id : Int
+    ):Call<Body>
+
+    @GET("/api/v1/question/questions/{id}/q_comments")
+    fun getQComment (
+        @Path("id") id : Int
+    ):Call <List<QCommentsForm>>
+
+    @DELETE("/api/v1/question/q_comments/{id}/")
+    fun deleteQComment (
         @Path("id") id : Int
     ):Call<Body>
 }

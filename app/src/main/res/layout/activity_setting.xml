@@ -57,14 +57,22 @@
             <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/grad1"
                     android:text="벨소리를 크게"
-                    android:textSize="30dp" android:id="@+id/bt_volup_ring">
+                    android:paddingLeft="60dp"
+                    android:textSize="30dp" android:id="@+id/bt_volup_ring"
+                    android:drawableRight="@drawable/icon_loud2"
+            >
 
             </Button>
             <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/grad1"
+                    android:layout_marginTop="8dp"
                     android:text="벨소리를 작게"
+                    android:paddingLeft="60dp"
+                    android:drawableRight="@drawable/icon_quiet2"
                     android:textSize="30dp" android:id="@+id/bt_voldown_ring">
 
             </Button>
@@ -72,7 +80,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="동영상 소리를 크게"
+                    android:paddingLeft="60dp"
                     android:textSize="30dp"
+                    android:drawableRight="@drawable/icon_mediaup2"
+                    android:background="@drawable/grad1"
+                    android:layout_marginTop="8dp"
                     android:id="@+id/bt_volup_movie"
             >
 
@@ -81,7 +93,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="동영상 소리를 작게"
+                    android:paddingLeft="60dp"
                     android:id="@+id/bt_voldown_movie"
+                    android:layout_marginTop="8dp"
+                    android:drawableRight="@drawable/icon_mediadown2"
+                    android:background="@drawable/grad1"
                     android:textSize="30dp">
 
             </Button>
@@ -89,6 +105,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="밝기를 높게"
+                    android:paddingLeft="60dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/grad1"
+                    android:drawableRight="@drawable/icon_bright2"
                     android:textSize="30dp" android:id="@+id/bt_brightup">
 
             </Button>
@@ -96,19 +116,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="밝기를 작게"
+                    android:paddingLeft="60dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/grad1"
+                    android:drawableRight="@drawable/icon_dark2"
                     android:textSize="30dp" android:id="@+id/bt_brightdown">
 
             </Button>
             <Button
-                    android:text="전화번호등록"
+                    android:text=" 전화번호등록"
+                    android:layout_marginTop="8dp"
+                    android:paddingLeft="60dp"
+
                     android:layout_width="match_parent"
+                    android:background="@drawable/grad1"
                     android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/icon_phone2"
                     android:textSize="30dp" android:id="@+id/bt_addcontact"/>
 
             <Button
-                    android:text="화면이 자동으로 돌아가요"
+                    android:text="화면이 돌아가요"
+                    android:paddingLeft="60dp"
                     android:layout_width="match_parent"
+                    android:background="@drawable/grad1"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawableRight="@drawable/icon_spin2"
                     android:textSize="30dp" android:id="@+id/bt_rotation"/>
 
 

@@ -12,21 +12,13 @@ import com.WhateverMyAge.WhateverMyAge.Main.*
 import com.WhateverMyAge.WhateverMyAge.R
 import kotlinx.android.synthetic.main.activity_love_write_article.bt_back
 
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-
 //import com.example.makeref.ConnectServer
-import java.io.File
 
 class LoveWriteArticle : AppCompatActivity() {
-    public val camera = CameraUpload(this)
-    public lateinit var context : Context
+     val camera = CameraUpload(this)
+     lateinit var context : Context
     override fun onActivityResult (requestCode : Int, resultCode : Int, data: Intent?) {
         camera.newOnActivityResult(0, requestCode, resultCode, data)
-    }
-
-    public fun uploadingImage (file : File) {
-        image = file
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,11 +28,6 @@ class LoveWriteArticle : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_love_write_article)
         val cora = intent.getIntExtra("QuestionAnswerArticle", -1)
-
-        //TODO : 사진 촬영 후 업로드 혹은 갤러리 업로드
-        //TODO : 카메라, 갤러리 권한
-
-
 
         lovearticlescancel.setOnClickListener {
             finish()
@@ -91,25 +78,10 @@ class LoveWriteArticle : AppCompatActivity() {
                 if (image != null) {
                     Log.i("파일이", "null")
                     name = image!!.getName()
-                    Log.i("image", " " + image!!.getName())
-
-//
-//                    val fileReqBody = RequestBody.create(MediaType.parse("image/*"), image)
-//                    val part = MultipartBody.Part.createFormData("picture", name, fileReqBody)
-
-                    Log.i("file name", "$name")
-                    // val description = RequestBody.create(MediaType.parse("description"), "picture")
-                    //  Log.i("part", "$part")
-                    //  Log.i("decription", "$description")
-                    val descriptionPart = RequestBody.create(MultipartBody.FORM, "user_photo")
 
                     //성공코드 : 지우지 마시오!!
-                    //ConnectServer(this).uploadPic(part, articlecontent.text.toString())
-                    // ConnectServer(this).getPic()
                     val actual = articlecontent.text.toString()
                     ConnectServer(this).postQuestion(if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, image!!)
-                    //  ConnectServer(this).putPost(4, "sssss")
-                    //  ConnectServer(this).delPost(articletitle.text.toString())
                     finish()
                     image = null
                 }
@@ -118,21 +90,8 @@ class LoveWriteArticle : AppCompatActivity() {
                     ConnectServer(this).postQuestion(if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, null)
                 }
 
-
-                // val LA = _Love_Activity
-                /// LA.finish()
-//
-//                val CA = _Comment_Activity
-//                CA.finish()
-
                 val intent = Intent(this, QnA::class.java)
                 startActivity(intent)
-            }
-
-            else if (cora == 1) {
-                //질문 답글 작성
-
-
             }
 
             else if (cora == 2) {
@@ -142,24 +101,11 @@ class LoveWriteArticle : AppCompatActivity() {
                     Log.i("파일이", "null")
                     name = image!!.getName()
                     Log.i("image", " " + image!!.getName())
-
-//
-//                    val fileReqBody = RequestBody.create(MediaType.parse("image/*"), image)
-//                    val part = MultipartBody.Part.createFormData("picture", name, fileReqBody)
-
                     Log.i("file name", "$name")
-                    // val description = RequestBody.create(MediaType.parse("description"), "picture")
-                  //  Log.i("part", "$part")
-                    //  Log.i("decription", "$description")
-                    val descriptionPart = RequestBody.create(MultipartBody.FORM, "user_photo")
 
-                    //성공코드 : 지우지 마시오!!
-                    //ConnectServer(this).uploadPic(part, articlecontent.text.toString())
-                    // ConnectServer(this).getPic()
                     val actual = articlecontent.text.toString()
                     ConnectServer(this).writeArticle(if (actual.lastIndex > 10) actual.substring(0,10) else actual ,actual, lat, lng, image!!)
-                    //  ConnectServer(this).putPost(4, "sssss")
-                    //  ConnectServer(this).delPost(articletitle.text.toString())
+
                     finish()
                     image = null
 
@@ -172,9 +118,6 @@ class LoveWriteArticle : AppCompatActivity() {
 
                 val LA = _Love_Activity
                 LA.finish()
-//
-//                val CA = _Comment_Activity
-//                CA.finish()
 
                 val intent = Intent(this, LoveActivity::class.java)
                 startActivity(intent)

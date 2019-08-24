@@ -53,54 +53,6 @@
         />
 
     </LinearLayout>
-
-    <!--<ScrollView-->
-    <!--android:id="@+id/content"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="1"-->
-    <!--&gt;-->
-    <!--<LinearLayout-->
-    <!--app:layout_constraintTop_toBottomOf="@id/bar"-->
-    <!--android:id="@+id/articles"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="vertical"-->
-    <!--&gt;-->
-    <!--<androidx.constraintlayout.widget.ConstraintLayout -->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height=""-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/bar"-->
-    <!--app:layout_constraintBottom_toTopOf="@id/bt_writeArticle"-->
-    <!--&gt;-->
-
-    <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/SC"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/bar"-->
-
-    <!--&gt;-->
-    <!--<androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:id="@+id/swipe"-->
-    <!--&gt;-->
-
-        <!--<ScrollView-->
-                <!--android:id="@+id/content"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="0dp"-->
-                <!--android:layout_weight="1"-->
-        <!--&gt;-->
-            <!--<LinearLayout-->
-                    <!--app:layout_constraintTop_toBottomOf="@id/bar"-->
-                    <!--android:id="@+id/articles"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="vertical"-->
-            <!--&gt;-->
-
                 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -115,14 +67,6 @@
                 </androidx.recyclerview.widget.RecyclerView>
 
                 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-                <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-                <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
-            <!--</LinearLayout>-->
-        <!--</ScrollView>-->
-
     <Button
 
             android:id="@+id/bt_writeArticle"

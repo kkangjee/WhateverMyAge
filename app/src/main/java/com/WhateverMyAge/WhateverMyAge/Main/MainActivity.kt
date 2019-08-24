@@ -16,7 +16,6 @@ import com.WhateverMyAge.WhateverMyAge.*
 import com.WhateverMyAge.WhateverMyAge.Love.LoveActivity
 import com.WhateverMyAge.WhateverMyAge.TravelAndFood.TravelAndFood
 
-
 class MainActivity : AppCompatActivity() {
     val permission_list = arrayOf(
         WRITE_CONTACTS,
@@ -73,8 +72,6 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra("user_info", arr)
                 startActivity(intent)
             }
-
-
         }
         bt_travelandfood.setOnClickListener {
             //loading
@@ -92,20 +89,12 @@ class MainActivity : AppCompatActivity() {
             bt_login.text = "로그인"
         else
             bt_login.text = "내 정보"
-        num = random.nextInt(5)
+        num = random.nextInt(27)
         quote.text = quotelist[num].Quote
         quotedfrom.text = quotelist[num].QuotedFrom
 
 
     }
-
-    override fun onStop() {
-        super.onStop()
-
-
-    }
-
-
     fun checkPermission() {
         //현재 안드로이드 버전이 6.0미만이면 메서드를 종료한다.
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
@@ -118,13 +107,7 @@ class MainActivity : AppCompatActivity() {
             if (chk == PackageManager.PERMISSION_DENIED) {
                 //권한 허용을여부를 확인하는 창을 띄운다
                 requestPermissions(permission_list, 0)
-
-
-
             }
-
-
-
         }
     }
 
@@ -174,16 +157,5 @@ class MainActivity : AppCompatActivity() {
             asyncDialog.dismiss()
             super.onPostExecute(result)
         }
-    }
-    fun loading() {
-        //로딩
-        android.os.Handler().postDelayed(
-            {
-                progressDialog = ProgressDialog(this@MainActivity)
-                progressDialog!!.setIndeterminate(true)
-                progressDialog!!.setMessage("잠시만 기다려 주세요")
-                progressDialog!!.show()
-            }, 0
-        )
     }
 }

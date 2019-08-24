@@ -1,17 +1,12 @@
 package com.WhateverMyAge.WhateverMyAge.TravelAndFood;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.StrictMode;
 import android.util.Log;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-
-import javax.net.ssl.HttpsURLConnection;
 
 class APIdata {
     private String add1;
@@ -19,6 +14,7 @@ class APIdata {
     private String dist;
     private String title;
     private String image;
+    private String cat1;
     private String cat2;
     private String cat3;
 
@@ -28,6 +24,7 @@ class APIdata {
         this.dist = dist;
         this.title = title;
         this.image = image;
+        this.cat1=cat1;
         this.cat2=cat2;
         this.cat3=cat3;
     }
@@ -49,6 +46,7 @@ class APIdata {
     }
     String getCat2() { return this.cat2;}
     String getCat3() { return this.cat3;}
+    String getCat1() { return this.cat1;}
     void setAdd1(String add1) {
         this.add1 = add1;
     }
@@ -70,10 +68,20 @@ class APIdata {
     void setCat3(String cat3) {
         this.image = cat3;
     }
+    void setCat1(String cat1) {
+        this.image = cat1;
+    }
 }
 
 
 public class TravelAPI {
+    boolean FoodOrTravel = false;
+
+    public TravelAPI(boolean FoodOrTravel) {
+        this.FoodOrTravel = FoodOrTravel;
+    }
+
+
     Bitmap bitmap;
     public static String baseURL;
 
@@ -81,9 +89,10 @@ public class TravelAPI {
 
         StrictMode.enableDefaults();
 
-        boolean initem = false, inaddr1 = false, inaddr2 = false, indist = false, intitle = false, inimage = false,incat2=false, incat3=false;;
+        boolean initem = false, inaddr1 = false, inaddr2 = false, indist = false, intitle = false, inimage = false,incat2=false,
+                incat3=false,incat1=false;;
 
-        String addr1 = null, addr2 = null, dist = null, title = null, image = null,cat2=null, cat3=null;
+        String addr1 = null, addr2 = null, dist = null, title = null, image = null,cat2=null, cat3=null,cat1=null;
         String key = "yOv5P9kxcP5VnWt8txP86aulztqNFQ1Tx848A4ZIyOgQCl0nnx6Zgp2iZO768lX2VyqpNqF8eXFYosPaxm6z%2FQ%3D%3D";
 
         double xpos = lat == 0 ? 126.9815706850 : lat;
@@ -143,6 +152,10 @@ public class TravelAPI {
                         if (parser.getName().equals("cat3")) {
                             incat3 = true;
                         }
+                        if (parser.getName().equals("cat1")) {
+                            incat1 = true;
+                        }
+
 
 
                         if (parser.getName().equals("message")) { //message 태그를 만나면 에러 출력
@@ -182,20 +195,40 @@ public class TravelAPI {
                             cat3 = parser.getText();
                             incat3 = false;
                         }
+                        if (incat1) {
+                            cat1 = parser.getText();
+                            incat1 = false;
+                        }
 
                         break;
                     case XmlPullParser.END_TAG:
                         if (parser.getName().equals("item")) {
-                            if (cat2.equals("A0208") || cat2.equals("A0207")||cat3.equals("A04010500")|| cat3.equals("A04010600")) {}
-                            else{
 
-                            Log.i("현재 인덱스", " " + index);
-                            Log.i("현재 정보", addr1 + " " + addr2 + " " + dist + " " + title);
-                            apiData.add(new APIdata(addr1, addr2, dist, title, image));
+                            if (this.FoodOrTravel == false) { //여행지
+                                if (cat1.equals("A05") || cat2.equals("A0208") || cat2.equals("A0207") || cat3.equals("A04010500") || cat3.equals("A04010600")) {
+                                } else {
+
+                                    Log.i("현재 인덱스", " " + index);
+                                    Log.i("현재 정보", addr1 + " " + addr2 + " " + dist + " " + title);
+                                    apiData.add(new APIdata(addr1, addr2, dist, title, image));
+
 //                            status1.setText(status1.getText()+"지명 : "+ addr1 +"\n 주소: "+ addr2 +"\n 거리 : " + (dist*3) +"걸음" + "m\n 제목 : " + title
 //                                    +"\n\n ");
 //                            initem = false;
-                                index++;
+                                    index++;
+                                }
+                            }
+
+                            else { //음식점
+                                if (cat1.equals("A05")) {
+                                    Log.i("현재 인덱스", " " + index);
+                                    Log.i("현재 정보", addr1 + " " + addr2 + " " + dist + " " + title);
+                                    apiData.add(new APIdata(addr1, addr2, dist, title, image));
+//                            status1.setText(status1.getText()+"지명 : "+ addr1 +"\n 주소: "+ addr2 +"\n 거리 : " + (dist*3) +"걸음" + "m\n 제목 : " + title
+//                                    +"\n\n ");
+//                            initem = false;
+                                    index++;
+                                }
                             }
                             break;
                         }
@@ -208,44 +241,4 @@ public class TravelAPI {
         }
         return apiData;
     }
-
-
-    public Bitmap setImageURL (String originalURL) {
-        //baseURL = apiData[0].getImage();
-        if (originalURL.charAt(4) != 's')
-            originalURL = originalURL.substring(0, 4) + "s" + originalURL.substring(4, originalURL.length());
-
-        final String baseURL = originalURL;
-
-        /// baseURL = "https://tong.visitkorea.or.kr/cms/resource/36/1009936_image2_1.jpg";
-
-        //String encode = URLEncoder.encode(, "UTF-8");
-        Thread mThread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL(baseURL);
-                    HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-                    conn.setDoInput(true);
-                    conn.connect();
-
-                    InputStream is = conn.getInputStream();
-                    bitmap = BitmapFactory.decodeStream(is);
-                } catch (IOException ex) {
-
-                }
-            }
-        };
-        mThread.start();
-        try {
-            mThread.join();
-        } catch (InterruptedException e) {
-
-        }
-        return bitmap;
-    }
-
-    //pic.setText(apiData[0].getImage());
-    // pic.setImageURI(Uri.parse(apiData[0].getImage()));
-
 }

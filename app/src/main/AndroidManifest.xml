@@ -27,11 +27,12 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
+            android:debuggable="false"
             android:theme="@style/AppTheme">
         <activity android:name="com.WhateverMyAge.WhateverMyAge.Guide.Questions.FAQContent">
         </activity>
         <activity
-                android:name="com.WhateverMyAge.WhateverMyAge.Main.LoadingActivity"
+                android:name=".Main.LoadingActivity"
                 android:theme="@style/Theme.AppCompat">
         </activity>
         <activity android:name="com.WhateverMyAge.WhateverMyAge.MyInformation">

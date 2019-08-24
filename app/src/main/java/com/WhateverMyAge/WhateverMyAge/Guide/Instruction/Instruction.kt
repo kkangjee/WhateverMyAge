@@ -8,10 +8,11 @@ import com.WhateverMyAge.WhateverMyAge.R
 import kotlinx.android.synthetic.main.activity_instruction.*
 
 
-var cnt = 1
+    var cnt = 1
 
 class Instruction : AppCompatActivity() {
     var which = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         which = intent.getIntExtra("Instruction", -1)

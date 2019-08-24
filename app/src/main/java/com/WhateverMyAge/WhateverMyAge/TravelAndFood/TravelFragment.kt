@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.WhateverMyAge.WhateverMyAge.Love.lat
 import com.WhateverMyAge.WhateverMyAge.Love.lng
+import com.WhateverMyAge.WhateverMyAge.Main.ImageURL
 import com.WhateverMyAge.WhateverMyAge.Main.random
 import com.WhateverMyAge.WhateverMyAge.R
 import kotlinx.android.synthetic.main.activity_travel_fragment.*
@@ -20,20 +21,17 @@ class TravelFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val api = TravelAPI()
+        val api = TravelAPI(false)
         val apiList = api.getAPI(lng, lat)
-        //iv_TravelPic.setImageBitmap(bitmap)
-
-        // travelspot.text = api.api[0].add1
 
         var last = apiList.lastIndex
-
+        val imageURL = ImageURL()
 
         if (last > 0) {
             var rand = random.nextInt(last)
             val walk=apiList[rand].dist.toInt()
             if (apiList[rand].image != null) {
-                val bitmap = api.setImageURL(apiList[rand].image)
+                val bitmap = imageURL.setImageURL(apiList[rand].image)
                 iv_TravelPic1.setImageBitmap(bitmap)
             }
 
@@ -48,7 +46,7 @@ class TravelFragment : Fragment() {
             var rand2 = random.nextInt(last)
             val walk2=apiList[rand2].dist.toInt()
             if (apiList[rand2].image != null) {
-                val bitmap = api.setImageURL(apiList[rand2].image)
+                val bitmap = imageURL.setImageURL(apiList[rand2].image)
                 iv_TravelPic2.setImageBitmap(bitmap)
             }
             travelspot2.text =
@@ -61,7 +59,7 @@ class TravelFragment : Fragment() {
             var rand3 = random.nextInt(last)
             val walk3=apiList[rand3].dist.toInt()
             if (apiList[rand3].image != null) {
-                val bitmap = api.setImageURL(apiList[rand3].image)
+                val bitmap = imageURL.setImageURL(apiList[rand3].image)
                 iv_TravelPic3.setImageBitmap(bitmap)
             }
             travelspot3.text =
@@ -74,7 +72,7 @@ class TravelFragment : Fragment() {
             var rand4 = random.nextInt(last)
             val walk4=apiList[rand4].dist.toInt()
             if (apiList[rand4].image != null) {
-                val bitmap = api.setImageURL(apiList[rand4].image)
+                val bitmap = imageURL.setImageURL(apiList[rand4].image)
                 iv_TravelPic4.setImageBitmap(bitmap)
             }
             travelspot4.text =
@@ -87,7 +85,7 @@ class TravelFragment : Fragment() {
             var rand5 = random.nextInt(last)
             val walk5=apiList[rand5].dist.toInt()
             if (apiList[rand5].image != null) {
-                val bitmap = api.setImageURL(apiList[rand5].image)
+                val bitmap =imageURL.setImageURL(apiList[rand5].image)
                 iv_TravelPic5.setImageBitmap(bitmap)
             }
             travelspot5.text =
@@ -96,7 +94,5 @@ class TravelFragment : Fragment() {
                 apiList[rand5] = apiList[last]
             last = last - 1
         }
-        //tvFragmentMain.setImageResource(R.drawable.avengers)     //text 대신 tv~~.ImageView = drawable.. 하면 됨
-        //View v = getView()
     }
 }

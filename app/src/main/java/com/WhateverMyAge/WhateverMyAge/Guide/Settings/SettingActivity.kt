@@ -14,7 +14,6 @@ import android.os.Build
 import com.WhateverMyAge.WhateverMyAge.Main.PermissionCheck
 import com.WhateverMyAge.WhateverMyAge.R
 
-
 class SettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,12 +81,8 @@ class SettingActivity : AppCompatActivity() {
                 val downIndex = audioManager.mediaCurrentVolume_ring - 1
 
                 audioManager.setMediaVolume_ring(downIndex)
-
                 toast("지금 벨소리 크기는 ${audioManager.mediaCurrentVolume_ring} 입니다.")
-
             }
-
-
         }
 
         //music
@@ -144,7 +139,6 @@ class SettingActivity : AppCompatActivity() {
             window.attributes = lp
         }
 
-
         bt_addcontact.setOnClickListener {
             // if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
 
@@ -152,7 +146,6 @@ class SettingActivity : AppCompatActivity() {
                 val intent = Intent(this, AddContactActivity::class.java)
                 startActivity(intent)
             }
-
         }
 
         bt_rotation.setOnClickListener {
@@ -167,10 +160,8 @@ class SettingActivity : AppCompatActivity() {
         bt_back.setOnClickListener {
             finish()
         }
-
     }
 }
-
 
 //벨소리
 fun AudioManager.setMediaVolume_ring(volumeIndex: Int) {
@@ -178,7 +169,6 @@ fun AudioManager.setMediaVolume_ring(volumeIndex: Int) {
         AudioManager.STREAM_RING,//type 설정
         volumeIndex,//볼륨 크기
         AudioManager.FLAG_SHOW_UI //보여주는 방식
-
     )
 }
 

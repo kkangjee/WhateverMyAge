@@ -14,7 +14,7 @@ import com.WhateverMyAge.WhateverMyAge.signedin
 
 class Comment (val Posting : Int, val ID : Int, val UserID : Int, val Username : String, val Comment : String)
 
-class CommentsAdapter (val context : Context, val titlelist : ArrayList<Comment>, val activity : Comments) :
+class CommentsAdapter (val context : Context, val titlelist : ArrayList<Comment>, val activity : Comments, val QorL : Int) :
     RecyclerView.Adapter<CommentsAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.activity_comments_adapter, parent, false)
@@ -51,8 +51,12 @@ class CommentsAdapter (val context : Context, val titlelist : ArrayList<Comment>
             Comment.setOnLongClickListener(object : View.OnLongClickListener {
                 override
                 fun onLongClick(v : View) : Boolean {
-                    if (signedin == comments.UserID)
-                        activity.deleteComment(comments.ID, comments.Posting, commentsRV)
+                    if (signedin == comments.UserID) {
+                        if (QorL == 1)
+                            activity.deleteComment(comments.ID, comments.Posting, commentsRV)
+                        else
+                            activity.deleteQComment(comments.ID, comments.Posting, commentsRV)
+                    }
                     return true
                 }
             })

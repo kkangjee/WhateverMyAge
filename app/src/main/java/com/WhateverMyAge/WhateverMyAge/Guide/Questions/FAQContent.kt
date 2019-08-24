@@ -23,11 +23,9 @@ class FAQContent : AppCompatActivity() {
             4 -> faq_content.text = "저희 앱의 첫 화면에서 ‘설정’ 버튼을 누르면 버튼들이 나와요. 그중에 ‘스마트폰 설명서’라는 버튼을 누르면 카카오톡과 유튜브의 사용법에 대한 설명서를 볼 수 있어요."
         }
 
-
         bt_back.setOnClickListener {
             finish()
         }
-
 
     }
 }

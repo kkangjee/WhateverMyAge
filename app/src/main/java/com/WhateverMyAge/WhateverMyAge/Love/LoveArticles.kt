@@ -3,6 +3,8 @@ package com.WhateverMyAge.WhateverMyAge.Love
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
@@ -11,13 +13,11 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.*
 import androidx.appcompat.widget.*
-import com.WhateverMyAge.WhateverMyAge.Main.ConnectServer
+import com.WhateverMyAge.WhateverMyAge.Main.ImageURL
 import com.WhateverMyAge.WhateverMyAge.Main.Profile
 import com.WhateverMyAge.WhateverMyAge.Main.Service
 import com.WhateverMyAge.WhateverMyAge.MyInformation
 import com.WhateverMyAge.WhateverMyAge.R
-import com.WhateverMyAge.WhateverMyAge.TravelAndFood.TravelAPI
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,8 +25,26 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
-class LoveArticles (var ID : Int, var Userpic : String, var UserID : Int, var Username:String, var Title : String, var LoveContents : String, var Like : String, var Comments : String, var Lat : Double, var Lng : Double, var Picture : String?)
+class LoveArticles(
+    var ID: Int,
+    var Userpic: String,
+    var UserID: Int,
+    var Username: String,
+    var Title: String,
+    var LoveContents: String,
+    var Like: String,
+    var Comments: String,
+    var Lat: Double,
+    var Lng: Double,
+    var Picture: String?
+)
 
+public class ImageRounding(val image: ImageView) {
+    fun rounding() {
+        image.setBackground(ShapeDrawable(OvalShape()))
+        image.setClipToOutline(true)
+    }
+}
 
 class OnViewGlobalLayoutListener(private val view: View) : ViewTreeObserver.OnGlobalLayoutListener {
 
@@ -44,8 +62,8 @@ class OnViewGlobalLayoutListener(private val view: View) : ViewTreeObserver.OnGl
     }
 }
 
-class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<LoveArticles>, val activity: Activity) :
-        RecyclerView.Adapter<LoveArticlesAdapter.Holder>() {
+class LoveArticlesAdapter(val context: Context, val contentlist: ArrayList<LoveArticles>, val activity: Activity) :
+    RecyclerView.Adapter<LoveArticlesAdapter.Holder>() {
 
     var love = context
 
@@ -64,80 +82,64 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
         holder.bind(contentlist[position], context)
     }
 
-    inner class Holder (itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val Userpic = itemView.findViewById<AppCompatImageButton>(R.id.userpic)
         val Username = itemView.findViewById<AppCompatButton>(R.id.username)
         val LoveContents = itemView.findViewById<FrameLayout>(R.id.lovecontents)
-        val LikeButton = itemView.findViewById<AppCompatCheckBox>(R.id.likebutton)
         val Picture = itemView.findViewById<AppCompatImageView>(R.id.uploadedPicture)
-
         val Love = itemView.findViewById<AppCompatButton>(R.id.love)
-        val Like = itemView.findViewById<AppCompatTextView>(R.id.like)
         val Comments = itemView.findViewById<AppCompatTextView>(R.id.comments)
 
         fun bind(lovearticles: LoveArticles, context: Context) {
-//            if (lovearticles.Userpic != "") {
-//                val resource = context.resources.getIdentifier(lovearticles.Userpic, "drawable", context.packageName)
-//                Userpic.setImageResource(resource)
-//            } else {
-//                Userpic.setImageResource(R.mipmap.ic_launcher)
-//            }
-
             Picture.viewTreeObserver.addOnGlobalLayoutListener(OnViewGlobalLayoutListener(Picture))
 
             if (lovearticles.Picture != null) {
-                lovearticles.Picture = "https://frozen-cove-44670.herokuapp.com"+ lovearticles.Picture
-                Log.i("이미지 시작!!!!", " " + lovearticles.Picture)
-
-
-//                var mButton = ImageView(context)
-//                //var mView = ViewGroup(context)
-//                var pm = LinearLayout.LayoutParams(100, 100)
-//                mButton.setLayoutParams(pm)
-
-                var bit = TravelAPI().setImageURL(lovearticles.Picture)
+                lovearticles.Picture = "https://frozen-cove-44670.herokuapp.com" + lovearticles.Picture
+                var bit = ImageURL().setImageURL(lovearticles.Picture)
                 Picture.setImageBitmap(bit)
-                //this.setContentView(mButton)
-            }
-
-            else
+            } else
                 Picture.setVisibility(View.GONE)
             Username.text = lovearticles.Username
             Love.text = lovearticles.LoveContents
-            Like.text = lovearticles.Like
             Comments.text = lovearticles.Comments
-
             LoveContents.setOnClickListener {
-                //var intent = Intent(LoveActivity@, WholeArticleActivity::class.java)
-                //intent.putExtra("id", lovearticles.ID)
-                //start
-                Log.i("글 아이디는~", " " + lovearticles.ID)
                 var intent = Intent(activity, com.WhateverMyAge.WhateverMyAge.Love.Comments::class.java)
-                val arr : Array<String> = arrayOf (lovearticles.ID.toString(), lovearticles.UserID.toString(), lovearticles.Username, lovearticles.LoveContents, lovearticles.Like, lovearticles.Comments, (if (lovearticles.Picture != null) lovearticles.Picture else "")!!, "P")
+                val arr: Array<String> = arrayOf(
+                    lovearticles.ID.toString(),
+                    lovearticles.UserID.toString(),
+                    lovearticles.Username,
+                    lovearticles.LoveContents,
+                    lovearticles.Like,
+                    lovearticles.Comments,
+                    (if (lovearticles.Picture != null) lovearticles.Picture else "")!!,
+                    "P"
+                )
                 intent.putExtra("Post", arr)
                 activity.startActivity(intent)
             }
 
             Love.setOnClickListener {
-                Log.i("글 아이디는~", " " + lovearticles.ID)
                 var intent = Intent(activity, com.WhateverMyAge.WhateverMyAge.Love.Comments::class.java)
-                val arr : Array<String> = arrayOf (lovearticles.ID.toString(), lovearticles.UserID.toString(), lovearticles.Username, lovearticles.LoveContents, lovearticles.Like, lovearticles.Comments, (if (lovearticles.Picture != null) lovearticles.Picture else "")!!, "P")
+                val arr: Array<String> = arrayOf(
+                    lovearticles.ID.toString(),
+                    lovearticles.UserID.toString(),
+                    lovearticles.Username,
+                    lovearticles.LoveContents,
+                    lovearticles.Like,
+                    lovearticles.Comments,
+                    (if (lovearticles.Picture != null) lovearticles.Picture else "")!!,
+                    "P"
+                )
                 intent.putExtra("Post", arr)
                 activity.startActivity(intent)
             }
 
             Username.setOnClickListener {
-                Log.i("유저 아이디는~", " " + lovearticles.UserID)
                 val intent = Intent(activity, MyInformation::class.java)
-                val arr : Array<String> = arrayOf(lovearticles.UserID.toString(), lovearticles.Username)
+                val arr: Array<String> = arrayOf(lovearticles.UserID.toString(), lovearticles.Username)
                 intent.putExtra("user_info", arr)
                 activity.startActivity(intent)
-            }
-
-            LikeButton.setOnClickListener {
-                Log.i("글 아이디는~", " " + lovearticles.ID)
-                ConnectServer(activity).getLikedUsers(lovearticles.ID)
             }
 
             val retrofit = Retrofit.Builder()
@@ -155,39 +157,29 @@ class LoveArticlesAdapter (val context : Context, val contentlist : ArrayList<Lo
                 }
 
                 override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
-                    //code = response?.code()
-                    if (response.code() == 204) {
-                        // test.text = response?.body().toString()
+                    if (response.code() == 200) {
+                        val pic = if (response.body() != null) response.body()!!.user_photo else null
+                        Log.i("dsd", "$pic")
+                        if (pic != null) {
+                            val bit = ImageURL().setImageURL(pic)
+                            Userpic.setImageBitmap(bit)
+                            Log.i("image bitmap", "$pic")
+                            ImageRounding(Userpic).rounding()
+                        } else {
+                            Log.i("no pic", " dd")
+                            val resource =
+                                context.resources.getIdentifier(lovearticles.Userpic, "drawable", context.packageName)
+                            Userpic.setImageResource(resource)
+                            ImageRounding(Userpic).rounding()
+
+                        }
                     } else {
 
                     }
                     Log.i("profile image", " " + response.raw())
                     Log.i("profile image", " " + response.body())
-
-                    val pic = if (response.body() != null) response.body()!!.user_photo else null
-                    Log.i("dsd", "$pic")
-                    if (pic != null) {
-//                        var mButton = ImageView(context)
-//                        var pm = LinearLayout.LayoutParams(100, 100)
-//
-//
-//
-//                        Log.i("pic", "exists" + pic)
-                        val bit = TravelAPI().setImageURL(pic)
-                        Userpic.setImageBitmap(bit)
-                        Log.i("image bitmap", "$pic")
-                    }
-
-                    else {
-                        Log.i("no pic", " dd")
-                        val resource = context.resources.getIdentifier(lovearticles.Userpic, "drawable", context.packageName)
-                        Userpic.setImageResource(resource)
-
-                    }
-
                 }
             })
-
         }
     }
 }

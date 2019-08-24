@@ -159,14 +159,6 @@ class LoveActivity : AppCompatActivity() {
         return (rad * 180 / Math.PI)
     }
 
-//    var contentlist = arrayListOf(
-//        LoveArticles("story1", "sarangbang", "오늘은 여기에 놀러 갔어요", "3", "5"),
-//        LoveArticles("story2", "whats wrong", "멋쟁이 사자처럼 화이팅", "32", "6"),
-//        LoveArticles("story3", "with my age", "내 나이가 어때서", "9", "5"),
-//        LoveArticles("story4", "lets do this", "ㅎㅎㅎ", "7", "15")
-//    )
-    //////////////
-
     val retrofit = Retrofit.Builder()
         .baseUrl("https://frozen-cove-44670.herokuapp.com/")
         .addConverterFactory(ScalarsConverterFactory.create())
@@ -199,12 +191,9 @@ class LoveActivity : AppCompatActivity() {
             fun onRefresh() {
                 var contentlist: ArrayList<LoveArticles> = arrayListOf()
                 showPost(contentlist, mSwipe)
-//                if (mSwipe.isRefreshing)
-//                    mSwipe.setRefreshing(false)
+
             }
         })
-
-        ///////////
         val permissioncheck = PermissionCheck(this, this)
 
         val locationMgr = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -216,12 +205,8 @@ class LoveActivity : AppCompatActivity() {
         criteria.isSpeedRequired = false
         criteria.isCostAllowed = true
 
-//        val love = LoveArticlesAdapter(this, contentlist)
-//        lovearticles.adapter = love
-
         val lm = LinearLayoutManager(this)
         lovearticles.layoutManager = lm
-        //lovearticles.setHasFixedSize(true)
 
         bt_writeArticle.setOnClickListener {
             //setting 화면
@@ -259,19 +244,6 @@ class LoveActivity : AppCompatActivity() {
 
 
         bt_locationselect.setOnClickListener {
-
-
-            //주소 출력
-//                    val gcd = Geocoder(this, Locale.getDefault())
-//                    val addresses = gcd.getFromLocation(lat, lng, 1)
-//
-//                    val cityName = addresses[0].getAddressLine(0)
-//                    val stateName = addresses[0].getAddressLine(1)
-//                    val countryName = addresses[0].getAddressLine(2)
-
-            //var dist = distance(lat, lng, 37.3044, 127.0040, "kilometer")
-
-            //toast("$dist" + "km입니다.")
             if (!isLocationEnabled(this)) {
                 toast("위치 사용을 켜주세요.")
                 val intent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)

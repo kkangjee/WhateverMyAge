@@ -17,16 +17,12 @@ class CameraOrGallery : Activity() {
         bt_camera.setOnClickListener {
             setResult(3)
             finish()
-            //camera.captureFromCamera()
-            //finishActivity(3)
         }
 
 
         bt_gallery.setOnClickListener {
             setResult(4)
            finish()
-            //camera.pickFromGallery()
-            //finishActivity(4)
         }
     }
 

@@ -10,7 +10,6 @@ import com.WhateverMyAge.WhateverMyAge.Main.ConnectServer
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.bt_back
 
-
 var signedin = 0
 var user_name = ""
 var progressDialog: ProgressDialog? = null
@@ -20,8 +19,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         bt_loginsubmit.setOnClickListener {
-            //var code = 0
-            //TODO : 로그인
 
             var id = ID.text.toString()
             var pw = PW.text.toString()
@@ -33,25 +30,21 @@ class LoginActivity : AppCompatActivity() {
             else{
                 //로딩
                 Loading(this).loading()
-
                 ConnectServer(this).Login(id, pw)
-//                val intent = Intent(this, LoadingActivity::class.java)
-//                startActivity(intent)
             }
-
         }
 
         bt_back.setOnClickListener{ //
             finish()
         }
 
-        bt_cantfindid.setOnClickListener {
-
-        }
-
-        bt_cantfindpw.setOnClickListener {
-
-        }
+//        bt_cantfindid.setOnClickListener {
+//
+//        }
+//
+//        bt_cantfindpw.setOnClickListener {
+//
+//        }
 
         bt_signup.setOnClickListener{
             val intent = Intent(this, SignUpActivity::class.java)

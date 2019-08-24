@@ -15,7 +15,6 @@ import com.WhateverMyAge.WhateverMyAge.Guide.Settings.toast
 import com.WhateverMyAge.WhateverMyAge.Main.*
 import com.WhateverMyAge.WhateverMyAge.MyInformation
 import com.WhateverMyAge.WhateverMyAge.R
-import com.WhateverMyAge.WhateverMyAge.TravelAndFood.TravelAPI
 import com.WhateverMyAge.WhateverMyAge.signedin
 import com.WhateverMyAge.WhateverMyAge.user_name
 import kotlinx.android.synthetic.main.activity_comments.*
@@ -70,8 +69,6 @@ class Comments : AppCompatActivity() {
     }
 
     fun deleteComment(id: Int, posting: Int, rc: RecyclerView) {
-        var server = retrofit.create(Service::class.java)
-
         server.deleteComment(id).enqueue(object : Callback<Body> {
             override fun onFailure(call: Call<Body>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
@@ -93,14 +90,13 @@ class Comments : AppCompatActivity() {
         })
     }
 
-
     fun getComment(commentlist: ArrayList<Comment>, ID: Int, rc: RecyclerView) {
         commentsRV = rc
         //commentlist = arrayListOf()
         server.getComment(ID).enqueue(object : Callback<List<CommentsForm>> {
             override fun onFailure(call: Call<List<CommentsForm>>, t: Throwable) {
                 Log.e("서버와 통신에 실패했습니다.", "Error!")
-                val comment = CommentsAdapter(this@Comments, commentlist, this@Comments)
+                val comment = CommentsAdapter(this@Comments, commentlist, this@Comments, 1)
                 commentsRV.adapter = comment
             }
 
@@ -128,7 +124,7 @@ class Comments : AppCompatActivity() {
                         Log.i("댓글 추가됨", "$i" + " " + commentlist[i].Username + " " + commentlist[i].Comment)
                     }
 //
-                    val comment = CommentsAdapter(this@Comments, commentlist, this@Comments)
+                    val comment = CommentsAdapter(this@Comments, commentlist, this@Comments, 1)
                     commentsRV.adapter = comment
                     Log.i("야호", "$commentlist")
 //
@@ -142,14 +138,152 @@ class Comments : AppCompatActivity() {
         })
     }
 
+    fun getQComment(commentlist: ArrayList<Comment>, ID: Int, rc: RecyclerView) {
+        commentsRV = rc
+        server.getQComment(ID).enqueue(object : Callback<List<QCommentsForm>> {
+            override fun onFailure(call: Call<List<QCommentsForm>>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+
+            }
+
+            override fun onResponse(call: Call<List<QCommentsForm>>, response: Response<List<QCommentsForm>>) {
+                val raw = response.raw().toString()
+                if (response.code().toString() == "200") {
+
+                    val body = response.body()!!
+                    // test.text = response?.body().toString()
+                    val cnt = body.lastIndex
+
+                    Log.i("댓글 수", "$cnt")
+                    Log.i("질문댓글", "$body")
+                    Log.i("질문댓글raw", "$raw")
+
+                    for (i in 0..cnt) {
+                        Log.i("댓글 추가", "$i")
+                        Log.i("댓글 추가됨", "$i" + " " + body[i].author_username + " " + body[i].q_reply)
+
+                        commentlist.add(
+                            Comment(
+                                body[i].question,
+                                body[i].id,
+                                body[i].author_id,
+                                body[i].author_username,
+                                body[i].q_reply
+                            )
+                        )
+                        Log.i("댓글 추가됨", "$i" + " " + commentlist[i].Username + " " + commentlist[i].Comment)
+                    }
+//
+                    val comment = CommentsAdapter(this@Comments, commentlist, this@Comments, 0)
+                    commentsRV.adapter = comment
+                    Log.i("야호", "$commentlist")
+                }
+                else if (response.code() == 404) {
+                    val comment = CommentsAdapter(this@Comments, commentlist, this@Comments, 0)
+                    commentsRV.adapter = comment
+                }
+                Log.i("dsdsd", "$raw")
+                Log.i("body", " " + response?.body())
+            }
+        })
+    }
+
+    fun deleteQComment (id: Int, posting: Int, rc: RecyclerView) {
+        server.deleteQComment(id).enqueue(object : Callback<Body> {
+            override fun onFailure(call: Call<Body>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+            }
+
+            override fun onResponse(call: Call<Body>, response: Response<Body>) {
+                //code = response?.code()
+                if (response.code() == 204) {
+                    var commentlist: ArrayList<Comment> = arrayListOf()
+                    getQComment(commentlist, posting, rc)
+                    Log.i("postID", "$posting")
+                } else {
+                }
+
+                Log.i("댓삭", " " + response.raw().toString())
+            }
+        })
+    }
+
+    fun postQComment (question: Int, q_reply: String) {
+        server.postQComment(question, q_reply, user_name, signedin).enqueue(object : Callback<QCommentsForm> {
+            override fun onFailure(call: Call<QCommentsForm>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+            }
+
+            override fun onResponse(call: Call<QCommentsForm>, response: Response<QCommentsForm>) {
+                val raw = response.raw().toString()
+                //  val body = response.body()!!
+                if (response?.code().toString() == "201") {
+                    // test.text = response?.body().toString()
+                    //commentlist = arrayListOf
+                    reply.setText("")
+                    Log.i("posting", "$question")
+                    var commentlist: ArrayList<Comment> = arrayListOf()
+                    getQComment(commentlist, question, commentslist)
+                } else {
+
+                }
+                Log.i("댓글 작성", "$raw")
+                Log.i("dssdssss", " " + question + " " + q_reply + " " + user_name + " " + signedin)
+                //    Log.i("body", "$body")
+            }
+        })
+    }
+
+    fun getProfilePic(id : Int) {
+        server.getProfilePic(id).enqueue(object : Callback<Profile> {
+            override fun onFailure(call: Call<Profile>, t: Throwable) {
+                Log.e("서버와 통신에 실패했습니다.", "Error!")
+            }
+
+            override fun onResponse(call: Call<Profile>, response: Response<Profile>) {
+                //code = response?.code()
+                if (response.code() == 200) {
+                    val pic = if (response.body() != null) response.body()!!.user_photo else null
+
+                    Log.i("dsd", "$pic")
+                    if (pic != null) {
+                        val bit = ImageURL().setImageURL(pic)
+                        userpic.setImageBitmap(bit)
+                        Log.i("image bitmap", "$pic")
+                        ImageRounding(userpic).rounding()
+                    }
+
+                    else {
+                        Log.i("no pic", " dd")
+                        val resource = this@Comments.resources.getIdentifier("story1", "drawable", this@Comments.packageName)
+                        userpic.setImageResource(resource)
+                        ImageRounding(userpic).rounding()
+                    }
+                }
+
+                else {
+
+                }
+                Log.i("profile image", " " + response.raw())
+                Log.i("profile image", " " + response.body())
+            }
+        })
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://frozen-cove-44670.herokuapp.com/")
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+
+            .build()
+
         _Comment_Activity = this
         // commentsRV  =  commentslist
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comments)
         uploadedImageDetail.viewTreeObserver.addOnGlobalLayoutListener(OnViewGlobalLayoutListener(uploadedImageDetail))
-
 
         val ID = intent.getStringArrayExtra("Post")
         val QID = intent.getStringArrayExtra("Question")
@@ -161,19 +295,17 @@ class Comments : AppCompatActivity() {
             userpic.setImageResource(getResources().getIdentifier("@drawable/story1", "id", packageName))
             authorname.text = ID[2]
             lovecontents.text = ID[3]
-            like.text = ID[4]
+//            like.text = ID[4]
             comments.text = ID[5]
+
+            getProfilePic(ID[1].toInt())
+
             if (ID[6] != "")
-                uploadedImageDetail.setImageBitmap(TravelAPI().setImageURL(ID[6]))
-//        else
-//            uploadedImageDetail.setVisibility(View.GONE)
+                uploadedImageDetail.setImageBitmap(ImageURL().setImageURL(ID[6]))
 
             var commentlist: ArrayList<Comment> = arrayListOf()
-
             getComment(commentlist, ID[0].toInt(), commentslist)
             Log.i("ID[0]", " " + ID[0])
-//
-//            ConnectServer(this).getComment(ID)
 
             val lm = LinearLayoutManager(this)
             commentslist.layoutManager = lm
@@ -230,7 +362,6 @@ class Comments : AppCompatActivity() {
                                 else -> return false
                             }
                         }
-
                     })
                     popup.show()
                 }
@@ -256,26 +387,21 @@ class Comments : AppCompatActivity() {
 
             postID = QID[0].toInt()
             Log.i("postID", "$postID")
-            userpic.setImageResource(getResources().getIdentifier("@drawable/story1", "id", packageName))
+        //    userpic.setImageResource(getResources().getIdentifier("@drawable/story1", "id", packageName))
+            getProfilePic(QID[2].toInt())
             authorname.text = QID[1]
             lovecontents.text = QID[4]
-           // like.text = ID[4]
-          //  comments.text = ID[5]
+            comments.text = QID[7]
             if (QID[5] != "")
-                uploadedImageDetail.setImageBitmap(TravelAPI().setImageURL(QID[5]))
-//        else
-//            uploadedImageDetail.setVisibility(View.GONE)
-
-            //var commentlist: ArrayList<Comment> = arrayListOf()
-
-        //    getComment(commentlist, QID[0].toInt(), commentslist)
+                uploadedImageDetail.setImageBitmap(ImageURL().setImageURL(QID[5]))
             Log.i("ID[0]", " " + QID[0])
 
-            //ConnectServer(this).getComment(ID)
+            var commentlist: ArrayList<Comment> = arrayListOf()
 
-//            val lm = LinearLayoutManager(this)
-//            commentslist.layoutManager = lm
-//            commentslist.setHasFixedSize(true)
+            getQComment(commentlist, QID[0].toInt(), commentslist)
+            val lm = LinearLayoutManager(this)
+            commentslist.layoutManager = lm
+            commentslist.setHasFixedSize(true)
 
             bt_back.setOnClickListener {
                 finish()
@@ -288,7 +414,7 @@ class Comments : AppCompatActivity() {
                     if (reply.text.toString() == "") {
                         toast("댓글을 작성해주세요.")
                     } else {
-                       // postComment(ID[0].toInt(), reply.text.toString())
+                       postQComment(QID[0].toInt(), reply.text.toString())
                     }
                 }
             }
@@ -316,11 +442,6 @@ class Comments : AppCompatActivity() {
                                 R.id.delete -> {
                                     ConnectServer(this@Comments).delQuestion(QID[0].toInt())
                                     finish()
-//                                    val LA = _Love_Activity
-//                                    LA.finish()
-//
-//                                    val intent = Intent(this@Comments, LoveActivity::class.java)
-//                                    startActivity(intent)
 
                                     return true
                                 }
@@ -335,39 +456,11 @@ class Comments : AppCompatActivity() {
             }
 
             authorname.setOnClickListener {
-
                 val intent = Intent(this, MyInformation::class.java)
                 val arr: Array<String> = arrayOf(QID[1], QID[2])
                 intent.putExtra("user_info", arr)
                 this.startActivity(intent)
-
             }
-
         }
-
-
     }
-
-//    val listener = MenuItem.OnMenuItemClickListener() {
-//        fun onMenuItemClick(item: MenuItem) : Boolean {
-//            when (item.itemId) {
-//                R.id.put -> {
-//                    //ConnectServer(this).putPost()
-//                }
-//
-//                R.id.delete -> {
-//                    ConnectServer(this).delPost()
-//                }
-//
-//                else -> {
-//
-//                }
-//            }
-//        }
-//    }
-
 }
-
-
-/* Comment("sarang", "사진 잘 봤어요!"),
-            Comment("big_guy", "좋아요!")*/
