@@ -27,25 +27,26 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:debuggable="false"
+
             android:theme="@style/AppTheme">
 
         <meta-data
                 android:name="com.google.android.gms.ads.APPLICATION_ID"
                 android:value="@string/admob_app_id"/>
-        <activity android:name="com.WhateverMyAge.WhateverMyAge.Guide.Questions.FAQContent">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.Main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
-        <activity
-                android:name=".Main.LoadingActivity"
-                android:theme="@style/Theme.AppCompat">
+        <activity android:name="com.WhateverMyAge.WhateverMyAge.Guide.Questions.FAQContent">
         </activity>
         <activity android:name="com.WhateverMyAge.WhateverMyAge.MyInformation">
         </activity>
         <activity android:name="com.WhateverMyAge.WhateverMyAge.SignUpActivity">
         </activity>
         <activity android:name="com.WhateverMyAge.WhateverMyAge.Guide.Instruction.Instruction">
-        </activity>
-        <activity android:name=".Love.WriteComment">
         </activity>
         <activity android:name="com.WhateverMyAge.WhateverMyAge.Love.Comments">
         </activity>
@@ -69,8 +70,7 @@
         </activity>
         <activity android:name="com.WhateverMyAge.WhateverMyAge.Main.CameraUpload">
         </activity>
-        <activity android:name="com.WhateverMyAge.WhateverMyAge.Guide.Instruction.Instruction">
-        </activity>
+
         <activity android:name="com.WhateverMyAge.WhateverMyAge.TravelAndFood.TravelAndFood">
         </activity>
         <activity android:name="com.WhateverMyAge.WhateverMyAge.Guide.Instruction.ChooseInstruction">
@@ -87,13 +87,7 @@
         </activity>
         <activity android:name="com.WhateverMyAge.WhateverMyAge.Love.LoveActivity">
         </activity>
-        <activity android:name="com.WhateverMyAge.WhateverMyAge.Main.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
