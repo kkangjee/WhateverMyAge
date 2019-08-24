@@ -15,6 +15,19 @@ import android.util.Log
 import com.WhateverMyAge.WhateverMyAge.*
 import com.WhateverMyAge.WhateverMyAge.Love.LoveActivity
 import com.WhateverMyAge.WhateverMyAge.TravelAndFood.TravelAndFood
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.AdRequest
+import com.google.ads.mediation.admob.AdMobAdapter
+
+import com.google.android.gms.ads.AdView
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
+
 
 class MainActivity : AppCompatActivity() {
     val permission_list = arrayOf(
@@ -81,6 +94,55 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+        MobileAds.initialize(this, getString(R.string.admob_app_id))
+        val extras = Bundle()
+        extras.putString("max_ad_content_rating", "G") // 앱이 3세 이상 사용가능이라면 광고레벨을 설정해줘야 한다
+        val adRequest = AdRequest.Builder()
+            .addNetworkExtrasBundle(AdMobAdapter::class.java, extras)
+            .build()
+        adView.loadAd(adRequest)
+//        MobileAds.initialize(this, getString(R.string.admob_app_id))
+//        val adRequest = AdRequest.Builder().build()
+//        adView.loadAd(adRequest)
+//        // 광고가 제대로 로드 되는지 테스트 하기 위한 코드입니다.
+//        adView.setAdListener(object : AdListener() {
+//            override fun onAdLoaded() {
+//                // Code to be executed when an ad finishes loading.
+//                // 광고가 문제 없이 로드시 출력됩니다.
+//                Log.d("@@@", "정상")
+//            }
+//            override fun onAdFailedToLoad(errorCode: Int) {
+//                // Code to be executed when an ad request fails.
+//                // 광고 로드에 문제가 있을시 출력됩니다.
+//                Log.d("@@@", "onAdFailedToLoad $errorCode")
+//            }
+//            override fun onAdOpened() {
+//                // Code to be executed when an ad opens an overlay that
+//                // covers the screen.
+//            }
+//            override fun onAdClicked() {
+//                Log.d("@@@", "클릭됨")
+//                // Code to be executed when the user clicks on an ad.
+//
+//            }
+//
+//
+//            override fun onAdLeftApplication() {
+//
+//                // Code to be executed when the user has left the app.
+//
+//            }
+//
+//
+//            override fun onAdClosed() {
+//
+//                // Code to be executed when the user is about to return
+//
+//                // to the app after tapping on an ad.
+//
+//            }
+//
+//        })
     }
 
     override fun onStart() {
