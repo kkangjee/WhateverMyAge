@@ -7,20 +7,38 @@ import android.location.Location
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import androidx.fragment.app.Fragment
 import com.WhateverMyAge.WhateverMyAge.Guide.Settings.toast
-import com.WhateverMyAge.WhateverMyAge.Main.Loading
-import com.WhateverMyAge.WhateverMyAge.Love.isLocationEnabled
-import com.WhateverMyAge.WhateverMyAge.Love.lat
-import com.WhateverMyAge.WhateverMyAge.Love.lng
 import com.WhateverMyAge.WhateverMyAge.Main.PermissionCheck
 import com.WhateverMyAge.WhateverMyAge.R
 import kotlinx.android.synthetic.main.activity_travel_and_food.*
 import kotlinx.android.synthetic.main.activity_travel_and_food.bt_back
 
+var lat : Double = 0.0
+var lng : Double = 0.0
+
 class TravelAndFood : AppCompatActivity() {
     private val adapter = TravelAndFoodAdapter(supportFragmentManager)
+
+    fun isLocationEnabled(context: Context): Boolean {
+        val locationMode: Int
+
+        try {
+            locationMode = android.provider.Settings.Secure.getInt(
+                context.contentResolver,
+                android.provider.Settings.Secure.LOCATION_MODE
+            )
+
+        } catch (e: Settings.SettingNotFoundException) {
+            e.printStackTrace()
+            return false
+        }
+
+        return locationMode != android.provider.Settings.Secure.LOCATION_MODE_OFF
+    }
+
 
     //@SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,8 +51,6 @@ class TravelAndFood : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.travelandfood, myfragment)
 
         super.onCreate(savedInstanceState)
-        val Loading = Loading(this)
-        Loading.loading()
         setContentView(R.layout.activity_travel_and_food)
         travelandfood.adapter = TravelAndFood@ adapter
 
@@ -42,7 +58,6 @@ class TravelAndFood : AppCompatActivity() {
         intent.putExtra("WhichExplanation", 1)
 
         travelorfood.setupWithViewPager(travelandfood)
-        Loading.loadingEnd()
 
         if (PermissionCheck(this, this).LocationCheck() == 0) {
             val locationMgr = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -79,5 +94,4 @@ class TravelAndFood : AppCompatActivity() {
             finish()
         }
     }
-
 }

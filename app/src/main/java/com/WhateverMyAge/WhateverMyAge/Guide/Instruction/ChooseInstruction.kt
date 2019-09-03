@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.WhateverMyAge.WhateverMyAge.R
 import kotlinx.android.synthetic.main.activity_explanation.*
-import kotlinx.android.synthetic.main.activity_love.bt_back
-
 
 class ChooseInstruction : AppCompatActivity() {
 

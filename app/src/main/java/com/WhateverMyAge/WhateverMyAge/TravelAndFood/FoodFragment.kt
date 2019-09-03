@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.WhateverMyAge.WhateverMyAge.Love.lat
-import com.WhateverMyAge.WhateverMyAge.Love.lng
 import com.WhateverMyAge.WhateverMyAge.Main.ImageURL
 import kotlinx.android.synthetic.main.activity_food_fragment.*
 //import sun.invoke.util.VerifyAccess.getPackageName
