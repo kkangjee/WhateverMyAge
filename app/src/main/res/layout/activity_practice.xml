@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Practice.PracticeActivity"
+        android:orientation="vertical"
+        >
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#8BC34A"
+            >
+        <ImageButton
+                android:id="@+id/bt_back"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:padding="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/back"
+                android:theme="@style/AppTheme.GreenRipple"
+                android:background="?selectableItemBackground"
+                />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#8BC34A"
+                android:text="연습"
+                android:textSize="30dp"
+                android:textColor="#fff"
+                android:padding="10dp"
+                />
+
+    </LinearLayout>
+
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_margin="16dp"
+                >
+
+
+            <Button
+                    android:id="@+id/bt_scroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="스크롤 하기"
+                    android:textSize="25dp"
+                    android:background="@drawable/grad2"
+                    android:gravity="center"
+                    />
+
+            <Button
+                    android:id="@+id/bt_pages"
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="화면 넘기기"
+                    android:textSize="25dp"
+                    android:background="@drawable/grad2"
+                    android:gravity="center"
+                    />
+            <Button
+                    android:id="@+id/bt_longclick"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="길게 누르기"
+                    android:textSize="25dp"
+                    android:background="@drawable/grad2"
+                    android:gravity="center"
+                    />
+            <Button
+                    android:id="@+id/bt_zoom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="사진 확대"
+                    android:textSize="25dp"
+                    android:background="@drawable/grad2"
+                    android:gravity="center"
+                    />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+</LinearLayout>

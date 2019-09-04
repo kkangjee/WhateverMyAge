@@ -6,60 +6,127 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.WhateverMyAge.WhateverMyAge.R
 import kotlinx.android.synthetic.main.activity_explanation.*
-import kotlinx.android.synthetic.main.activity_love.bt_back
-
+import android.app.Activity
+import android.app.ActivityManager
+import android.os.Process
+import android.content.pm.ResolveInfo
+import android.net.Uri
+import android.os.Build
+import android.provider.Settings
+import android.util.Log
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 
 class ChooseInstruction : AppCompatActivity() {
+    val PERMISSION_REQUEST_CODE = 1
+
+    fun getPackageList(packagename: String): Boolean {
+        var isExist = false
+
+        val pkgMgr = packageManager
+        val mApps: List<ResolveInfo>
+        val mainIntent = Intent(Intent.ACTION_MAIN, null)
+        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER)
+        mApps = pkgMgr.queryIntentActivities(mainIntent, 0)
+
+        try {
+            for (i in mApps.indices) {
+                if (mApps[i].activityInfo.packageName.startsWith(packagename)) {
+                    isExist = true
+                    break
+                }
+            }
+        } catch (e: Exception) {
+            isExist = false
+        }
+
+        return isExist
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_explanation)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+            val intent = Intent(
+                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                Uri.parse("package:$packageName")
+            )
+            startActivityForResult(intent, PERMISSION_REQUEST_CODE)
+        }
+
         bt_howtomessage.setOnClickListener {
-            val intent = Intent(this, Instruction::class.java)
-            intent.putExtra("Instruction",1)
-            startActivity(intent)
+            if (getPackageList("com.kakao.talk")) {
+                showChatHead(0)
+
+                val componentName =
+                    packageManager.getLaunchIntentForPackage("com.kakao.talk")!!.component
+                val intent = Intent.makeRestartActivityTask(componentName)
+                startActivity(intent)
+            }
         }
+
         bt_howtofriend.setOnClickListener {
-            val intent = Intent(this, Instruction::class.java)
-            intent.putExtra("Instruction",2)
-            startActivity(intent)
+            if (getPackageList("com.kakao.talk")) {
+                showChatHead(1)
+
+                val componentName =
+                    packageManager.getLaunchIntentForPackage("com.kakao.talk")!!.component
+                val intent = Intent.makeRestartActivityTask(componentName)
+                startActivity(intent)
+            }
         }
+
         bt_howtopic.setOnClickListener {
-            val intent = Intent(this, Instruction::class.java)
-            intent.putExtra("Instruction",3)
-            startActivity(intent)
+            if (getPackageList("com.kakao.talk")) {
+                showChatHead(2)
+
+                val componentName =
+                    packageManager.getLaunchIntentForPackage("com.kakao.talk")!!.component
+                val intent = Intent.makeRestartActivityTask(componentName)
+                startActivity(intent)
+            }
         }
 
         bt_howtoplayyoutube.setOnClickListener {
-            val intent = Intent(this, Instruction::class.java)
-            intent.putExtra("Instruction",4)
-            startActivity(intent)
-        }
-        bt_howtosaveyoutube.setOnClickListener {
-            val intent = Intent(this, Instruction::class.java)
-            intent.putExtra("Instruction",5)
-            startActivity(intent)
-        }
-        bt_howtoyoutubecomment.setOnClickListener {
-            val intent = Intent(this, Instruction::class.java)
-            intent.putExtra("Instruction",6)
-            startActivity(intent)
-        }
-        bt_howtocontact.setOnClickListener {
-            val intent = Intent(this, Instruction::class.java)
-            intent.putExtra("Instruction",7)
-            startActivity(intent)
+            if (getPackageList("com.google.android.youtube")) {
+
+                val am = getSystemService(Activity.ACTIVITY_SERVICE) as ActivityManager
+                am.killBackgroundProcesses("com.google.android.youtube")
+                showChatHead(3)
+
+                val componentName =
+                    packageManager.getLaunchIntentForPackage("com.google.android.youtube")!!.component
+                val intent = Intent.makeRestartActivityTask(componentName)
+                startActivity(intent)
+            }
         }
 
-
-        bt_back.setOnClickListener{
+        bt_back.setOnClickListener {
             finish()
 
         }
+        MobileAds.initialize(this, getString(R.string.admob_app_id))
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                showChatHead(1)
+                Log.i("ㄴㅇㄴ", "ㄴㅇㄴㅇ")
 
+            }
+        }
+    }
 
+    fun showChatHead(which: Int) {
+        val intent = Intent(this, ChatHead::class.java)
+        intent.putExtra("which", which)
+        startService(intent)
+        Log.i("www", Integer.toString(which) + " 를 전달함")
+    }
 }

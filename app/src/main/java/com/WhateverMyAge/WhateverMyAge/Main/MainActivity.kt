@@ -1,6 +1,5 @@
 package com.WhateverMyAge.WhateverMyAge.Main
 
-import com.WhateverMyAge.WhateverMyAge.Guide.GuideActivity
 import android.Manifest.permission.*
 import android.app.ProgressDialog
 import android.content.Intent
@@ -13,30 +12,21 @@ import android.os.AsyncTask
 import android.os.Build
 import android.util.Log
 import com.WhateverMyAge.WhateverMyAge.*
-import com.WhateverMyAge.WhateverMyAge.Love.LoveActivity
+import com.WhateverMyAge.WhateverMyAge.Guide.Instruction.ChooseInstruction
 import com.WhateverMyAge.WhateverMyAge.TravelAndFood.TravelAndFood
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.AdRequest
-import com.google.ads.mediation.admob.AdMobAdapter
 
-import com.google.android.gms.ads.AdView
-import androidx.core.app.ComponentActivity
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
-
+import com.WhateverMyAge.WhateverMyAge.Guide.Settings.SettingActivity
+import com.WhateverMyAge.WhateverMyAge.Practice.PracticeActivity
 
 class MainActivity : AppCompatActivity() {
+
     val permission_list = arrayOf(
         WRITE_CONTACTS,
         ACCESS_COARSE_LOCATION,
-        ACCESS_FINE_LOCATION,
-        READ_EXTERNAL_STORAGE,
-        WRITE_EXTERNAL_STORAGE,
-        CAMERA
+        ACCESS_FINE_LOCATION
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,43 +46,27 @@ class MainActivity : AppCompatActivity() {
                 Log.e("권한", "::$permission")
             }
         }
-
         quote.text = quotelist[num].Quote
         quotedfrom.text = quotelist[num].QuotedFrom
 
-
         bt_guide.setOnClickListener {
-            //setting 화면
-            val intent = Intent(this, GuideActivity::class.java)
+            //설명서 화면
+            val intent = Intent(this, ChooseInstruction::class.java)
             startActivity(intent)
         }
-        bt_love.setOnClickListener {
-            //사랑방 화면
-
-            val intent = Intent(this, LoveActivity::class.java)
+        bt_as.setOnClickListener {
+            //수리 화면
+            val intent = Intent(this, SettingActivity::class.java)
             startActivity(intent)
-
-
         }
-        bt_login.setOnClickListener {
-            //로그인 화면
-            if (signedin == 0) {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-            } else {
-                val intent = Intent(this, MyInformation::class.java)
-                val arr : Array<String> = arrayOf(signedin.toString(), user_name)
-                intent.putExtra("user_info", arr)
-                startActivity(intent)
-            }
+        bt_practice.setOnClickListener {
+            val intent = Intent(this, PracticeActivity::class.java)
+            startActivity(intent)
         }
         bt_travelandfood.setOnClickListener {
-            //loading
-
             val intent = Intent(this, TravelAndFood::class.java)
             intent.putExtra("test", 2)
             startActivity(intent)
-
         }
 //        MobileAds.initialize(this, getString(R.string.admob_app_id))
 //        val extras = Bundle()
@@ -148,10 +122,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if (signedin == 0)
-            bt_login.text = "로그인"
-        else
-            bt_login.text = "내 정보"
+//        if (signedin == 0)
+//            bt_login.text = "로그인"
+//        else
+//            bt_login.text = "내 정보"
         num = random.nextInt(27)
         quote.text = quotelist[num].Quote
         quotedfrom.text = quotelist[num].QuotedFrom

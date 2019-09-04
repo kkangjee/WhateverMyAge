@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Practice.Scroll"
+        android:orientation="vertical"
+        >
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#8BC34A"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/linearLayout">
+        <ImageButton
+                android:id="@+id/bt_back"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:padding="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/back"
+                android:theme="@style/AppTheme.GreenRipple"
+                android:background="?selectableItemBackground"
+                />
+
+        <TextView
+                android:id="@+id/instructiontitle"
+                android:text="스크롤 하기"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#8BC34A"
+                android:textSize="30dp"
+                android:textColor="#fff"
+                android:padding="10dp"
+                />
+
+    </LinearLayout>
+
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_margin="16dp"
+                >
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="손가락을 아래에서 밑으로 올려요"
+                    android:textSize="25dp"
+                    android:layout_margin="10dp"
+                    />
+
+            <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="200dp"
+                    android:id="@+id/scroll"
+                    android:layout_margin="20dp"
+                    />
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:src="@drawable/flower"
+                    />
+
+            <TextView
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="계속해서 내려주세요"
+                    android:textSize="25dp"
+
+                    />
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:src="@drawable/puppy"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="한꺼번에 많은 내용을 봐요"
+                    android:textSize="25dp"
+                    android:layout_margin="10dp"
+                    />
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:src="@drawable/seven"
+                    />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="반대로도 해보세요"
+                    android:textSize="25dp"
+                    android:layout_marginBottom="50dp"
+                    />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

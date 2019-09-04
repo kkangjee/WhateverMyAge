@@ -13,6 +13,8 @@ import android.net.Uri
 import android.os.Build
 import com.WhateverMyAge.WhateverMyAge.Main.PermissionCheck
 import com.WhateverMyAge.WhateverMyAge.R
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 
 class SettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -160,6 +162,9 @@ class SettingActivity : AppCompatActivity() {
         bt_back.setOnClickListener {
             finish()
         }
+        MobileAds.initialize(this, getString(R.string.admob_app_id))
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 }
 
