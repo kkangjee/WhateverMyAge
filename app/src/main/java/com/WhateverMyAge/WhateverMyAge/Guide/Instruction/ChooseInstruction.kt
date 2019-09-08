@@ -117,8 +117,6 @@ class ChooseInstruction : AppCompatActivity() {
         if (requestCode == PERMISSION_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 showChatHead(1)
-                Log.i("ㄴㅇㄴ", "ㄴㅇㄴㅇ")
-
             }
         }
     }

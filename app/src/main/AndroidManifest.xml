@@ -25,7 +25,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".Practice.longclick"></activity>
+        <activity android:name=".Main.AppInfo"></activity>
+        <activity android:name=".Practice.longclick" />
         <activity android:name=".Practice.bt_longclick" />
         <activity android:name=".Practice.Zoom" />
         <activity android:name=".Practice.Scroll" />

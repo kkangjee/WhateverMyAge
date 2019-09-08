@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="blank1width">165dp</dimen>
+
+    <dimen name="blank1height">100dp</dimen>
+
+    <dimen name="blank2width">57dp</dimen>
+
+    <dimen name="blank2height">65dp</dimen>
+
+    <dimen name="bt_guide">165dp</dimen>
+
+    <dimen name="bt_aswidth">247dp</dimen>
+
+    <dimen name="bt_asheight">265dp</dimen>
+
+    <dimen name="bt_practice">165dp</dimen>
+
+    <dimen name="bt_travelandfoodwidth">190dp</dimen>
+
+    <dimen name="bt_travelandfoodheight">165dp</dimen>
+
+    <dimen name="infowidth">57dp</dimen>
+
+    <dimen name="infoheight">100dp</dimen>
+
+</resources>

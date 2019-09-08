@@ -19,6 +19,15 @@ import android.widget.TextView
 import android.view.WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
 import android.widget.ImageView
 import com.WhateverMyAge.WhateverMyAge.R
+import android.os.Build
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
+
+
 
 class DescForm (val pos : String, val pic : String, val desc : String)
 
@@ -130,15 +139,35 @@ class ChatHead : Service() {
     override fun onCreate() {
         super.onCreate()
 
+        val LAYOUT_FLAG: Int
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        } else {
+            LAYOUT_FLAG = WindowManager.LayoutParams.TYPE_PHONE
+        }
+
         chatheadView = LayoutInflater.from(this).inflate(R.layout.bubble, null)
         val params = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.WRAP_CONTENT,
             //WindowManager.LayoutParams.TYPE_PHONE,
-            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+            //WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+            LAYOUT_FLAG,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT
+//            WindowManager.LayoutParams.WRAP_CONTENT,
+//            WindowManager.LayoutParams.WRAP_CONTENT,
+//            LAYOUT_FLAG,
+//            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+//            PixelFormat.TRANSLUCENT
         )
+//        val params = WindowManager.LayoutParams(
+//            WindowManager.LayoutParams.WRAP_CONTENT,
+//            WindowManager.LayoutParams.WRAP_CONTENT,
+//            LAYOUT_FLAG,
+//            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE or WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+//            PixelFormat.TRANSLUCENT
+//        )
 
         params.gravity = Gravity.TOP or Gravity.LEFT
         params.x = 0

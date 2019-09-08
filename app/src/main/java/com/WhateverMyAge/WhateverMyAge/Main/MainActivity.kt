@@ -20,8 +20,18 @@ import com.google.android.gms.ads.AdRequest
 
 import com.WhateverMyAge.WhateverMyAge.Guide.Settings.SettingActivity
 import com.WhateverMyAge.WhateverMyAge.Practice.PracticeActivity
+import android.util.DisplayMetrics
+import androidx.core.app.ComponentActivity
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.net.Uri
+import android.provider.Settings
+import android.widget.LinearLayout
+
 
 class MainActivity : AppCompatActivity() {
+    val PERMISSION_REQUEST_CODE = 1
 
     val permission_list = arrayOf(
         WRITE_CONTACTS,
@@ -30,10 +40,18 @@ class MainActivity : AppCompatActivity() {
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main)
+
+//        val layout = this.findViewById<LinearLayout>(R.id.mainlayout)
+//        val params = layout.getLayoutParams()
+//        val width = params.width
+//        params.height = width
+//        layout.setLayoutParams(params)
+//
+//
+//        Log.e("width", "$width")
+//        Log.e("height", params.height.toString())
 
         checkPermission()
         for (permission in permission_list) {
@@ -46,13 +64,26 @@ class MainActivity : AppCompatActivity() {
                 Log.e("권한", "::$permission")
             }
         }
+
+        val metrics = DisplayMetrics()
+        this.getWindowManager().getDefaultDisplay().getMetrics(metrics)
+        Log.i("device dpi", "=>" + metrics.densityDpi)
+
         quote.text = quotelist[num].Quote
         quotedfrom.text = quotelist[num].QuotedFrom
 
         bt_guide.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+                val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:$packageName"))
+                startActivityForResult(intent, PERMISSION_REQUEST_CODE)
+            }
+
             //설명서 화면
-            val intent = Intent(this, ChooseInstruction::class.java)
-            startActivity(intent)
+            else {
+                val intent = Intent(this, ChooseInstruction::class.java)
+                startActivity(intent)
+            }
         }
         bt_as.setOnClickListener {
             //수리 화면
@@ -66,6 +97,11 @@ class MainActivity : AppCompatActivity() {
         bt_travelandfood.setOnClickListener {
             val intent = Intent(this, TravelAndFood::class.java)
             intent.putExtra("test", 2)
+            startActivity(intent)
+        }
+
+        info.setOnClickListener {
+            val intent = Intent(this, AppInfo::class.java)
             startActivity(intent)
         }
 //        MobileAds.initialize(this, getString(R.string.admob_app_id))
@@ -101,7 +137,6 @@ class MainActivity : AppCompatActivity() {
 
             }
 
-
             override fun onAdLeftApplication() {
 
                 // Code to be executed when the user has left the app.
@@ -126,7 +161,7 @@ class MainActivity : AppCompatActivity() {
 //            bt_login.text = "로그인"
 //        else
 //            bt_login.text = "내 정보"
-        num = random.nextInt(27)
+        num = random.nextInt(23)
         quote.text = quotelist[num].Quote
         quotedfrom.text = quotelist[num].QuotedFrom
 

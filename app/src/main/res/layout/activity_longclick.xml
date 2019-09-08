@@ -15,7 +15,9 @@
             android:gravity="center_vertical"
             android:background="#8BC34A"
             app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/linearLayout">
+            android:id="@+id/linearLayout"
+
+            >
         <ImageButton
                 android:id="@+id/bt_back"
                 android:layout_width="50dp"
@@ -39,37 +41,61 @@
 
     </LinearLayout>
 
-    <TextView
-            android:id="@+id/textView"
+    <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="'길게 누르기'는 버튼을 길게 \n누르고 있을 경우 나타나는 결과입니다."
-            android:textSize="25dp"
-            android:layout_margin="10dp"/>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="버튼을 길게 눌러보세요!"
-            android:textSize="25dp"
-            android:layout_margin="10dp"/>
+            <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="어떤 버튼(혹은 사진)은\n꾸욱 누르면 또 다른 기능을 합니다."
+                    android:textSize="25dp"
+                    android:layout_margin="10dp"/>
 
-    <Button
-            android:textSize="30dp"
-            android:id="@+id/bt_long"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="버튼" />
+            <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="버튼을 길게 꾹 눌러보세요!"
+                    android:textSize="25dp"
+                    android:layout_margin="10dp"/>
 
-    <TextView
-            android:id="@+id/tv_successlong"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="성공하셨습니다!\n이 기능으로 카카오톡에서 사진을 \n삭제하거나,사진첩의 사진을 삭제할수있습니다."
-            android:textSize="30dp"
-            android:visibility="invisible"
-            android:layout_margin="10dp" />
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/longclick"
+                    android:layout_gravity="center"
+                    >
 
+            </ImageView>
+
+            <Button
+                    android:textSize="30dp"
+                    android:id="@+id/bt_long"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="150dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_height="100dp"
+                    android:text="버튼" />
+
+            <TextView
+                    android:id="@+id/tv_successlong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="성공하셨습니다!\n이 기능으로 카카오톡의 사진이나\n어플을 삭제, 이동할 수 있습니다."
+                    android:textSize="30dp"
+                    android:visibility="invisible"
+                    android:layout_margin="20dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

@@ -129,13 +129,14 @@ tools:context=".TravelAndFood.FoodFragment">
             android:layout_marginBottom="20dp"
     />
     <TextView
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/resRecommend"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
+            android:text="추천 맛집\n\n퓨전 한식 레스토랑 달보드레\n경기도 수원시 팔달구 우만동 산9-2"
     />
 </LinearLayout>
     </LinearLayout>

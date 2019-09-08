@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Main.AppInfo"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        >
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="#8BC34A"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/linearLayout">
+        <ImageButton
+                android:id="@+id/bt_back"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:padding="8dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/back"
+                android:theme="@style/AppTheme.GreenRipple"
+                android:background="?selectableItemBackground"
+                />
+
+        <TextView
+                android:id="@+id/instructiontitle"
+                android:text="앱 정보"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#8BC34A"
+                android:textSize="30dp"
+                android:textColor="#fff"
+                android:padding="10dp"
+                />
+
+    </LinearLayout>
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            android:id="@+id/icon"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
+            >
+
+    </ImageView>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내 나이가 어때서"
+            android:textSize="30dp"
+            android:layout_margin="10dp"
+            >
+    </TextView>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/versionNumber"
+            android:textSize="25dp"
+            android:text="v1.1"
+            android:layout_marginBottom="20dp"
+            >
+    </TextView>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="플레이 스토어에 리뷰를 남겨주세요!\n불편한 점, 부족한 점을 알려주세요!"
+            android:textSize="20dp"
+            android:layout_marginBottom="10dp"
+            >
+    </TextView>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 리뷰/별점 남기기 "
+            android:textSize="20dp"
+            android:background="@drawable/grad2"
+            android:id="@+id/bt_review"
+            >
+    </Button>
+
+    <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+        >
+
+    </View>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Team G1B4"
+            >
+    </TextView>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Copyright(C) 2019 All rights reserved."
+            android:layout_marginBottom="30dp"
+            >
+    </TextView>
+
+
+</LinearLayout>
